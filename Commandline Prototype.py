@@ -13,7 +13,7 @@
 
 
 
-from get_info import get_info_from_csv
+from csv_control import *
 import subprocess as sp
 from yahoo_fin import stock_info as si
 from forex_python.converter import CurrencyRates
@@ -33,15 +33,19 @@ def find_user_type():
 		print('Proceding to create user sceen')
 		return create()
 
-def get_info():
+def get_info(name=0):
 	#Simply takes the two inputs for now, no error checking (will obvisously change).
 	while True:
 		try:
 			username = str(input('What is your username ?\n>>'))
 			password = str(input('What is your password (not secure)?\n>>'))
+			if name:
+				name = str(input('What is your name ?\n>>'))
 			break
 		except:
 			print('Sorry invalid please retry')
+	if name:
+		return username, password, name
 	return username, password
 
 def login():
@@ -56,8 +60,8 @@ def login():
 			username,password = get_info()
 
 def create():
-	username, password = get_info()
-	users.update({username:password})
+	username, password, name = get_info(True)
+	add_user_to_csv([username,name,password,{},0])
 	return username
 
 def get_stock_price(stock_name, amount_of_shares):
@@ -65,7 +69,6 @@ def get_stock_price(stock_name, amount_of_shares):
 	conversion = c.get_rate('USD','GBP')
 	value = si.get_live_price(stock_name)
 	return amount_of_shares * value * conversion
-
 
 def startup():
 	username = find_user_type()
@@ -88,7 +91,7 @@ def main(profile):
 	print('Your current portfolio is:')
 	for stock in portfolio:
 		worth = get_stock_price(stock,portfolio[stock]) 
-		print('%s shares of %s worth a total of %s' %(portfolio[stock],stock,worth))
+		print('%s shares of %s worth a total of £%s' %(portfolio[stock],stock,worth))
 
 
 
