@@ -15,6 +15,7 @@
 
 from csv_control import *
 import subprocess as sp
+
 from yahoo_fin import stock_info as si
 from forex_python.converter import CurrencyRates
 
@@ -77,21 +78,60 @@ def startup():
 	profile = get_info_from_csv(username)
 	return profile
 
-def main(profile):
-	username  = profile[0]
-	name      = profile[1]
-	portfolio = eval(profile[3])
-	Balance   = profile[4]
+def main_menu():
+	while True:
+		print('Welcome to your trading panel')
+		print('What would you like to do ?')
+		print('1. Stock Lookup')
+		print('2. View portfolio')
+		print('3. Check Balance')
+		print('4. Sell Stock')
+		print('5. Buy Stock')
+		print('6. Exit')
+		choice = input('>>')
+		if choice in ['1','2','3','4','5']:
+			return choice
+		elif choice == '6':
+			exit()
+		else:
+			print('Invalid Option')
+
+def clear_terminal():
 	try:
 		a = sp.call('clear')
 		a = sp.call('cls')
 	except:
 		None
+
+def main(profile):
+	username  = profile[0]
+	name      = profile[1]
+	portfolio = eval(profile[3])
+	balance   = profile[4]
+
 	print('Welcome %s' %name)
-	print('Your current portfolio is:')
-	for stock in portfolio:
-		worth = get_stock_price(stock,portfolio[stock]) 
-		print('%s shares of %s worth a total of £%s' %(portfolio[stock],stock,worth))
+	while True:
+		clear_terminal()
+		choice = int(main_menu())
+		print('You have chosen', choice)
+		if choice == 1:
+			stock_name = str(input('What is the ticker of the stock you would like to lookup ?\n>>'))
+			try:
+				print('The currect stock price is £%s' %get_stock_price(stock_name,1))
+			except:
+				print('Invalid Ticker')
+			input('\nPress any key to continue')
+		if choice == 2:
+			print('Your current portfolio is:')
+			for stock in portfolio:
+				worth = get_stock_price(stock,portfolio[stock]) 
+				print('%s shares of %s worth a total of £%s' %(portfolio[stock],stock,worth))
+			input('\nPress any key to continue')
+		if choice == 3:
+			print('Your current balance is £%s' %balance)
+			input('\nPress any key to continue')
+
+
 
 
 def buy_stock():
