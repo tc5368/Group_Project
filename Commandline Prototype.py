@@ -87,7 +87,8 @@ def main(profile):
 	print('Welcome %s' %name)
 	print('Your current portfolio is:')
 	for stock in portfolio:
-		print('%s shares of %s worth a total of %s' %(portfolio[stock],stock,get_stock_price(stock,portfolio[stock])))
+		worth = get_stock_price(stock,portfolio[stock]) 
+		print('%s shares of %s worth a total of %s' %(portfolio[stock],stock,worth))
 
 
 

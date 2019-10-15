@@ -1,6 +1,7 @@
 
+#This will all change when moved to sql thats why its a seperate file
+
 import csv
-import pandas as pd
 
 def writer():
 	with open('This_will_be_a_database.csv', mode='w') as user_info:
@@ -13,7 +14,6 @@ def get_info_from_csv(username):
 			if row[0] == username:
 				return row
 
-#One approach
 # def reader():
 # 	df = pd.read_csv('This_will_be_a_database.csv')
 # 	return(df)
