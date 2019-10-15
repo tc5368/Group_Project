@@ -94,7 +94,11 @@ def main(profile):
 		print('%s shares of %s worth a total of £%s' %(portfolio[stock],stock,worth))
 
 
+def buy_stock():
+	None
 
+def sell_stock():
+	None
 
 
 if __name__ == '__main__':
