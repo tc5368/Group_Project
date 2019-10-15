@@ -1,0 +1,6 @@
+﻿Username,Name,Password,Portfolio,Balance
+tc5368,Tom,password,"{'tsla':500,'aapl':100}",128
+tom,Tom,pswd,{},12
+jim,Jim,123,{},32423
+pam,Pam,456,{},345
+dwight,Dwight,789,{},0
