@@ -37,10 +37,10 @@ def get_info(name=0):
 	#Simply takes the two inputs for now, no error checking (will obvisously change).
 	while True:
 		try:
-			username = str(input('What is your username ?\n>>'))
-			password = str(input('What is your password (not secure)?\n>>'))
+			username = str(input('What is your username ?\n>> '))
+			password = str(input('What is your password (not secure)?\n>> '))
 			if name:
-				name = str(input('What is your name ?\n>>'))
+				name = str(input('What is your name ?\n>> '))
 			break
 		except:
 			print('Sorry invalid please retry')
@@ -73,13 +73,13 @@ def get_stock_price(stock_name, amount_of_shares):
 def buy_stock(stock_name,price, user_balance):
 	try:
 		while True:
-			choice = input('Would you like to enter an amount of shares or exact price ? [s/p]\n>>')
+			choice = input('Would you like to enter an amount of shares or exact price ? [s/p]\n>> ')
 			if choice.lower() == 's':
-				shares_to_buy = float(input('How many shares would you like to purchase ?\n>>'))
+				shares_to_buy = float(input('How many shares would you like to purchase ?\n>> '))
 				choice = True
 				break
 			if choice.lower() == 'p':
-				amount_to_spend = float(input('How much money would you like to spend ?\n>>'))
+				amount_to_spend = float(input('How much money would you like to spend ?\n>> '))
 				choice = False
 				break
 			else:
@@ -102,9 +102,6 @@ def buy_stock(stock_name,price, user_balance):
 
 	return False, 0, 0
 
-def sell_stock():
-	None
-
 def startup():
 	username = find_user_type()
 	print('Logged in as %s' %username)
@@ -119,8 +116,8 @@ def main_menu():
 		print('1. Stock Lookup')
 		print('2. View portfolio')
 		print('3. Check Balance')
-		print('4. Sell Stock')
-		print('5. Buy Stock')
+		print('4. Buy Stock')
+		print('5. Sell Stock')
 		print('6. Exit')
 		choice = input('>>')
 		if choice in ['1','2','3','4','5']:
@@ -148,6 +145,8 @@ def main(profile):
 		clear_terminal()
 		choice = int(main_menu())
 		print('You have chosen', choice)
+
+
 		if choice == 1:
 			stock_name = str(input('What is the ticker of the stock you would like to lookup ?\n>>'))
 			try:
@@ -155,65 +154,75 @@ def main(profile):
 			except:
 				print('Invalid Ticker')
 			input('\nPress any key to continue')
+
+
 		if choice == 2:
 			print('Your current portfolio is:')
 			for stock in portfolio:
 				worth = get_stock_price(stock,portfolio[stock]) 
 				print('%s shares of %s worth a total of £%s' %(portfolio[stock],stock,worth))
 			input('\nPress any key to continue')
+
+
 		if choice == 3:
 			print('Your current balance is £%s' %balance)
 			input('\nPress any key to continue')
-		if choice ==4:
-			stock_name = input('What is the ticker of the stock you would like to buy ?\n>>')
+
+
+		if choice == 4:
+			stock_name = input('What is the ticker of the stock you would like to buy ?\n>> ')
 			try:
 				price = get_stock_price(stock_name,1)
 				print('The currect stock price of %s stock is £%s a share' %(stock_name,price))
 			except:
 				print('Invalid Ticker')
-
-
 			confirmed, amount_of_shares, price = buy_stock(stock_name, price, balance)
-
 			balance = round(balance - amount_of_shares * price,2)
-
 			if stock_name not in portfolio:
 				portfolio.update({stock_name:amount_of_shares})
 			else:
 				previous_amount = portfolio[stock_name]
 				portfolio.update({stock_name:amount_of_shares+previous_amount})
-
 			update_current_user([username,name,profile[2],portfolio,balance])
-
-
 			input('\nPress any key to continue')
 
 
+		if choice == 5:
+			print('Your Portfolio: \n') 
+			for stock in portfolio:
+				worth = get_stock_price(stock,portfolio[stock])
+				print('%s shares of %s worth a total of £%s' %(portfolio[stock],stock,worth))
+			try:
+				while True:
+					stock_name = str(input('What is the ticker of the stock you would lik to sell? \n>> ')).lower()
+					if stock_name in portfolio:
+						amount_to_sell = float(input('You have %s shares of that stock, how much would you like to sell ?\n>> ' %portfolio[stock_name]))
+						if amount_to_sell > portfolio[stock_name]:
+							print('You don\'t have that many shares to sell.')
+						else:
+							value = get_stock_price(stock_name,amount_to_sell)
+							print('Selling %s shares of %s for a total of %s' %(amount_to_sell,stock_name,value))
+							choice = input('Are you sure you wish to sell [y/n] ?\n>> ')
+							if choice.lower() == 'y':
+								
+								current_amount_of_shares = portfolio[stock_name]
+								portfolio[stock_name] = current_amount_of_shares - amount_to_sell
 
+								if portfolio[stock_name] == 0:
+									del portfolio[stock_name]
+								balance += round(value,2)
 
-
-
-
-
-
+								update_current_user([username,name,profile[2],portfolio,balance])
+							else:
+								print('Cancelling')
+						break
+						
+					else:
+						print('You don\'t own that stock for %s' %choice)
+			except:
+				print('Error please try again')
 
 
 if __name__ == '__main__':
 	profile = startup()
 	main(profile)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

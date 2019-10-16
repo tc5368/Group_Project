@@ -3,6 +3,6 @@ tom,Tom,pswd,{},12
 dwight,Dwight,789,{},0
 sat,Sat,123,{},1000
 mike,Mike,qwerty,{},0
-jim,Jim,123,{'goog': 1},32423
 tc5368,Tom,p,"{'tsla': 5.4, 'aapl': 1.45}",1000
 pam,Pam,456,"{'goog': 0.11, 'aapl': 1.0, 'tsla': 0.2}",50.74
+jim,Jim,123,{'goog': 2.0},31439.86
