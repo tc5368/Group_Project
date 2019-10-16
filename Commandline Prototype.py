@@ -12,7 +12,6 @@
 #Requires pip installation of yahoo_fin, requests_html, pandas, forex-python
 
 
-
 from csv_control import *
 import subprocess as sp
 
@@ -71,6 +70,41 @@ def get_stock_price(stock_name, amount_of_shares):
 	value = si.get_live_price(stock_name)
 	return amount_of_shares * value * conversion
 
+def buy_stock(stock_name,price, user_balance):
+	try:
+		while True:
+			choice = input('Would you like to enter an amount of shares or exact price ? [s/p]\n>>')
+			if choice.lower() == 's':
+				shares_to_buy = float(input('How many shares would you like to purchase ?\n>>'))
+				choice = True
+				break
+			if choice.lower() == 'p':
+				amount_to_spend = float(input('How much money would you like to spend ?\n>>'))
+				choice = False
+				break
+			else:
+				print('Invalid Selection\n')
+	except:
+		print('Error please try again')
+
+	if choice:
+		confirm = input('You wish to purchase %s shares at a price of £%s a share coming to a total of £%s ? [y/n]\n>>' %(shares_to_buy, price, round(shares_to_buy*price,2)))
+		if confirm.lower() == 'y':
+			print('Confirmed')
+			if user_balance < (shares_to_buy * price):
+				print('Transaction failed due to insufficent funds')
+			else:
+				print('Your new balance is %s and your portfolio has been updated' %round(user_balance - shares_to_buy*price,2))
+				return True, shares_to_buy, price
+		else:
+			print('Transaction cancelled retruning to menu')
+	input('\nPress any key to continue')
+
+	return False, 0, 0
+
+def sell_stock():
+	None
+
 def startup():
 	username = find_user_type()
 	print('Logged in as %s' %username)
@@ -107,7 +141,7 @@ def main(profile):
 	username  = profile[0]
 	name      = profile[1]
 	portfolio = eval(profile[3])
-	balance   = profile[4]
+	balance   = float(profile[4])
 
 	print('Welcome %s' %name)
 	while True:
@@ -117,7 +151,7 @@ def main(profile):
 		if choice == 1:
 			stock_name = str(input('What is the ticker of the stock you would like to lookup ?\n>>'))
 			try:
-				print('The currect stock price is £%s' %get_stock_price(stock_name,1))
+				print('The currect stock price of %s is £%s a share' %(stock_name,get_stock_price(stock_name,1)))
 			except:
 				print('Invalid Ticker')
 			input('\nPress any key to continue')
@@ -130,20 +164,46 @@ def main(profile):
 		if choice == 3:
 			print('Your current balance is £%s' %balance)
 			input('\nPress any key to continue')
+		if choice ==4:
+			stock_name = input('What is the ticker of the stock you would like to buy ?\n>>')
+			try:
+				price = get_stock_price(stock_name,1)
+				print('The currect stock price of %s stock is £%s a share' %(stock_name,price))
+			except:
+				print('Invalid Ticker')
+
+
+			confirmed, amount_of_shares, price = buy_stock(stock_name, price, balance)
+
+			balance = round(balance - amount_of_shares * price,2)
+
+			if stock_name not in portfolio:
+				portfolio.update({stock_name:amount_of_shares})
+			else:
+				previous_amount = portfolio[stock_name]
+				portfolio.update({stock_name:amount_of_shares+previous_amount})
+
+			update_current_user([username,name,profile[2],portfolio,balance])
+
+
+			input('\nPress any key to continue')
 
 
 
 
-def buy_stock():
-	None
 
-def sell_stock():
-	None
+
+
+
+
 
 
 if __name__ == '__main__':
 	profile = startup()
 	main(profile)
+
+
+
 
 
 
