@@ -73,21 +73,15 @@ def get_stock_price(stock_name, amount_of_shares):
 def buy_stock(stock_name,price, user_balance):
 	try:
 		while True:
-			choice = input('Would you like to enter an amount of shares or exact price ? [s/p]\n>> ')
-			if choice.lower() == 's':
-				shares_to_buy = float(input('How many shares would you like to purchase ?\n>> '))
-				choice = True
-				break
-			if choice.lower() == 'p':
-				amount_to_spend = float(input('How much money would you like to spend ?\n>> '))
-				choice = False
+			shares_to_buy = float(input('How many shares would you like to purchase ?\n>> '))
+			if float(shares_to_buy) == shares_to_buy:
 				break
 			else:
 				print('Invalid Selection\n')
 	except:
 		print('Error please try again')
 
-	if choice:
+	if True:
 		confirm = input('You wish to purchase %s shares at a price of £%s a share coming to a total of £%s ? [y/n]\n>>' %(shares_to_buy, price, round(shares_to_buy*price,2)))
 		if confirm.lower() == 'y':
 			print('Confirmed')
@@ -118,11 +112,12 @@ def main_menu():
 		print('3. Check Balance')
 		print('4. Buy Stock')
 		print('5. Sell Stock')
-		print('6. Exit')
+		print('6. Show stock graph')
+		print('7. Exit')
 		choice = input('>>')
-		if choice in ['1','2','3','4','5']:
+		if choice in ['1','2','3','4','5','6']:
 			return choice
-		elif choice == '6':
+		elif choice == '7':
 			exit()
 		else:
 			print('Invalid Option')
@@ -221,6 +216,42 @@ def main(profile):
 						print('You don\'t own that stock for %s' %choice)
 			except:
 				print('Error please try again')
+
+		if choice == 6:
+			stock_name = str(input('What is the ticker of the stock you would like to lookup ?\n>>'))
+			try:
+				print('The currect stock price of %s is £%s a share' %(stock_name,get_stock_price(stock_name,1)))
+
+				print('Here is the stock graph for the last week:')
+
+				
+
+			except:
+				print('Invalid Ticker')
+			input('\nPress any key to continue')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 if __name__ == '__main__':
