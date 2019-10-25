@@ -14,7 +14,7 @@
 
 from csv_control import *
 import subprocess as sp
-
+import graph_control
 from yahoo_fin import stock_info as si
 from forex_python.converter import CurrencyRates
 
@@ -221,38 +221,13 @@ def main(profile):
 			stock_name = str(input('What is the ticker of the stock you would like to lookup ?\n>>'))
 			try:
 				print('The currect stock price of %s is £%s a share' %(stock_name,get_stock_price(stock_name,1)))
-
 				print('Here is the stock graph for the last week:')
 
-				
+				graph_control.get_graph(stock_name)
 
 			except:
 				print('Invalid Ticker')
 			input('\nPress any key to continue')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 if __name__ == '__main__':
 	profile = startup()
