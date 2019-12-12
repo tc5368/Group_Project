@@ -15,7 +15,7 @@
 from csv_control import *
 import subprocess as sp
 import graph_control
-from yahoo_fin import stock_info as si
+import yfinance as yf
 
 
 def find_user_type():
@@ -69,8 +69,8 @@ from forex_python.converter import CurrencyRates
 def get_stock_price(stock_name, amount_of_shares):
 	c = CurrencyRates()
 	conversion = c.get_rate('USD','GBP')
-	print('working')
-	value = si.get_live_price(stock_name)
+	stock = yf.Ticker(stock_name)
+	value = stock.info['regularMarketPreviousClose']
 	return amount_of_shares * value * conversion
 
 def buy_stock(stock_name,price, user_balance):
@@ -85,8 +85,7 @@ def buy_stock(stock_name,price, user_balance):
 		print('Error please try again')
 
 	if True:			#Formating just for screenshot
-		confirm = input('''You wish to purchase %s shares at a price of 
-						£%s a share coming to a total of £%s ? [y/n]\n>>''' 	
+		confirm = input('''You wish to purchase %s shares at a price of £%s a share coming to a total of £%s ? [y/n]\n>>''' 	
 						%(shares_to_buy, price, round(shares_to_buy*price,2)))
 
 		if confirm.lower() == 'y':
