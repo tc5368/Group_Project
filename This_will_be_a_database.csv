@@ -4,4 +4,4 @@ dwight,Dwight,789,{},0
 sat,Sat,123,{},1000
 mike,Mike,qwerty,{},0
 jim,Jim,123,{'goog': 2.0},31439.43
-pam,Pam,456,"{'goog': 0.9, 'aapl': 1.0, 'tsla': 0.2, 'micr': 19.0}",116.21
+pam,Pam,456,"{'goog': 0.5, 'aapl': 1.0, 'tsla': 0.2, 'micr': 19.0}",524.7
