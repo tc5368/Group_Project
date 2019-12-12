@@ -69,6 +69,7 @@ from forex_python.converter import CurrencyRates
 def get_stock_price(stock_name, amount_of_shares):
 	c = CurrencyRates()
 	conversion = c.get_rate('USD','GBP')
+	print('working')
 	value = si.get_live_price(stock_name)
 	return amount_of_shares * value * conversion
 
@@ -228,7 +229,7 @@ def main(profile):
 			stock_name = str(input('What is the ticker of the stock you would like to lookup ?\n>>'))
 			try:
 				print('The currect stock price of %s is £%s a share' %(stock_name,get_stock_price(stock_name,1)))
-				print('Here is the stock graph for the last week:')
+				print('Here is the stock graph: ')
 
 				graph_control.get_graph(stock_name)
 
