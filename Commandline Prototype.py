@@ -16,7 +16,7 @@ from csv_control import *
 import subprocess as sp
 import graph_control
 from yahoo_fin import stock_info as si
-from forex_python.converter import CurrencyRates
+
 
 def find_user_type():
 	while True:
@@ -64,6 +64,8 @@ def create():
 	add_user_to_csv([username,name,password,{},0])
 	return username
 
+from forex_python.converter import CurrencyRates
+
 def get_stock_price(stock_name, amount_of_shares):
 	c = CurrencyRates()
 	conversion = c.get_rate('USD','GBP')
@@ -74,15 +76,18 @@ def buy_stock(stock_name,price, user_balance):
 	try:
 		while True:
 			shares_to_buy = float(input('How many shares would you like to purchase ?\n>> '))
-			if float(shares_to_buy) == shares_to_buy:
+			if abs(float(shares_to_buy)) == shares_to_buy:
 				break
 			else:
 				print('Invalid Selection\n')
 	except:
 		print('Error please try again')
 
-	if True:
-		confirm = input('You wish to purchase %s shares at a price of £%s a share coming to a total of £%s ? [y/n]\n>>' %(shares_to_buy, price, round(shares_to_buy*price,2)))
+	if True:			#Formating just for screenshot
+		confirm = input('''You wish to purchase %s shares at a price of 
+						£%s a share coming to a total of £%s ? [y/n]\n>>''' 	
+						%(shares_to_buy, price, round(shares_to_buy*price,2)))
+
 		if confirm.lower() == 'y':
 			print('Confirmed')
 			if user_balance < (shares_to_buy * price):
@@ -194,6 +199,8 @@ def main(profile):
 						amount_to_sell = float(input('You have %s shares of that stock, how much would you like to sell ?\n>> ' %portfolio[stock_name]))
 						if amount_to_sell > portfolio[stock_name]:
 							print('You don\'t have that many shares to sell.')
+						elif amount_to_sell <= 0:
+							print('You can\'t sell a negative amount of stock')
 						else:
 							value = get_stock_price(stock_name,amount_to_sell)
 							print('Selling %s shares of %s for a total of %s' %(amount_to_sell,stock_name,value))

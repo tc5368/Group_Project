@@ -1,6 +1,5 @@
 
 #This will all change when moved to sql thats why its a seperate file
-
 import csv
 
 def add_user_to_csv(profile):
@@ -8,7 +7,6 @@ def add_user_to_csv(profile):
 		writer = csv.writer(user_info)
 		writer.writerow(profile)
 	user_info.close()
-
 
 all_info = []
 
@@ -38,4 +36,3 @@ def get_info_from_csv(username):
 			if row[0] == username:
 				return row
 	user_info.close()
-
