@@ -61,7 +61,7 @@ def login():
 
 def create():
 	username, password, name = get_info(True)
-	add_user_to_csv([username,name,password,{},100])
+	add_user_to_csv([username,name,password,{},1000])
 	return username
 
 from forex_python.converter import CurrencyRates
