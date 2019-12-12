@@ -38,6 +38,11 @@ def get_info(name=0):
 	while True:
 		try:
 			username = str(input('What is your username ?\n>> '))
+			testing_if_dup = get_info_from_csv(username)
+			if name and (testing_if_dup != None):
+				print('Username is taken')
+				continue
+
 			password = str(input('What is your password (not secure)?\n>> '))
 			if name:
 				name = str(input('What is your name ?\n>> '))
@@ -119,11 +124,11 @@ def main_menu():
 		print('5. Sell Stock')
 		print('6. Show stock graph')
 		print('7. Exit')
-		choice = input('>>')
+		choice = input('\n>> ')
 		if choice in ['1','2','3','4','5','6']:
 			return choice
 		elif choice == '7':
-			exit()
+			return 'logout'
 		else:
 			print('Invalid Option')
 
@@ -143,7 +148,10 @@ def main(profile):
 	print('Welcome %s' %name)
 	while True:
 		clear_terminal()
-		choice = int(main_menu())
+		choice = main_menu()
+		if choice == 'logout':
+			break
+		choice = int(choice)
 		print('You have chosen', choice)
 
 
@@ -237,5 +245,7 @@ def main(profile):
 			input('\nPress any key to continue')
 
 if __name__ == '__main__':
-	profile = startup()
-	main(profile)
+	while True:
+		profile = startup()
+		main(profile)
+
