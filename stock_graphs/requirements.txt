@@ -1,0 +1,13 @@
+MATPLOTLIB GRAPH
+pip install matplotlib
+pip install https://github.com/matplotlib/mpl_finance/archive/master.zip
+
+PLOTLY GRAPH
+pip install cufflinks plotly
+pip install chart-studio
+# To login into their website, use this -
+Login: group13Yes
+Password: group13HelloWorld
+
+DASH FOR PLOTLY
+pip install dash

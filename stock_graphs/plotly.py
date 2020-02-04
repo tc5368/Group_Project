@@ -1,8 +1,3 @@
-# group13Yes
-# group13HelloWorld
-
-#pip install cufflinks plotly
-#pip install chart-studio
 import chart_studio.plotly as py
 import plotly.graph_objs as go
 import chart_studio
