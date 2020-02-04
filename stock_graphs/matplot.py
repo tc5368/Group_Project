@@ -10,14 +10,15 @@ from matplotlib.pyplot import figure
 
 
 style.use('ggplot')
-figure(num=None, figsize=(10, 8), dpi=80, facecolor='w', edgecolor='k')
+figure(num=None, figsize=(5, 5), dpi=80, facecolor='w', edgecolor='k')
 
 
 df = pd.read_csv('tsla.csv', parse_dates= True, index_col=0)
 
 # Will resample data based on the 10 days, will look add up all data within the 10 days and will get mean.
 # Open High Low Close Data - After, will get the ohlc of the data within 10 days. Open = day 1 first data, High = the highest point within 10 days, Low = the lowest point within 10 days, Close = 10th day last data.
-df_ohlc = df['Adj Close'].resample('10D').ohlc()
+#df_ohlc = df['Adj Close'].resample('10D').ohlc()
+
 
 df_ohlc.reset_index(inplace=True)
 

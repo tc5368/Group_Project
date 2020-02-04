@@ -1,0 +1,19 @@
+
+Ok so new idea for how the project is going to go. We dont need to build this based in reality instead we can use any given stock and also we can set any given price for it to start at. 
+
+Current idea is that at the start this stock will be set at a given price and then we have code that will increase its value the more people buy the stock and dorp it the faster the stock is sold.
+
+Also beacuse in this simulation even with all members acting as test users making trades it can't come close to mirroring real world data and so would be far to slow.
+
+Instead the idea is for the computer to as well for monitoring for user trades to also be constantly, and and this point in time randomly to buy and sell different stocks at very high frequency. This will cause the stock prices to flucuate. 
+
+At the moment its random but will probably actully be designed to favour certain stocks. Maybe have a seperate file that will assign random weightings to each stock every few minutes and so the simulation will see certain stocks as more favourable and some less favourable at a given time to simulate the rise and fall of stocks based on real world influence.
+
+
+
+
+Task Breakdown:
+
+	1. Create a SQL table for the stocks to be able to be stored in. Replacing the CSV file
+	2. Create a getter and setter code for accsessing these entries in the database
+	3. Have a program constantly running on rasberry pi that receives 
