@@ -5,6 +5,10 @@ import pandas as pd
 #https://mpld3.github.io/quickstart.html for mpld3 matplotlib to html
 import matplotlib.pyplot as plt, mpld3
 from matplotlib.pyplot import figure
+#To download stock data from online.
+#import pandas_datareader as web
+#df = web.DataReader("nvda", 'yahoo')
+#df.to_csv('Nvidia.csv')
 
 
 style.use('ggplot')
