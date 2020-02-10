@@ -5,4 +5,10 @@ cnx = mysql.connector.connect(user='c1769261',password='apmWzUswLy6LvfX',
 
 cursor = cnx.cursor()
 
+query = ("SELECT * FROM Customer_Info")
+cursor.execute(query)
+
+for i in cursor:
+	print(i)
+
 cnx.close()
