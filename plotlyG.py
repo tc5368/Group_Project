@@ -1,23 +1,28 @@
-
-#These are not used anywhere in the code ?
-
-# import chart_studio.plotly as py
-# import chart_studio
-# from datetime import datetime
-# chart_studio.tools.set_credentials_file(username='group13Yes', api_key='OspkIgNNW6CTIM7110px')
-
-
-import plotly.graph_objs as go
 import pandas as pd
+from sqlConnector import get_history
+import plotly.graph_objs as go
+
+stock_name = 'tsla'
+
+def main(stock_name):
+	'''Generates Stock Graph
+	
+	Will utilise the sqlConnector code to pull a given stocks history from the database and then use
+	and ohlc library to plot that data in a ohcl graph.
+	
+	Arguments:
+		stock_name {[String} -- 4 character String unique to the Stock
+	'''
+
+	df = get_history(stock_name)
+
+	print(df)
+	print(type(df['Date'][0]))
+
+	fig = go.Figure(data=go.Ohlc(x=df['Date'],open=df['Open'], high=df['High'], low=df['Low'], close=df['Close']))
+	fig.show()
 
 
-df = pd.read_csv('tsla.csv', parse_dates= True, index_col=0)
-df.reset_index(inplace=True)
 
-
-fig = go.Figure(data=go.Ohlc(x=df['Date'],
-                    open=df['Open'],
-                    high=df['High'],
-                    low=df['Low'],
-                    close=df['Close']))
-fig.show()
+if __name__ == '__main__':
+	main(stock_name)
