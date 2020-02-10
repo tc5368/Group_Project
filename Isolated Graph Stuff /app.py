@@ -14,7 +14,7 @@ import dash_html_components as html
 import dash_core_components as dcc
 from dash.dependencies import Input, Output
 import chart_studio
-chart_studio.tools.set_credentials_file(username='group13Yes', api_key='OspkIgNNW6CTIM7110px')
+chart_studio.tools.set_credentials_file(username ='group13Yes', api_key='OspkIgNNW6CTIM7110px')
 import pandas as pd
 from datetime import datetime
 
@@ -61,10 +61,10 @@ app.layout = html.Div(children=[
     html.Div(children='''Dash: A web application framework for Python.'''),
     dcc.Graph(id='plotly_fig', figure=fig),
     dcc.Dropdown(
-        id='stock_dropdown',
-        options=[{'label': i, 'value': i} for i in stock_list],
-        value='tsla',
-        style={"max-width": "200px", "margin": "auto"}
+        id      ='stock_dropdown',
+        options =[{'label': i, 'value': i} for i in stock_list],
+        value   ='tsla',
+        style   ={"max-width": "200px", "margin": "auto"}
     )
 ],
 style={"max-width": "1000px", "margin": "auto"})
@@ -76,12 +76,12 @@ style={"max-width": "1000px", "margin": "auto"})
 def update_figure(selected_stock):
     df = pd.read_csv(selected_stock+'.csv', parse_dates= True)
     fig = go.Figure(data=go.Ohlc(x=df['Date'],
-                        open=df['Open'],
-                        high=df['High'],
-                        low=df['Low'],
-                        close=df['Close']),
-                        layout=go.Layout(
-                            title=go.layout.Title(text="Graph Showing " + selected_stock.upper() + " Stock Price History")
+                        open   = df['Open'],
+                        high   = df['High'],
+                        low    = df['Low'],
+                        close  = df['Close']),
+                        layout = go.Layout(
+                        title  = go.layout.Title(text="Graph Showing " + selected_stock.upper() + " Stock Price History")
                         )
     )
     print(fig["layout"])

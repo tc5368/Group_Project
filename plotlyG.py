@@ -2,7 +2,7 @@ import pandas as pd
 from sqlConnector import get_history
 import plotly.graph_objs as go
 
-stock_name = 'tsla'
+stock_name = 'AAPL'
 
 def main(stock_name):
 	'''Generates Stock Graph
@@ -16,10 +16,11 @@ def main(stock_name):
 
 	df = get_history(stock_name)
 
-	print(df)
-	print(type(df['Date'][0]))
-
-	fig = go.Figure(data=go.Ohlc(x=df['Date'],open=df['Open'], high=df['High'], low=df['Low'], close=df['Close']))
+	fig = go.Figure(data=go.Ohlc(x=df['Date'],
+					open=df['Open'],
+					high=df['High'],
+					low=df['Low'],
+					close=df['Close']))
 	fig.show()
 
 
