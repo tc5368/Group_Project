@@ -5,10 +5,6 @@ import pandas as pd
 #https://mpld3.github.io/quickstart.html for mpld3 matplotlib to html
 import matplotlib.pyplot as plt, mpld3
 from matplotlib.pyplot import figure
-#To download stock data from online.
-#import pandas_datareader as web
-#df = web.DataReader("nvda", 'yahoo')
-#df.to_csv('Nvidia.csv')
 
 
 style.use('ggplot')
@@ -16,6 +12,7 @@ f = figure(num=None, figsize=(10, 8), dpi=80, facecolor='w', edgecolor='k')
 
 df = pd.read_csv('tsla.csv', parse_dates= True, index_col=0)
 
+print(df)
 
 df_ohlc = df['Close'].resample('10D').ohlc()
 
