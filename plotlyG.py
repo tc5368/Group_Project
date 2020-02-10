@@ -1,11 +1,15 @@
-import chart_studio.plotly as py
+
+#These are not used anywhere in the code ?
+
+# import chart_studio.plotly as py
+# import chart_studio
+# from datetime import datetime
+# chart_studio.tools.set_credentials_file(username='group13Yes', api_key='OspkIgNNW6CTIM7110px')
+
+
 import plotly.graph_objs as go
-import chart_studio
-chart_studio.tools.set_credentials_file(username='group13Yes', api_key='OspkIgNNW6CTIM7110px')
-
-
 import pandas as pd
-from datetime import datetime
+
 
 df = pd.read_csv('tsla.csv', parse_dates= True, index_col=0)
 df.reset_index(inplace=True)
