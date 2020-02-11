@@ -37,7 +37,10 @@ def get_history(stock_ticker):
 		#select to find out if stock_id in Stock_Info then will pull the data.
 
 		query = ("SELECT Date, High, Low, Open ,Close FROM "+stock_ticker.upper()+"_HIST")
-		data = execute_query(query)
+		try:
+			data = execute_query(query)
+		except:
+			data = None
 
 		df = pd.DataFrame.from_records(data)
 		df.columns = ['Date','High','Low','Open','Close']
@@ -50,18 +53,24 @@ def get_history(stock_ticker):
 
 
 
-def make_new_stock_history_table(df):
-	None
+def make_new_stock_history_table(stock_name, df):
+	'''Add a given stocks data to the Database
+	
+	Arguments:
+		stock_name {String} -- 4 character string unique to the stock
+		df {pandas dataframe} -- raw infomation of the stock's history.
+	'''
+	query = ("""CREATE TABLE `c1769261_Second_Year`.`"""+stock_name+"""_HIST` (
+  											`Date` DATE NOT NULL,
+											`Open` DOUBLE NOT NULL,
+											`High` DOUBLE NOT NULL,
+											`Close` DOUBLE NOT NULL,
+											`Low` DOUBLE NOT NULL,
+											PRIMARY KEY (`Date`));""")
+	execute_query(query)
 
-
-
-if __name__ == '__main__':
-	df = get_history('tsla')
-	print(df)
-
-
-
-
+	#This currently works but dosen't do anything with the data. 
+	#Need to convert the whole system to using SQL Alchemy and not using mysql
 
 
 

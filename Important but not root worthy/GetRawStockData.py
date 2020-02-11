@@ -12,7 +12,8 @@ def main(stock_ticker):
 	'''
 	df = web.DataReader("tsla","yahoo")
 	del (df['Volume'], df['Adj Close'])
-	make_new_stock_history_table(df)
+
+	make_new_stock_history_table(stock_ticker, df)
 
 
 

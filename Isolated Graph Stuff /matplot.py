@@ -6,20 +6,25 @@ import pandas as pd
 import matplotlib.pyplot as plt, mpld3
 from matplotlib.pyplot import figure
 
+from sqlConnector import get_history
+stock_name = 'aapl'
 
 style.use('ggplot')
 f = figure(num=None, figsize=(10, 8), dpi=80, facecolor='w', edgecolor='k')
 
-df = pd.read_csv('tsla.csv', parse_dates= True, index_col=0)
+#df = pd.read_csv('tsla.csv', parse_dates= True, index_col=0)
+df_ohlc = get_history(stock_name)
 
-print(df)
+print(df_ohlc)
 
-df_ohlc = df['Close'].resample('10D').ohlc()
+#df_ohlc = df_ohcl['Close'].resample('10D').ohlc()
 
-df_ohlc.reset_index(inplace=True)
+#df_ohlc.reset_index(inplace=True)
 
 # Converting dates into number based representation for matplotlib, so it would be able to read it
 df_ohlc['Date'] = df_ohlc['Date'].map(mdates.date2num)
+
+print(df_ohlc)
 
 ax1 = plt.subplot2grid((6,1), (0,0), rowspan=6, colspan=1)
 # Converting number back into a date, telling the x axis is dates.

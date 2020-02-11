@@ -36,6 +36,9 @@ def matplot():
     df_ohlc = df['Close'].resample('10D').ohlc()
     df_ohlc.reset_index(inplace=True)
     df_ohlc['Date'] = df_ohlc['Date'].map(mdates.date2num)
+
+    print(df_ohlc)
+
     ax1 = plt.subplot2grid((6,1), (0,0), rowspan=6, colspan=1)
     ax1.xaxis_date()
     candlestick_ohlc(ax1, df_ohlc.values, width=4, colorup='g')
