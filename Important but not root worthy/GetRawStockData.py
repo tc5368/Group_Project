@@ -20,4 +20,4 @@ def main(stock_ticker):
 
 
 if __name__ == '__main__':
-	main('AMZN')
+	main('UBER')

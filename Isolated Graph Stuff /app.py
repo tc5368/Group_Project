@@ -32,7 +32,7 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 def matplot():
     style.use('ggplot')
     f = figure(num=None, figsize=(10, 8), dpi=80, facecolor='w', edgecolor='k')
-    df = pd.read_csv('tsla.csv', parse_dates= True, index_col=0)
+    df = pd.read_csv('nvda.csv', parse_dates= True, index_col=0)
     df_ohlc = df['Close'].resample('10D').ohlc()
     df_ohlc.reset_index(inplace=True)
     df_ohlc['Date'] = df_ohlc['Date'].map(mdates.date2num)
@@ -53,7 +53,7 @@ app = dash.Dash(
 )
 
 # Need to automate the filling of stock_list
-stock_list = ['tsla', 'nvda']
+stock_list = ['nvda']
 df = pd.read_csv(stock_list[0]+'.csv', parse_dates= True)
 
 # You can duplicate code and render this fig to get rid off empty figure when you reach the page.
