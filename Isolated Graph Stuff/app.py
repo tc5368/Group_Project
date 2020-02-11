@@ -18,7 +18,6 @@ chart_studio.tools.set_credentials_file(username ='group13Yes', api_key='OspkIgN
 import pandas as pd
 from datetime import datetime
 
-
 server = Flask(__name__)
 
 
@@ -30,21 +29,27 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 @server.route('/matplot')
 def matplot():
+    """ Creates a matplotlib graph using ohlc every 10 days of the stock price. Plots date on the x axis and stock value on the y axis. After, the figure is converted into html.
+
+    Returns
+    -------
+    string
+        A block of html & javascript code that will display an interactive graph.
+
+    """
     style.use('ggplot')
     f = figure(num=None, figsize=(10, 8), dpi=80, facecolor='w', edgecolor='k')
     df = pd.read_csv('nvda.csv', parse_dates= True, index_col=0)
     df_ohlc = df['Close'].resample('10D').ohlc()
     df_ohlc.reset_index(inplace=True)
     df_ohlc['Date'] = df_ohlc['Date'].map(mdates.date2num)
-
-    print(df_ohlc)
-
     ax1 = plt.subplot2grid((6,1), (0,0), rowspan=6, colspan=1)
     ax1.xaxis_date()
     candlestick_ohlc(ax1, df_ohlc.values, width=4, colorup='g')
     html_graph = mpld3.fig_to_html(f, figid="matplot_graph")
     return html_graph
 
+# Uses Flask as the server and dash as the app that connects to the server and works together.
 app = dash.Dash(
     __name__,
     server=server,
@@ -53,12 +58,13 @@ app = dash.Dash(
 )
 
 # Need to automate the filling of stock_list
-stock_list = ['nvda']
+stock_list = ['tsla', 'nvda']
 df = pd.read_csv(stock_list[0]+'.csv', parse_dates= True)
 
 # You can duplicate code and render this fig to get rid off empty figure when you reach the page.
 fig = go.Figure()
 
+# Generates HTML on the dash page and embeds a template of the graph and a dropdown list.
 app.layout = html.Div(children=[
     html.H1(children='Hello Dash'),
     html.Div(children='''Dash: A web application framework for Python.'''),
@@ -66,17 +72,31 @@ app.layout = html.Div(children=[
     dcc.Dropdown(
         id      ='stock_dropdown',
         options =[{'label': i, 'value': i} for i in stock_list],
-        value   ='tsla',
+        value   =stock_list[0],
         style   ={"max-width": "200px", "margin": "auto"}
     )
 ],
 style={"max-width": "1000px", "margin": "auto"})
 
+# Will wait for the user to select anything on the dropdown menu and output the result on the graph.
 @app.callback(
     Output('plotly_fig', 'figure'),
     [Input('stock_dropdown', 'value')]
 )
 def update_figure(selected_stock):
+    """Will show different graphs on the figure, depending on what the user selects. Will be called every single time the user changes value on the dropdown list.
+
+    Parameters
+    ----------
+    selected_stock : string
+        The value selected in the dropdown list.
+
+    Returns
+    -------
+    figure
+        Return the figure type information in an array with the new read figure data.
+
+    """
     df = pd.read_csv(selected_stock+'.csv', parse_dates= True)
     fig = go.Figure(data=go.Ohlc(x=df['Date'],
                         open   = df['Open'],
