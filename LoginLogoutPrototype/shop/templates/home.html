@@ -1,29 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
 <h1>Bikes</h1>
-<div class="dropdown">
-  <button class="dropbtn">Sort By</button>
-  <div class="dropdown-content">
-    <a href="{{ url_for('price') }}">Price</a>
-    <a href="{{ url_for('name') }}">Name</a>
-    <a href="{{ url_for('brand_name') }}">Brand Name</a>
-  </div>
-</div>
-<div class="card" style="width: calc(100%);">
-	<div class="card-body">
-		{% for bike in bikes %}
-		<div class="card" style="width: 30em; float: left; mex-width:30;">
-			<div class="card-body">
-				<div class="grid-container">
-				<a href="{{ url_for('bike', bike_id=bike.id) }}"><img class = home src = "{{ url_for('static', filename='img/' + bike.image_file) }}"></a>
-				<a href="{{ url_for('bike', bike_id=bike.id) }}">
-				<p>"{{ bike.title }}" </p><p>Brand: {{ bike.company.company_name }}</p></a>
-				<p class = price>Price: £{{ bike.price }}</p>
-				</div>
-			</div>
-		</div>
-		{%endfor%}
-	</div>
-</div>
+
 
 {% endblock content %}
