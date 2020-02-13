@@ -11,7 +11,7 @@
   <a href="{{ url_for('home') }}"><h1 class=title>The Bike Store</h1></a>
   <div id="header">
     <a href="{{ url_for('home') }}" class="header">Home</a>&nbsp|
-    <a href="{{ url_for('about') }}" class="header">About Us</a>&nbsp|
+    <a href="{{ url_for('home') }}" class="header">About Us</a>&nbsp|
     {% if current_user.is_authenticated %}
     Hello, {{ current_user.username }}!
     <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>&nbsp|
@@ -19,8 +19,6 @@
     Hello, Guest! &nbsp| <a href="{{ url_for('login') }}">Login&nbsp;</a>
     or <a href="{{ url_for('register') }}">Register</a>&nbsp|
     {% endif %}
-    <a href="{{ url_for('cart_display') }}" class="header">Cart</a>&nbsp|
-    <a href="{{ url_for('wishlist_display') }}" class="header">Wishlist</a>&nbsp|
 
 
   </div>
