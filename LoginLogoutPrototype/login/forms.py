@@ -6,7 +6,6 @@ from login.models import User
 class RegistrationForm(FlaskForm):
 	first_name = StringField('First Name', validators=[DataRequired(), Length(min=3, max=20)])
 	last_name = StringField('Surname', validators=[DataRequired(), Length(min=3, max=20)])
-	username = StringField('Username', validators=[DataRequired(), Length(min=3, max=15)])
 	email = StringField('Email', validators=[DataRequired(), Email()])
 	password = PasswordField('Password', validators=[DataRequired(), Regexp('^.{6,14}$', message='Your password should be between 6 and 14 characters long.')])
 	confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
