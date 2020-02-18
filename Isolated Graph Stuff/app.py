@@ -17,6 +17,8 @@ import chart_studio
 chart_studio.tools.set_credentials_file(username ='group13Yes', api_key='OspkIgNNW6CTIM7110px')
 import pandas as pd
 from datetime import datetime
+# Sql
+from sqlConnector import get_history
 
 server = Flask(__name__)
 
@@ -39,7 +41,12 @@ def matplot():
     """
     style.use('ggplot')
     f = figure(num=None, figsize=(10, 8), dpi=80, facecolor='w', edgecolor='k')
-    df = pd.read_csv('nvda.csv', parse_dates= True, index_col=0)
+    # Converting index into datetime format
+    stock_name = 'nvda'
+    df = get_history(stock_name)
+    df = df.set_index('Date')
+    df.index = pd.to_datetime(df.index)
+
     df_ohlc = df['Close'].resample('10D').ohlc()
     df_ohlc.reset_index(inplace=True)
     df_ohlc['Date'] = df_ohlc['Date'].map(mdates.date2num)
