@@ -1,8 +1,8 @@
 import os
 from flask import render_template, url_for, request, redirect, flash, session
-from shop import app, db
-from shop.models import User#, Checkout,Company,Bike 
-from shop.forms import RegistrationForm, LoginForm#, CheckoutForm
+from Stocks import app, db
+from Stocks.models import User#, Checkout,Company,Bike 
+from Stocks.forms import RegistrationForm, LoginForm#, CheckoutForm
 from flask_login import login_user, current_user, logout_user, login_required
 
 @app.route("/")
