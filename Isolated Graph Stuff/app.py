@@ -65,8 +65,7 @@ app = dash.Dash(
 )
 
 # Need to automate the filling of stock_list
-stock_list = ['tsla', 'nvda']
-df = pd.read_csv(stock_list[0]+'.csv', parse_dates= True)
+stock_list = ['tsla', 'nvda', 'aapl']
 
 # You can duplicate code and render this fig to get rid off empty figure when you reach the page.
 fig = go.Figure()
@@ -104,7 +103,8 @@ def update_figure(selected_stock):
         Return the figure type information in an array with the new read figure data.
 
     """
-    df = pd.read_csv(selected_stock+'.csv', parse_dates= True)
+    #df = pd.read_csv(selected_stock+'.csv', parse_dates= True)
+    df = get_history(selected_stock)
     fig = go.Figure(data=go.Ohlc(x=df['Date'],
                         open   = df['Open'],
                         high   = df['High'],
