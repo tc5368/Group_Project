@@ -103,7 +103,6 @@ def update_figure(selected_stock):
         Return the figure type information in an array with the new read figure data.
 
     """
-    #df = pd.read_csv(selected_stock+'.csv', parse_dates= True)
     df = get_history(selected_stock)
     fig = go.Figure(data=go.Ohlc(x=df['Date'],
                         open   = df['Open'],
