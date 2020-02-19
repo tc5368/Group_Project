@@ -16,7 +16,7 @@ chart_studio.tools.set_credentials_file(username ='group13Yes', api_key='OspkIgN
 import pandas as pd
 from datetime import datetime
 # Sql
-from sqlConnector import get_history
+from sqlConnector import get_history, get_all_stocks
 
 @app.route("/")
 @app.route("/home")
@@ -58,8 +58,7 @@ app_dash = dash.Dash(
     external_stylesheets=external_stylesheets
 )
 
-# Need to automate the filling of stock_list
-stock_list = ['tsla', 'nvda', 'aapl']
+stock_list = get_all_stocks()
 
 # You can duplicate code and render this fig to get rid off empty figure when you reach the page.
 fig = go.Figure()
