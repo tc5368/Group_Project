@@ -4,6 +4,7 @@ from Stocks import app, db
 from Stocks.models import User#, Checkout,Company,Bike
 from Stocks.forms import RegistrationForm, LoginForm#, CheckoutForm
 from flask_login import login_user, current_user, logout_user, login_required
+from datetime import datetime
 # Plotly and Dash import
 import chart_studio.plotly as py
 import plotly.graph_objs as go
@@ -12,11 +13,18 @@ import dash_html_components as html
 import dash_core_components as dcc
 from dash.dependencies import Input, Output
 import chart_studio
+# Login: group13Yes
+# Password: group13HelloWorld
 chart_studio.tools.set_credentials_file(username ='group13Yes', api_key='OspkIgNNW6CTIM7110px')
 import pandas as pd
 from datetime import datetime
 # Sql
 from sqlConnector import get_history, get_all_stocks
+# News API
+# Login = levondr@cardiff.ac.uk
+# Password = group13HelloWorld
+from newsapi import NewsApiClient
+newsapi = NewsApiClient(api_key='0f58067ab2ad447ba8e4af81ecea25c5')
 
 @app.route("/")
 @app.route("/home")
@@ -108,3 +116,21 @@ def update_figure(selected_stock):
     )
     print(fig["layout"])
     return fig
+
+@app.route('/news')
+def news():
+    """
+    Using newsAPI to collect a set of articles relevant to the topic. Will convert
+    publishedAt field into datetime object and convert it back into a string in a certain
+    format. Passes a whole article with a converted date into news template.
+
+    """
+    news = newsapi.get_everything(q='Nvidia',language='en',sort_by='relevancy')
+    if news['totalResults'] > 0 and news['status'] == 'ok':
+        article = news['articles'][0]
+        date = article['publishedAt']
+        date = datetime.strptime(date, '%Y-%m-%dT%H:%M:%SZ')
+        dateAndTime = date.strftime("%d %B %Y, %H:%M")
+        return render_template("news.html", article=article, date=dateAndTime)
+    else:
+        return "<p>Couldn't find any article</p>"

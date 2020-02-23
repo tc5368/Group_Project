@@ -29,6 +29,8 @@ def index():
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
+
+
 @server.route('/matplot')
 def matplot():
     """ Creates a matplotlib graph using ohlc every 10 days of the stock price. Plots date on the x axis and stock value on the y axis. After, the figure is converted into html.
