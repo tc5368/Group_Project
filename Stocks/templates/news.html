@@ -1,10 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>{{ article['title'] }}</h1>
-<p>Author : {{ article['author'] }}</p>
-<p>Source : {{ article['source']['name'] }}</p>
-<p>Description : {{ article['description'] }}</p>
-<a href={{ article['url'] }}> <img src={{ article['urlToImage'] }}> </a>
-<p>Published at : {{ date }}</p>
+{%for article in articles%}
+  <h1>{{ article['title'] }}</h1>
+  <p>Author : {{ article['author'] }}</p>
+  <p>Source : {{ article['source']['name'] }}</p>
+  <p>Description : {{ article['description'] }}</p>
+  <a href={{ article['url'] }}> <img src={{ article['urlToImage'] }} height="126" width="240"> </a>
+  <p>Published at : {{ article['publishedAt'] }}</p>
+{%endfor%}
 
 {% endblock content %}

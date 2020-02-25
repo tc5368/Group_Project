@@ -127,10 +127,16 @@ def news():
     """
     news = newsapi.get_everything(q='Nvidia',language='en',sort_by='relevancy')
     if news['totalResults'] > 0 and news['status'] == 'ok':
-        article = news['articles'][0]
-        date = article['publishedAt']
-        date = datetime.strptime(date, '%Y-%m-%dT%H:%M:%SZ')
-        dateAndTime = date.strftime("%d %B %Y, %H:%M")
-        return render_template("news.html", article=article, date=dateAndTime)
+        count = 0
+        articleList = []
+        while count != 3:
+            article = news['articles'][count]
+            date = article['publishedAt']
+            date = datetime.strptime(date, '%Y-%m-%dT%H:%M:%SZ')
+            dateAndTime = date.strftime("%d %B %Y, %H:%M")
+            article['publishedAt'] = dateAndTime
+            articleList.append(article)
+            count = count + 1
+        return render_template("news.html", articles=articleList)
     else:
         return "<p>Couldn't find any article</p>"
