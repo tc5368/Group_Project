@@ -1,0 +1,165 @@
+*
+{
+	padding: 0;
+	margin : 0;
+	box-sizing: border-box;
+}
+
+body{
+	background-image: url(../img/homepage.jpg);
+	background-size: cover;
+
+	box-sizing: border-box;
+	font-family: sans-serif;
+}
+.menu-bar{
+	background: #163045;
+	text-align: center;
+}
+
+.menu-bar ul{
+	display: inline-flex;
+	list-style: none;
+	color: #fff;
+}
+
+.menu-bar ul li{
+	width: 120px;
+	margin: 15px;
+	padding: 15px;
+}
+
+.menu-bar ul li a{
+	text-decoration: none;
+	color: #fff;
+}
+
+.active,.menu-bar ul li:hover
+{
+	background : #fe9860;
+	border-radius: 3px;
+
+}
+
+.menu-bar .fa{
+	margin-right: 6px;
+}
+
+.sub-menu-1{
+	display: none;
+
+}
+
+.menu-bar ul li:hover .sub-menu-1{
+	display: block;
+	position: absolute;
+	background: #163045;
+	margin-top: 15px;
+	margin-left: -35px;
+}
+
+.menu-bar ul li:hover .sub-menu-1 ul{
+	display: block;
+	margin: 10px;
+
+}
+.menu-bar ul li:hover .sub-menu-1 ul li {
+	width: 110px;
+	padding:15px;
+	border-bottom: 1px solid #fff;
+	background: transparent;
+	border-radius: 0;
+	text-align: center; 
+}
+.menu-bar ul li:hover .sub-menu-1 ul li:last-child{
+	border-bottom: none;
+}
+
+.menu-bar ul li:hover .sub-menu-1 ul li a:hover{
+	color: #fe9860;
+}
+h1{
+	color:white;
+	text-align: center;
+	color: white;
+	font-weight: 700;
+	font-family: sans-serif;
+	font-size: 30px;
+	text-align: center;
+	padding-bottom: 10px;
+	text-transform: uppercase;
+	width: 100%;
+	padding: 30px 50px;
+	text-align: center;
+	background-color:rgba(22, 48, 69, 0.7);
+
+
+}
+.settings {
+	width: 500px;
+	position: absolute;
+	top: 450px;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	color: white;
+	background-color: #163045;
+	border-radius:25px;
+	padding:20px;
+
+}
+
+.settings input{
+	width: 70%;
+	overflow: hidden;
+	font-size: 20px;
+	padding: 8px 0;
+	margin: 8px 0;
+	border:none;
+	border: 1px solid grey;
+	outline: none;
+	background: none;
+	color : white;
+	font-size: 18px;
+	width: 80%;
+	float:right;
+	margin: 0 10px;
+	margin-bottom: 10px;
+	border-radius: 25px;
+}
+
+.settings input::-ms-input-placeholder { /* Microsoft Edge */
+   color: white;
+}
+
+.settings input::placeholder {
+    color: white;
+}
+
+.settings input::placeholder {
+    color: white;
+}
+
+.settings input:nth-of-type(6)::placeholder {
+    color: grey;
+}
+
+.settings label{
+	width:20%;
+	float:left;
+	position: relative;
+	top:28px;
+	padding-right:0px;
+	color:#ff9800;
+}
+
+.settings input:nth-of-type(6){
+	background-color: #ff9800;
+	color: black;
+	border-color: #ff9800;
+}
+
+.settings input:nth-of-type(8){
+	background-color: #ff9800;
+	color: black;
+	border-color: #ff9800;
+}
