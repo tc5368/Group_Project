@@ -5,9 +5,15 @@
   {{ form.csrf_token }}
   <div class="register">
     {{ form.first_name.label }} {{ form.first_name}}
+		{% for error in form.first_name.errors %}
+      <span style="color: white;">[{{ error }}]</span>
+    {% endfor %}
   </div>
   <div class="register">
     {{ form.last_name.label }} {{ form.last_name}}
+		{% for error in form.last_name.errors %}
+      <span style="color: white;">[{{ error }}]</span>
+    {% endfor %}
   </div>
   <div class="register">
     {{ form.username.label }} {{ form.username}}
@@ -36,6 +42,6 @@
   <div class="">
     {{ form.submit() }}
   </div>
-    
+
 </form>
 {% endblock content %}

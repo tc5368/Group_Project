@@ -43,13 +43,15 @@ def register():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-	form = LoginForm()
-	if request.method == 'POST':
-		user = User.query.filter_by(email=form.email.data).first()
-		if user is not None and user.verify_password(form.password.data):
-			login_user(user)
-			return redirect(url_for('home'))
-	return render_template('login.html', title='Login', form=form)
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user is not None and user.verify_password(form.password.data):
+            login_user(user)
+            flash("Welcome " + user.first_name + " " + user.last_name)
+            return redirect(url_for('home'))
+        flash('Invalid username or password.')
+    return render_template('login.html', title='Login', form=form)
 
 @app.route("/logout")
 def logout():

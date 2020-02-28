@@ -4,6 +4,7 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationE
 from Stocks.models import User
 
 class RegistrationForm(FlaskForm):
+	username = StringField('Username', validators=[DataRequired('Please enter your username'), Length(min=3, max=15)])
 	first_name = StringField('First Name', validators=[DataRequired(), Length(min=3, max=20)])
 	last_name = StringField('Surname', validators=[DataRequired(), Length(min=3, max=20)])
 	email = StringField('Email', validators=[DataRequired(), Email()])
@@ -33,5 +34,3 @@ class LoginForm(FlaskForm):
 # 	valid_until = StringField('Card Valid Until', validators=[DataRequired(), Length(min=5, max=5)])
 # 	security_code = StringField('Security Code', validators=[DataRequired(), Length(min=3, max=3)])
 # 	submit = SubmitField('Checkout')
-
-

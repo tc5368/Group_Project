@@ -1,16 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>This is Login Page</h1>
-<form method="POST" action="">
-  {{ form.csrf_token }}
-  <div class="register">
-    {{ form.email.label }} {{ form.email}}
-  </div>
-  <div class="register">
-    {{ form.password.label }} {{ form.password}}
-  </div>
-  <div class="">
-    {{ form.submit() }}
-  </div>
+<form class="login_reg" method="POST" action="">
+    {{ form.csrf_token }}
+    <p>{{ form.email.label(class="lbl") }}<br>{{ form.email(class="inp")}}</p>
+		{% for error in form.email.errors %}
+      <span style="color: white;">That is not an email address</span>
+    {% endfor %}
+    <p>{{ form.password.label(class="lbl") }}<br>{{ form.password(class="inp")}}</p>
+    <p>{{ form.submit(class="btnSub") }}</p>
+
 </form>
 {% endblock content %}
