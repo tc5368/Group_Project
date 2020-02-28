@@ -42,6 +42,7 @@ body{
 	margin: 15px 0px;
 	padding:15px;
 	color: white;
+
 }
 
 .button3{
@@ -49,6 +50,7 @@ body{
 	margin: 0px;
 	padding:15px;
 	color: white;
+	border-radius: 5px;
 }
 
 .btn3{
@@ -60,6 +62,7 @@ body{
 	font-size: 15px;
 	cursor: pointer;
 	margin: 12px 5px;
+	border-radius: 5px;
 }
 
 .menu-bar ul li a{
@@ -70,7 +73,7 @@ body{
 .active,.menu-bar ul li:hover
 {
 	background : #fe9860 ;
-	border-radius: 3px;
+	border-radius: 5px;
 
 }
 
@@ -90,11 +93,13 @@ body{
 	margin-top: 15px;
 	margin-left: -35px;
 	margin-right: -35px;
+	border-radius: 5px;
 }
 
 .menu-bar ul li:hover .sub-menu-1 ul{
 	display: block;
 	margin: 10px;
+	border-radius: 5px;
 }
 .menu-bar ul li:hover .sub-menu-1 ul li {
 	width: 110px;
@@ -103,6 +108,7 @@ body{
 	background: transparent;
 	border-radius: 0;
 	text-align: center; 
+	border-radius: 5px;
 }
 .menu-bar ul li:hover .sub-menu-1 ul li:last-child{
 	border-bottom: none;
@@ -111,6 +117,7 @@ body{
 
 .menu-bar ul li:hover .sub-menu-1 ul li a:hover{
 	color: #fe9860;
+	border-radius: 5px;
 }
 
 /**fullfill the home page**/
@@ -119,6 +126,7 @@ body{
 	padding: 30px 50px;
 	text-align: center;
 	background-color:rgba(22, 48, 69, 0.7);
+	border-radius: 5px;
 
 }
 
@@ -154,6 +162,7 @@ body{
 	margin-top: 20px;
 	margin-right: 20px;
 	overflow: hidden;
+	border-radius: 5px;
 }
 
 .index-news article{ 
@@ -161,6 +170,7 @@ body{
 	background-color: rgba(22, 48, 69, 0.99);
 	float:left;
 	margin:10px 2%;
+	border-radius: 5px;
 }
 
 .news-img{
@@ -169,6 +179,7 @@ body{
 	height: 120px;
 	text-align: center;
 	background-color:#000;
+	border-radius: 5px;
 	/*background-image: url();*/
 
 }
@@ -208,6 +219,7 @@ body{
 	height: 340px;
 	margin-left: 20px;
 	margin-top: 20px;
+	border-radius: 5px;
 }
  .Table-Div {
 		width: 80%;
