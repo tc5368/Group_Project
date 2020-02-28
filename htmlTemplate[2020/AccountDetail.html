@@ -1,0 +1,83 @@
+<html>
+<head>
+	<link rel = "styleSheet" href = "css/style2.css">
+	<link rel = "styleSheet" href = "css/AccountStyle.css">
+	<link rel = "styleSheet" href = "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+	<section>
+		<div class="menu-bar">
+			<ul>
+				<li><i class="fa fa-home"></i><a href="HomePage.html">Home</a></li>
+
+				<li >
+					<i class="fa fa-search"></i><a href="AllStocksPage.html">Stocks</a>
+					<div class="sub-menu-1">
+						<ul>
+							<li><a href="CryptoStockPage.html">Crypto</a></li>
+							<li><a href="CommoditesStockPage.html">Commodities</a></li>
+							<li><a href="OptionsStockPage.html">Options</a></li>
+						</ul>
+					</div>
+				</li>
+
+				<li><i class="fa fa-align-left"></i><a href="Portfolio.html">Portfolio</a></li>
+
+				<li><i class="fa fa-eye"></i><a href="Wishlist.html">Wishlist</a></li>
+
+				<li class="active">
+					<i class="fa fa-lock"></i><a href="AccountDetail.html">Account</a>
+					<div class="sub-menu-1">
+						<ul>
+							<li><a href="AccountDetail.html">Details</a></li>
+							<li><a href="#">Log out</a></li>
+						</ul>
+					</div>
+				</li>
+
+				<div class="search-bar">
+					<i class="fa fa-search"></i>
+					<input type="stock" placeholder="Input the stock name" name="" value="">
+				</div>
+
+				<div class="button3">
+					<input class="btn3" type="button" name="" value="Search">
+				</div>
+
+			</ul>
+			<div>
+	</section>
+
+	<body>
+		<div id="wholePage">
+			<div class="intro">
+				<div class="wrapper">
+					<h2>Account Details</h2>
+				</div>
+			</div>
+			<!--Tommy-->
+			<div class = "settings">
+			    <form action ="cgi-bin/update.py" method="POST">
+			      <label for= "username">Username</label>
+			      <input type="text" placeholder = "ijdwghfyre"  name="username" required>
+			      <label for= "first name">First Name</label>
+			      <input type="text" placeholder = "John"  name="first name" required>
+			      <label for= "surname">Surname</label>
+			      <input type="text" placeholder = "Smith"  name="surname" required>
+			      <label for= "email">Email</label>
+			      <input type="text" placeholder = "example@mail.co.uk"  name="email" required>
+			      <label for= "d">DOB</label>
+			      <input type="date" placeholder = ""  name="dob" required>
+
+			      <input type="SUBMIT" id="save" name="save" value="Update Account">
+			    </form>
+			    
+			 
+			    <form action ="cgi-bin/delete.py" method ="POST">
+			      <input type="text" placeholder = "Input password to delete account" id="password" name="password" required>
+			      <input type="SUBMIT" id ="delete" name="delete" value="Delete Account"> 
+			    </form>
+			</div>
+		</div>
+	</body>	
+</html>
