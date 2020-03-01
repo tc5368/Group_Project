@@ -80,7 +80,7 @@ app_dash = dash.Dash(
 	external_stylesheets=external_stylesheets
 )
 
-def get_all_histories():
+def get_all_avaliable_stocks():
 	stock_list = db.engine.table_names()
 	history_tables = []
 	for i in stock_list:
@@ -88,7 +88,7 @@ def get_all_histories():
 			history_tables.append(i)
 	return history_tables
 
-stock_list = get_all_histories()
+stock_list = get_all_avaliable_stocks()
 
 # You can duplicate code and render this fig to get rid off empty figure when you reach the page.
 fig = go.Figure()
