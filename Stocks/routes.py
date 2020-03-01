@@ -22,7 +22,7 @@ import pandas as pd
 from datetime import datetime
 
 # Sql
-from sqlConnector import get_history, make_new_hist
+from sqlConnector import *
 
 # News API
 # Login = levondr@cardiff.ac.uk
@@ -80,23 +80,23 @@ def track():
 
 
 # Uses Flask as the server and dash as the app that connects to the server and works together.
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app_dash = dash.Dash(
 	__name__,
-	server=app,
-	routes_pathname_prefix='/stocks/',
-	external_stylesheets=external_stylesheets
+	server                 = app,
+	routes_pathname_prefix = '/stocks/',
+	external_stylesheets   = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 )
 
-def get_all_avaliable_stocks():
-	stock_list = db.engine.table_names()
+def find_avaliable():
+	stock_list     = db.engine.table_names()
 	history_tables = []
 	for i in stock_list:
 		if i.endswith('_HIST'):
 			history_tables.append(i)
 	return history_tables
 
-stock_list = get_all_avaliable_stocks()
+
+stock_list = find_avaliable()
 
 # You can duplicate code and render this fig to get rid off empty figure when you reach the page.
 fig = go.Figure()
@@ -119,6 +119,11 @@ style={"max-width": "1000px", "margin": "auto"})
 	Output('plotly_fig', 'figure'),
 	[Input('stock_dropdown', 'value')]
 )
+
+#Needs to update the dropdown menu with the new graphs
+
+
+#Where is this update figure called ??
 def update_figure(selected_stock):
 	"""Will show different graphs on the figure, depending on what the user selects. Will be called every single time the user changes value on the dropdown list.
 

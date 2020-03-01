@@ -4,6 +4,7 @@ import pandas as pd
 import pandas_datareader as web
 from Stocks import db
 
+
 def get_raw_info(stock_ticker):
 	'''Get a csv file for the past data of a given stock
 	
@@ -14,7 +15,7 @@ def get_raw_info(stock_ticker):
 	'''
 
 	#add validation later
-	if stock_ticker != None:
+	if stock_ticker != "Invalid":
 		
 		df = web.DataReader(stock_ticker,"yahoo")
 		del (df['Volume'], df['Adj Close'])
@@ -27,7 +28,10 @@ def get_raw_info(stock_ticker):
 def make_new_hist(ticker):
 	ticker = ticker.upper()
 	df = get_raw_info(ticker)
-	make_new_stock_history_table(ticker,df)
+	if df is None:
+		None
+	else:
+		make_new_stock_history_table(ticker,df)
 
 
 def make_new_stock_history_table(ticker, df):
@@ -45,11 +49,7 @@ def make_new_stock_history_table(ticker, df):
 											`Low` DOUBLE NOT NULL,
 											PRIMARY KEY (`Date`));""")
 	execute_query(query)
-
-	print(df)
 	df['Date'] = df.index.map(lambda x: x.strftime('%Y-%m-%d'))
-	print(df)
-
 	df.to_sql(name=ticker+'_HIST', con=db.engine, index=False, if_exists='append')
 
 
