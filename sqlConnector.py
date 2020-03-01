@@ -3,9 +3,6 @@ from datetime import date
 import pandas as pd
 
 
-
-
-
 def execute_query(query):
 	'''Executes SQL statments
 
