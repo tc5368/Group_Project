@@ -1,6 +1,57 @@
 import mysql.connector as mysql
 from datetime import date
 import pandas as pd
+import pandas_datareader as web
+from Stocks import db
+
+def get_raw_info(stock_ticker):
+	'''Get a csv file for the past data of a given stock
+	
+	Takes the stocks ticker and then will create a data frame of the stock but without the Adj Close or Volume
+	
+	Arguments:
+		stock_ticker {[String]} -- [4 Character unique identifier for the stock]
+	'''
+
+	#add validation later
+	if stock_ticker != None:
+		
+		df = web.DataReader(stock_ticker,"yahoo")
+		del (df['Volume'], df['Adj Close'])
+		return df
+
+	else:
+		return None
+
+
+def make_new_hist(ticker):
+	ticker = ticker.upper()
+	df = get_raw_info(ticker)
+	make_new_stock_history_table(ticker,df)
+
+
+def make_new_stock_history_table(ticker, df):
+	'''Add a given stocks data to the Database
+
+	Arguments:
+		stock_name {String} -- 4 character string unique to the stock
+		df {pandas dataframe} -- raw infomation of the stock's history.
+	'''
+	query = ("""CREATE TABLE `c1769261_Second_Year`.`"""+ticker+"""_HIST` (
+  											`Date` DATE NOT NULL,
+											`Open` DOUBLE NOT NULL,
+											`High` DOUBLE NOT NULL,
+											`Close` DOUBLE NOT NULL,
+											`Low` DOUBLE NOT NULL,
+											PRIMARY KEY (`Date`));""")
+	execute_query(query)
+
+	print(df)
+	df['Date'] = df.index.map(lambda x: x.strftime('%Y-%m-%d'))
+	print(df)
+
+	df.to_sql(name=ticker+'_HIST', con=db.engine, index=False, if_exists='append')
+
 
 
 def execute_query(query):
@@ -19,10 +70,27 @@ def execute_query(query):
 						database = 'c1769261_Second_Year')
 	cursor = cnx.cursor()
 	cursor.execute(query)
-	data = cursor.fetchall()
+	try:
+		data = cursor.fetchall()
+	except:
+		data = None
 	cnx.close()
 
 	return data
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def get_history(stock_ticker):
@@ -45,22 +113,3 @@ def get_history(stock_ticker):
 	df.columns = ['Date','High','Low','Open','Close']
 	return(df)
 
-
-def make_new_stock_history_table(stock_name, df):
-	'''Add a given stocks data to the Database
-
-	Arguments:
-		stock_name {String} -- 4 character string unique to the stock
-		df {pandas dataframe} -- raw infomation of the stock's history.
-	'''
-	query = ("""CREATE TABLE `c1769261_Second_Year`.`"""+stock_name+"""_HIST` (
-  											`Date` DATE NOT NULL,
-											`Open` DOUBLE NOT NULL,
-											`High` DOUBLE NOT NULL,
-											`Close` DOUBLE NOT NULL,
-											`Low` DOUBLE NOT NULL,
-											PRIMARY KEY (`Date`));""")
-	execute_query(query)
-
-	#This currently works but dosen't do anything with the data.
-	#Need to convert the whole system to using SQL Alchemy and not using mysql

@@ -10,10 +10,16 @@ def get_raw(stock_ticker):
 	Arguments:
 		stock_ticker {[String]} -- [4 Character unique identifier for the stock]
 	'''
-	df = web.DataReader("tsla","yahoo")
-	del (df['Volume'], df['Adj Close'])
 
-	return df
+	#add validation later
+	if stock_ticker not None:
+		
+		df = web.DataReader(stock_ticker,"yahoo")
+		del (df['Volume'], df['Adj Close'])
+		return df
+
+	else:
+		return None
 
 
 def main(ticker):

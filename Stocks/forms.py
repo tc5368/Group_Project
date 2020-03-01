@@ -25,3 +25,7 @@ class LoginForm(FlaskForm):
 	email    = StringField('Email', validators=[DataRequired(), Email()])
 	password = PasswordField('Password', validators=[DataRequired()])
 	submit   = SubmitField('Login')
+
+class Track_New_Stock_From(FlaskForm):
+	ticker = StringField('Stock Ticker', validators=[DataRequired(), Length(min=4,max=4)])
+	submit = SubmitField('Track Stock')

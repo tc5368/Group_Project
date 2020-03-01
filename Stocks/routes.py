@@ -2,7 +2,7 @@ import os
 from flask import render_template, url_for, request, redirect, flash, session
 from Stocks import app, db
 from Stocks.models import User, Stock_Info, Portfolio#, Checkout,Company,Bike
-from Stocks.forms import RegistrationForm, LoginForm#, CheckoutForm
+from Stocks.forms import RegistrationForm, LoginForm, Track_New_Stock_From#, CheckoutForm
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import datetime
 
@@ -22,7 +22,7 @@ import pandas as pd
 from datetime import datetime
 
 # Sql
-from sqlConnector import get_history
+from sqlConnector import get_history, make_new_hist
 
 # News API
 # Login = levondr@cardiff.ac.uk
@@ -69,6 +69,14 @@ def login():
 def logout():
 	logout_user()
 	return redirect(url_for('home'))
+
+@app.route("/track", methods=['GET','POST'])
+def track():
+	form = Track_New_Stock_From()
+	if form.validate_on_submit():
+		make_new_hist(form.ticker.data)
+	return render_template('track.html', title='Track', form=form)
+
 
 
 # Uses Flask as the server and dash as the app that connects to the server and works together.
