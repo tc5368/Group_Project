@@ -48,8 +48,7 @@ def matplot():
     df = get_history(stock_name)
     df = df.set_index('Date')
     df.index = pd.to_datetime(df.index)
-
-    df_ohlc = df['Close'].resample('10D').ohlc()
+    df_ohlc  = df['Close'].resample('10D').ohlc()
     df_ohlc.reset_index(inplace=True)
     df_ohlc['Date'] = df_ohlc['Date'].map(mdates.date2num)
     ax1 = plt.subplot2grid((6,1), (0,0), rowspan=6, colspan=1)
@@ -74,9 +73,9 @@ fig = go.Figure()
 
 # Generates HTML on the dash page and embeds a template of the graph and a dropdown list.
 app.layout = html.Div(children=[
-    html.H1(children='Hello Dash'),
-    html.Div(children='''Dash: A web application framework for Python.'''),
-    dcc.Graph(id='plotly_fig', figure=fig),
+    html.H1(children = 'Hello Dash'),
+    html.Div(children = 'Dash: A web application framework for Python.'),
+    dcc.Graph(id = 'plotly_fig', figure=fig),
     dcc.Dropdown(
         id      ='stock_dropdown',
         options =[{'label': i, 'value': i} for i in stock_list],

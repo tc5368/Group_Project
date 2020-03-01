@@ -4,33 +4,24 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationE
 from Stocks.models import User
 
 class RegistrationForm(FlaskForm):
-	username = StringField('Username', validators=[DataRequired('Please enter your username'), Length(min=3, max=15)])
-	first_name = StringField('First Name', validators=[DataRequired(), Length(min=3, max=20)])
-	last_name = StringField('Surname', validators=[DataRequired(), Length(min=3, max=20)])
-	email = StringField('Email', validators=[DataRequired(), Email()])
-	password = PasswordField('Password', validators=[DataRequired(), Regexp('^.{6,14}$', message='Your password should be between 6 and 14 characters long.')])
+	first_name       = StringField('First Name', validators=[DataRequired(), Length(min=3, max=20)])
+	last_name        = StringField('Surname', validators=[DataRequired(), Length(min=3, max=20)])
+	email            = StringField('Email', validators=[DataRequired(), Email()])
+	password         = PasswordField('Password', validators=[DataRequired(), Regexp('^.{6,14}$', message='Your password should be between 6 and 14 characters long.')])
 	confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
-	submit = SubmitField('Register')
+	submit           = SubmitField('Register')
 
-	def validate_username(self, username):
-		user = User.query.filter_by(username=username.data).first()
-		if user:
-			raise ValidationError('Username already exists, please choose a different one.')
+	# def validate_username(self, username):
+	# 	user = User.query.filter_by(username=username.data).first()
+	# 	if user:
+	# 		raise ValidationError('Username already exists, please choose a different one.')
 
-	def validate_email(self, email):
-		user = User.query.filter_by(email=email.data).first()
-		if user:
-			raise ValidationError('Email already exists, please choose a different one.')
+	# def validate_email(self, email):
+	# 	user = User.query.filter_by(email=email.data).first()
+	# 	if user:
+	# 		raise ValidationError('Email already exists, please choose a different one.')
 
 class LoginForm(FlaskForm):
-	email = StringField('Email', validators=[DataRequired(), Email()])
+	email    = StringField('Email', validators=[DataRequired(), Email()])
 	password = PasswordField('Password', validators=[DataRequired()])
-	submit = SubmitField('Login')
-
-# class CheckoutForm(FlaskForm):
-# 	first_name = StringField('First Name', validators=[DataRequired(), Length(min=3, max=20)])
-# 	last_name = StringField('Surname', validators=[DataRequired(), Length(min=3, max=20)])
-# 	card_number = StringField('Card Number', validators=[DataRequired(), Length(min=16, max=16)])
-# 	valid_until = StringField('Card Valid Until', validators=[DataRequired(), Length(min=5, max=5)])
-# 	security_code = StringField('Security Code', validators=[DataRequired(), Length(min=3, max=3)])
-# 	submit = SubmitField('Checkout')
+	submit   = SubmitField('Login')

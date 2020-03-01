@@ -3,6 +3,9 @@ from datetime import date
 import pandas as pd
 
 
+
+
+
 def execute_query(query):
 	'''Executes SQL statments
 
@@ -52,26 +55,21 @@ def get_history(stock_ticker):
 	"""Will return the result of running a select * from the the history table of the given stock.
 
 	Arguments:
-		stock_ticker {[String]} -- 4 character unique identifier for a stock
+		stock_ticker {[String]} -- 4 character unique identifier for a stock followed by _HIST
 	"""
-	if (len(stock_ticker) == 4 and stock_ticker.isalpha()):
 
-		#This if statment will be replaced, instead it will do a different cursor
-		#select to find out if stock_id in Stock_Info then will pull the data.
+	#This if statment will be replaced, instead it will do a different cursor
+	#select to find out if stock_id in Stock_Info then will pull the data.
 
-		query = ("SELECT Date, High, Low, Open ,Close FROM "+stock_ticker.upper()+"_HIST")
-		try:
-			data = execute_query(query)
-		except:
-			data = None
+	query = ("SELECT Date, High, Low, Open ,Close FROM "+stock_ticker)
+	try:
+		data = execute_query(query)
+	except:
+		data = None
 
-		df = pd.DataFrame.from_records(data)
-		df.columns = ['Date','High','Low','Open','Close']
-		return(df)
-
-	else:
-		print('Invalid Name')
-		return None
+	df = pd.DataFrame.from_records(data)
+	df.columns = ['Date','High','Low','Open','Close']
+	return(df)
 
 
 
