@@ -1,5 +1,31 @@
 {% extends "layout.html" %}
 {% block content %}
 
+{% if user != None %}
+<p>Hey {{ user.first_name }} {{ user.last_name }}</p>
+<p> Your email address {{ user.email }} </p>
+<p> Your current balance is {{ user.balance }} </p>
+{% else %}
+<p> Hey Guest </p>
+{% endif %}
+<p></p>
+{% if portfolio != [] %}
+	<table>
+		<tr>
+			<th>Stock ID</th>
+			<th>Amount of Shares</th>
+		</tr>
+	{% for purchase in portfolio %}
+		<tr>
+			<td>{{ purchase.Stock_ID }}</td>
+			<td>{{ purchase.Amount_of_Shares }}</td>
+		</tr>
+	{% endfor %}
+	</table>
+{% else %}
+	<p><b>You have not purchased any stocks</b></p>
+{% endif %}
+
+
 
 {% endblock content %}

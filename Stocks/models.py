@@ -40,8 +40,8 @@ class Stock_Info(db.Model):
 
 class Portfolio(db.Model):
 	__tablename__ 	 = "Portfolio"
-	Customer_ID      = db.Column(db.Integer,db.ForeignKey(User.id) ,primary_key = True)
-	Stock_ID         = db.Column(db.String(4), db.ForeignKey('Stock_Info.Stock_ID'))
+	Customer_ID      = db.Column(db.Integer, db.ForeignKey(User.id), primary_key = True)
+	Stock_ID         = db.Column(db.String(4), db.ForeignKey('Stock_Info.Stock_ID'), primary_key = True)
 	Amount_of_Shares = db.Column(db.Float, nullable=False)
 
 

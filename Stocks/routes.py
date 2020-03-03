@@ -174,11 +174,12 @@ def news():
 @app.route('/portfolio')
 def portfolio():
 	if "user_id" in session.keys():
-		user_portf = Portfolio.query.get(session["user_id"])
-		print(user_portf.Amount_of_Shares)
+		user = User.query.get(session["user_id"])
+		user_portfolio = Portfolio.query.filter_by(Customer_ID=session["user_id"]).all()
 	else:
-		print("Not logged in")
-	return render_template("portfolio.html")
+		user = None
+		user_portfolio = []
+	return render_template("portfolio.html", portfolio = user_portfolio, user = user)
 
 @app.route('/search', methods=['GET', 'POST'])
 @login_required
