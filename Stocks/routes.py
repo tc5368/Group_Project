@@ -2,7 +2,7 @@ import os
 from flask import render_template, url_for, request, redirect, flash, session
 from Stocks import app, db
 from Stocks.models import User, Stock_Info, Portfolio#, Checkout,Company,Bike
-from Stocks.forms import RegistrationForm, LoginForm, Track_New_Stock_From#, CheckoutForm
+from Stocks.forms import RegistrationForm, LoginForm, Track_New_Stock_From, SearchForm#, CheckoutForm
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import datetime
 
