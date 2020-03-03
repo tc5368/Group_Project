@@ -51,11 +51,24 @@
 	font-weight: bold;
 }
 
-.settings input:nth-of-type(6)){
+
+
+.settings input:nth-of-type(6){
 	background-color: #ff9800;
-	color: #ff9800;
+	color: black;
+	border-color: #ff9800;
 }
 
-.settings input:nth-of-	background-color: #ff9800;
-	color: #ff9800;
+#form2 input:nth-of-type(2){
+	background-color: #ff9800;
+	color: black;
+	border-color: #ff9800;
+}
+
+#form2 input::-ms-input-placeholder { /* Microsoft Edge */
+   color: grey;
+}
+
+#form2 input::placeholder {
+    color: grey;
 }
