@@ -126,17 +126,14 @@ style={"max-width": "1000px", "margin": "auto"})
 #Where is this update figure called ??
 def update_figure(selected_stock):
 	"""Will show different graphs on the figure, depending on what the user selects. Will be called every single time the user changes value on the dropdown list.
-
 	Parameters
 	----------
 	selected_stock : string
 		The value selected in the dropdown list.
-
 	Returns
 	-------
 	figure
 		Return the figure type information in an array with the new read figure data.
-
 	"""
 	df = get_history(selected_stock)
 	fig = go.Figure(data=go.Ohlc(x=df['Date'],
@@ -157,7 +154,6 @@ def news():
 	Using newsAPI to collect a set of articles relevant to the topic. Will convert
 	publishedAt field into datetime object and convert it back into a string in a certain
 	format. Passes a whole article with a converted date into news template.
-
 	"""
 	news = newsapi.get_everything(q='Nvidia',language='en',sort_by='relevancy')
 	if news['totalResults'] > 0 and news['status'] == 'ok':
@@ -174,6 +170,15 @@ def news():
 		return render_template("news.html", articles=articleList)
 	else:
 		return "<p>Couldn't find any article</p>"
+
+@app.route('/portfolio')
+def portfolio():
+	if "user_id" in session.keys():
+		user_portf = Portfolio.query.get(session["user_id"])
+		print(user_portf.Amount_of_Shares)
+	else:
+		print("Not logged in")
+	return render_template("portfolio.html")
 
 @app.route('/search', methods=['GET', 'POST'])
 @login_required
