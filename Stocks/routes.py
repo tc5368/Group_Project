@@ -174,3 +174,12 @@ def news():
 		return render_template("news.html", articles=articleList)
 	else:
 		return "<p>Couldn't find any article</p>"
+
+@app.route('/portfolio')
+def portfolio():
+	if "user_id" in session.keys():
+		user_portf = Portfolio.query.get(session["user_id"])
+		print(user_portf.Amount_of_Shares)
+	else:
+		print("Not logged in")
+	return render_template("portfolio.html")
