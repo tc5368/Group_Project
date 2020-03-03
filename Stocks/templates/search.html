@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>This is the Search Page</h1>
+<form method="POST" action="">
+  {{ form.csrf_token }}
+  <div class="register">
+    {{ form.search.label }} {{ form.search}}
+		{% for error in form.search.errors %}
+      <span style="color: white;">[{{ error }}]</span>
+    {% endfor %}
+  </div>
+  <div class="">
+    {{ form.submit() }}
+  </div>
+
+</form>
+{% endblock content %}

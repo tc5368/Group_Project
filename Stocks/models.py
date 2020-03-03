@@ -29,14 +29,15 @@ class User(UserMixin, db.Model):
 
 	def verify_password(self, password):
 		return check_password_hash(self.password_hash, password)
-		
+
 class Stock_Info(db.Model):
 	__tablename__ 	 = "Stock_Info"
+	__searchable__ = ['Stock_ID']
 	Stock_ID         = db.Column(db.String(4),  primary_key = True)
 	Stock_Name       = db.Column(db.String(45), nullable    = False)
 	Current_Price    = db.Column(db.Float,      nullable    = False)
 	Stock_Table      = db.Column(db.String(10), nullable    = False)
-	
+
 class Portfolio(db.Model):
 	__tablename__ 	 = "Portfolio"
 	Customer_ID      = db.Column(db.Integer,db.ForeignKey(User.id) ,primary_key = True)

@@ -39,10 +39,10 @@ def home():
 def register():
 	form = RegistrationForm()
 	if form.validate_on_submit():
-		user = User(first_name=form.first_name.data, 
-					last_name=form.last_name.data, 
-					email=form.email.data, 
-					password=form.password.data, 
+		user = User(first_name=form.first_name.data,
+					last_name=form.last_name.data,
+					email=form.email.data,
+					password=form.password.data,
 					balance=100.00) #Default start balance for all accounts
 
 		db.session.add(user)
@@ -174,3 +174,17 @@ def news():
 		return render_template("news.html", articles=articleList)
 	else:
 		return "<p>Couldn't find any article</p>"
+
+@app.route('/search', methods=['GET', 'POST'])
+@login_required
+def search():
+    form = SearchForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        return redirect((url_for('search_results', query=form.search.data)))  # or what you want
+    return render_template('search.html', form=form)
+
+@app.route('/search_results/<query>')
+@login_required
+def search_results(query):
+	results = User.query.whoosh_search(query).all()
+	return render_template('search_results.html', query=query, results=results)

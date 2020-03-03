@@ -29,3 +29,7 @@ class LoginForm(FlaskForm):
 class Track_New_Stock_From(FlaskForm):
 	ticker = StringField('Stock Ticker', validators=[DataRequired(), Length(min=4,max=4)])
 	submit = SubmitField('Track Stock')
+
+class SearchForm(FlaskForm):
+	search = StringField('search', [DataRequired()])
+	submit = SubmitField('Search', render_kw={'class': 'btn btn-success btn-block'})
