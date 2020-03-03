@@ -39,10 +39,10 @@ def home():
 def register():
 	form = RegistrationForm()
 	if form.validate_on_submit():
-		user = User(first_name=form.first_name.data, 
-					last_name=form.last_name.data, 
-					email=form.email.data, 
-					password=form.password.data, 
+		user = User(first_name=form.first_name.data,
+					last_name=form.last_name.data,
+					email=form.email.data,
+					password=form.password.data,
 					balance=100.00) #Default start balance for all accounts
 
 		db.session.add(user)
