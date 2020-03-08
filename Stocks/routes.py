@@ -174,7 +174,7 @@ def news():
 @app.route('/portfolio')
 def portfolio():
 	if "user_id" in session.keys():
-		user = User.query.get(session["user_id"])
+		user = User.query.get(session["id"])
 		user_portfolio = Portfolio.query.filter_by(Customer_ID=session["user_id"]).all()
 	else:
 		user = None
