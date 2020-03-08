@@ -42,25 +42,11 @@ img.home{
     width: 50%;
  }
 
-img.bike{
-    border-radius: 8px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
-
-}
 
 p.price{
     color: white;
 }
 
-.bike_page{
-    margin: auto;
-    width: 50%;
-    border: 3px solid #ffffff;
-    padding: 10px;
-}
 
 .register{
     color: white;
@@ -116,15 +102,4 @@ input{
 
 .dropdown:hover .dropbtn {background-color: #c2d2ea;}
 
-table.cart{
-  width: 100%;
-  color: white;
-  border-collapse: collapse; 
-  border-spacing: 0;
-}
-
-td.cart, th.cart { 
-  border: 1px solid #CCC;
-  text-align: center; 
-}
 

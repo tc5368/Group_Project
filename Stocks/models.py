@@ -44,6 +44,10 @@ class Portfolio(db.Model):
 	Stock_ID         = db.Column(db.String(4), db.ForeignKey('Stock_Info.Stock_ID'), primary_key = True)
 	Amount_of_Shares = db.Column(db.Float, nullable=False)
 
+	def __init__(self,Customer_ID,Stock_ID,Amount_of_Shares):
+		self.Customer_ID      = Customer_ID
+		self.Stock_ID         = Stock_ID
+		self.Amount_of_Shares = Amount_of_Shares
 
 
 

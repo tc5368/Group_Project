@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<p>Welcome to the Buying Confirmation page.</p>
+
+<form method="POST" action="">
+	{{ form.csrf_token }}
+
+
+	<p>{{ form.submit_yes(class="btnSub") }}</p>
+	<p>{{ form.submit_no(class="btnSub") }}</p>
+
+</form>
+
+{% endblock content %}

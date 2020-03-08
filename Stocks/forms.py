@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Regexp
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, DecimalField
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Regexp, NumberRange
 from Stocks.models import User
 
 class RegistrationForm(FlaskForm):
@@ -26,5 +26,14 @@ class Track_New_Stock_From(FlaskForm):
 	submit = SubmitField('Track Stock')
 
 class SearchForm(FlaskForm):
-	search = StringField('search', [DataRequired()])
+	search = StringField('search', validators=[DataRequired()])
 	submit = SubmitField('Search', render_kw={'class': 'btn btn-success btn-block'})
+
+class BuyingForm(FlaskForm):
+	ticker = StringField('Stock Ticker',      validators=[DataRequired(), Length(min=4,max=4)])
+	amount = DecimalField('Amount of Shares', validators=[DataRequired(), NumberRange(min=0)])
+	submit = SubmitField('Next Stage')
+
+class BuyConfirmation(FlaskForm):
+	submit_yes = SubmitField('Yes')
+	submit_no  = SubmitField('No')
