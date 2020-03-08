@@ -38,6 +38,12 @@ class Stock_Info(db.Model):
 	Current_Price    = db.Column(db.Float,      nullable    = False)
 	Stock_Table      = db.Column(db.String(10), nullable    = False)
 
+	def __init__(self,Stock_ID,Stock_Name,Current_Price,Stock_Table):
+		self.Stock_ID      = Stock_ID
+		self.Stock_Name    = Stock_Name
+		self.Current_Price = Current_Price
+		self.Stock_Table   = Stock_Table
+
 class Portfolio(db.Model):
 	__tablename__ 	 = "Portfolio"
 	Customer_ID      = db.Column(db.Integer, db.ForeignKey(User.id), primary_key = True)

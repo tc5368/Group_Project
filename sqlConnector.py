@@ -2,9 +2,12 @@ import mysql.connector as mysql
 from datetime import date
 import pandas as pd
 import pandas_datareader as web
+import yfinance as yf 
 from Stocks import db
 from Stocks.models import *
 
+def get_Name(ticker):
+	return(yf.Ticker(ticker).info['longName'])
 
 def get_raw_info(stock_ticker):
 	'''Get a csv file for the past data of a given stock
@@ -52,6 +55,10 @@ def make_new_stock_history_table(ticker, df):
 	execute_query(query)
 	df['Date'] = df.index.map(lambda x: x.strftime('%Y-%m-%d'))
 	df.to_sql(name=ticker+'_HIST', con=db.engine, index=False, if_exists='append')
+	
+	newEntry = Stock_Info(ticker,get_Name(ticker),float(df['Close'].iloc[-1]),ticker+'_HIST')
+	db.session.add(newEntry)
+	db.session.commit()
 
 
 
@@ -79,10 +86,6 @@ def execute_query(query):
 
 	return data
 
-
-
-def check_if_possible_to_buy(ticker, amount):
-	print('will check how much %s shares of %s will cost here' %(amount,ticker))
 
 def check_buy(user_id, stock, amount):
 	user = User.query.filter_by(id=user_id).first()

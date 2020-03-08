@@ -125,6 +125,8 @@ def find_avaliable():
 	for i in stock_list:
 		if i.endswith('_HIST'):
 			history_tables.append(i)
+	if history_tables == []:
+		history_tables.append(None)
 	return history_tables
 
 
