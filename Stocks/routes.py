@@ -136,7 +136,6 @@ def find_avaliable():
 		history_tables.append(None)
 	return history_tables
 
-
 stock_list = find_avaliable()
 
 # You can duplicate code and render this fig to get rid off empty figure when you reach the page.
@@ -157,16 +156,12 @@ style={"max-width": "1000px", "margin": "auto"})
 
 # Will wait for the user to select anything on the dropdown menu and output the result on the graph.
 @app_dash.callback(
-	Output('plotly_fig', 'figure'),
+	[Output('plotly_fig', 'figure'),
+	Output('stock_dropdown', 'options')],
 	[Input('stock_dropdown', 'value')]
 )
-
-#Needs to update the dropdown menu with the new graphs
-
-
-#Where is this update figure called ??
 def update_figure(selected_stock):
-	"""Will show different graphs on the figure, depending on what the user selects. Will be called every single time the user changes value on the dropdown list.
+	"""Will show different graphs on the figure, depending on what the user selects. Will be called every single time the user changes value on the dropdown list. Will also be called once everytime the page is loaded.
 	Parameters
 	----------
 	selected_stock : string
@@ -176,6 +171,9 @@ def update_figure(selected_stock):
 	figure
 		Return the figure type information in an array with the new read figure data.
 	"""
+	stock_list = find_avaliable()
+	options =[{'label': i, 'value': i} for i in stock_list]
+
 	df = get_history(selected_stock)
 	fig = go.Figure(data=go.Ohlc(x=df['Date'],
 						open   = df['Open'],
@@ -186,8 +184,8 @@ def update_figure(selected_stock):
 						title  = go.layout.Title(text="Graph Showing " + selected_stock.upper() + " Stock Price History")
 						)
 	)
-	#print(fig["layout"])
-	return fig
+	print()
+	return fig, options
 
 @app.route('/news')
 def news():
@@ -217,7 +215,7 @@ def portfolio():
 
 	#This dosen't seem to be working for me
 	#the first if statment is always returning false can't find my accounts
-	#in the session.keys() ? 
+	#in the session.keys() ?
 
 	# if "user_id" in session.keys():
 	# 	user = User.query.get(session["id"])
@@ -233,7 +231,7 @@ def portfolio():
 	user = current_user.id
 	user_portfolio = Portfolio.query.filter_by(Customer_ID=current_user.id).all()
 
-	
+
 	return render_template("portfolio.html", portfolio = user_portfolio, user = user)
 
 @app.route('/search', methods=['GET', 'POST'])
