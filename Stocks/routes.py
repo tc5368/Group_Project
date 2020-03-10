@@ -285,12 +285,23 @@ def search():
 def search_results(search):
     results = []
     search_string = search.data['search']
-    if search.data['search'] == '':
-        qry = db_session.query(Stock_Info)
+    if search_string:
+        if search.data['select'] == 'Stock_ID':
+            qry = db.query(Stock_Info).filter(Stock_Info.Stock_ID.contains(search_string))
+            results = qry.all()
+        elif search.data['select'] == 'Stock_Name':
+            qry = db.query(Stock_Info).filter(Stock_Info.Stock_Name.contains(search_string))
+            results = qry.all()
+        else:
+            qry = db.query(Stock_Info)
+            results = qry.all()
+    else:
+        qry = db.query(Album)
         results = qry.all()
+
     if not results:
         flash('No results found!')
-        return redirect('/')
+        return redirect('/search')
     else:
         # display results
         table = Results(results)

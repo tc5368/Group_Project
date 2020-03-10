@@ -28,7 +28,7 @@ class Track_New_Stock_From(FlaskForm):
 class SearchForm(FlaskForm):
 	choices = [('Stock_ID', 'Stock_ID'),('Stock_Name', 'Stock_Name')]
 	select = SelectField('Search Stocks:', choices=choices)
-	search = StringField('search', validators=[DataRequired()])
+	search = StringField('search')
 
 class NewsRequestForm(FlaskForm):
 	topic = StringField('Enter News Topic', validators=[DataRequired()])
