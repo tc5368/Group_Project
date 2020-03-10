@@ -88,9 +88,10 @@ def execute_query(query):
 
 
 def check_buy(user_id, stock, amount):
+	amount = float(amount)
 	user = User.query.filter_by(id=user_id).first()
 	stock_info = Stock_Info.query.filter_by(Stock_ID=stock).first()
-	if stock_info != None:
+	if stock_info != None and (amount > 0):
 		price = float(amount) * stock_info.Current_Price
 		#print('%s is trying to buy %s shares of %s stock at price %s, totaling %s' %(user.first_name,amount,stock,stock_info.Current_Price, float(amount)*float(stock_info.Current_Price)))
 		#print('Their balance is %s' %(user.balance))
@@ -115,6 +116,33 @@ def check_buy(user_id, stock, amount):
 	else:
 		print('Could not find',stock)
 
+def check_sell(user_id, stock, amount):
+	amount = float(amount)
+	user = User.query.filter_by(id=user_id).first()
+	stock_info = Stock_Info.query.filter_by(Stock_ID=stock).first()
+
+	if stock_info != None and (amount > 0):
+		price = float(amount) * stock_info.Current_Price
+		#print('%s is trying to buy %s shares of %s stock at price %s, totaling %s' %(user.first_name,amount,stock,stock_info.Current_Price, float(amount)*float(stock_info.Current_Price)))
+		#print('Their balance is %s' %(user.balance))
+
+		portfolio = Portfolio.query.filter_by(Customer_ID = user_id).all()
+		found = False
+		for i in portfolio:
+			if i.Stock_ID == stock_info.Stock_ID:
+				if i.Amount_of_Shares >= amount:
+					i.Amount_of_Shares -= amount
+					user.balance += price
+				found = True
+				break
+
+		if found == False:
+			return False
+
+		db.session.commit()
+		return True
+	else:
+		print('Could not find',stock)
 
 
 def get_history(stock_ticker):

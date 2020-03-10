@@ -76,9 +76,7 @@ def buy():
 	form = BuyingForm()
 	if form.validate_on_submit():
 		return redirect(url_for('buyConfirm', ticker=form.ticker.data.upper(), amount=form.amount.data))
-	else:
-		flash('Invalid Input, please try again')
-		return render_template('buy.html',title='Buying', form=form)
+	return render_template('buy.html', title='Buying', form=form)
 
 @app.route("/sell",methods=['GET','POST'])
 @login_required
@@ -86,6 +84,25 @@ def sell():
 	form = SellingForm()
 	if form.validate_on_submit():
 		return redirect(url_for('sellConfirm', ticker=form.ticker.data.upper(), amount=form.amount.data))
+	return render_template('sell.html', title='sell', form=form)
+
+@app.route("/sellConfirm/<ticker>/<amount>", methods=['GET','POST'])
+@login_required
+def sellConfirm(ticker,amount):
+	if (ticker or amount) == None:
+		return redirect(url_for('home'))
+		#This needs more validation implemented
+	form = SellConfirmation()
+	if form.validate_on_submit():
+		if form.submit_yes.data :
+			if check_sell(current_user.id,ticker,amount):
+				flash('Stock Bought')
+			else:
+				flash('Not high enough share amount or trying to sell stock you dont own')
+		else:
+			return redirect(url_for('home'))
+	return render_template('sellConfirmation.html', title='Sell Confirmation', form=form)
+	
 
 
 @app.route("/buyConfirm/<ticker>/<amount>", methods=['GET','POST'])
@@ -161,7 +178,9 @@ style={"max-width": "1000px", "margin": "auto"})
 	[Input('stock_dropdown', 'value')]
 )
 def update_figure(selected_stock):
-	"""Will show different graphs on the figure, depending on what the user selects. Will be called every single time the user changes value on the dropdown list. Will also be called once everytime the page is loaded.
+	"""Will show different graphs on the figure, depending on what the user selects.
+	Will be called every single time the user changes value on the dropdown list.
+	Will also be called once everytime the page is loaded.
 	Parameters
 	----------
 	selected_stock : string
