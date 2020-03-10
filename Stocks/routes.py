@@ -5,6 +5,7 @@ from Stocks.models import *
 from Stocks.forms import *
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import datetime
+from Whoosh import whoosh_search
 
 # Plotly and Dash import
 import chart_studio.plotly as py
@@ -103,7 +104,7 @@ def sellConfirm(ticker,amount):
 		else:
 			return redirect(url_for('home'))
 	return render_template('sellConfirmation.html', title='Sell Confirmation', form=form)
-	
+
 
 
 @app.route("/buyConfirm/<ticker>/<amount>", methods=['GET','POST'])
@@ -136,7 +137,7 @@ def track():
 #to be implemented
 
 #Searching for a stock should take you to this particular page
-#It will show the graph, the news and the current price. 
+#It will show the graph, the news and the current price.
 #Also if the users owns shares how many shares they own should be shown.
 
 #@app.route("/stock/<ticker>",methods=['GET','POST'])
