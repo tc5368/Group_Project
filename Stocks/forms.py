@@ -29,6 +29,10 @@ class SearchForm(FlaskForm):
 	search = StringField('search', validators=[DataRequired()])
 	submit = SubmitField('Search', render_kw={'class': 'btn btn-success btn-block'})
 
+class NewsRequestForm(FlaskForm):
+	topic = StringField('Enter News Topic', validators=[DataRequired()])
+	submit = SubmitField('Search')
+
 class BuyingForm(FlaskForm):
 	ticker = StringField('Stock Ticker',      validators=[DataRequired(), Length(min=4,max=4)])
 	amount = DecimalField('Amount of Shares', validators=[DataRequired(), NumberRange(min=0)])

@@ -82,9 +82,10 @@ def buy():
 @login_required
 def sell():
 	form = SellingForm()
+	user_portfolio = Portfolio.query.filter_by(Customer_ID=current_user.id).all()
 	if form.validate_on_submit():
 		return redirect(url_for('sellConfirm', ticker=form.ticker.data.upper(), amount=form.amount.data))
-	return render_template('sell.html', title='sell', form=form)
+	return render_template('sell.html', title='sell', form=form, portfolio=user_portfolio)
 
 @app.route("/sellConfirm/<ticker>/<amount>", methods=['GET','POST'])
 @login_required
@@ -206,14 +207,22 @@ def update_figure(selected_stock):
 	print()
 	return fig, options
 
-@app.route('/news')
-def news():
+@app.route('/newsSearch',methods=['GET','POST'])
+def newsSearch():
+	form = NewsRequestForm()
+	if form.validate_on_submit():
+		return redirect(url_for('news', topic=form.topic.data))
+	return render_template('newsSearch.html', title='News', form=form)
+
+
+@app.route('/news/<topic>')
+def news(topic):
 	"""
 	Using newsAPI to collect a set of articles relevant to the topic. Will convert
 	publishedAt field into datetime object and convert it back into a string in a certain
 	format. Passes a whole article with a converted date into news template.
 	"""
-	news = newsapi.get_everything(q='Nvidia',language='en',sort_by='relevancy')
+	news = newsapi.get_everything(q=topic,language='en',sort_by='relevancy')
 	if news['totalResults'] > 0 and news['status'] == 'ok':
 		count = 0
 		articleList = []

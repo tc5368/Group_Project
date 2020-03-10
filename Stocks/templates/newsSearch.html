@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<p>Welcome to the news page.</p>
+
+<form method="POST" action="">
+	{{ form.csrf_token }}
+
+	<p>{{ form.topic.label(class="lbl") }}<br>{{ form.topic(class="inp")}}</p>
+	{% for error in form.topic.errors %}
+		<span style="color: white;">That is not a valid news topic</span>
+	{% endfor %}
+
+	<p>{{ form.submit(class="btnSub") }}</p>
+
+</form>
+
+{% endblock content %}
