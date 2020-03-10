@@ -276,12 +276,12 @@ def portfolio():
 @app.route('/search', methods=['GET', 'POST'])
 @login_required
 def search():
-    form = SearchForm()
-    if request.method == 'POST' and form.validate_on_submit():
-         return search_results(search)
-    return render_template('search.html', form=form)
+    search = SearchForm(request.form)
+    if request.method == 'POST':
+        return search_results(search)
+    return render_template('search.html', form=search)
 
-@app.route('/results')
+@app.route('/search_results')
 def search_results(search):
     results = []
     search_string = search.data['search']
@@ -293,4 +293,6 @@ def search_results(search):
         return redirect('/')
     else:
         # display results
-        return render_template('search_results.html', results=results)
+        table = Results(results)
+        table.border = True
+        return render_template('search_results.html', table=table)
