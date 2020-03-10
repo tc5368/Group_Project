@@ -34,6 +34,15 @@ class BuyingForm(FlaskForm):
 	amount = DecimalField('Amount of Shares', validators=[DataRequired(), NumberRange(min=0)])
 	submit = SubmitField('Next Stage')
 
+class SellingForm(FlaskForm):
+	ticker = StringField('Stock Ticker',      validators=[DataRequired(), Length(min=4,max=4)])
+	amount = DecimalField('Amount of Shares', validators=[DataRequired(), NumberRange(min=0)])
+	submit = SubmitField('Next Stage')
+
 class BuyConfirmation(FlaskForm):
+	submit_yes = SubmitField('Yes')
+	submit_no  = SubmitField('No')
+
+class SellConfirmation(FlaskForm):
 	submit_yes = SubmitField('Yes')
 	submit_no  = SubmitField('No')

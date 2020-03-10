@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<p>Welcome to the Selling page.</p>
+
+<form method="POST" action="">
+	{{ form.csrf_token }}
+
+	<p>{{ form.ticker.label(class="lbl") }}<br>{{ form.ticker(class="inp")}}</p>
+	{% for error in form.ticker.errors %}
+		<span style="color: white;">That is not a valid ticker</span>
+	{% endfor %}
+
+	<p>{{ form.amount.label(class="lbl") }}<br>{{ form.amount(class="inp")}}</p>
+	{% for error in form.ticker.errors %}
+		<span style="color: white;">That is not a valid amount of shares</span>
+	{% endfor %}
+
+	<p>{{ form.submit(class="btnSub") }}</p>
+
+</form>
+
+{% endblock content %}

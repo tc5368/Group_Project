@@ -76,9 +76,16 @@ def buy():
 	form = BuyingForm()
 	if form.validate_on_submit():
 		return redirect(url_for('buyConfirm', ticker=form.ticker.data.upper(), amount=form.amount.data))
-	flash('Invalid Input, please try again')
-	return render_template('buy.html',title='Buying', form=form)
+	else:
+		flash('Invalid Input, please try again')
+		return render_template('buy.html',title='Buying', form=form)
 
+@app.route("/sell",methods=['GET','POST'])
+@login_required
+def sell():
+	form = SellingForm()
+	if form.validate_on_submit():
+		return redirect(url_for('sellConfirm', ticker=form.ticker.data.upper(), amount=form.amount.data))
 
 
 @app.route("/buyConfirm/<ticker>/<amount>", methods=['GET','POST'])
