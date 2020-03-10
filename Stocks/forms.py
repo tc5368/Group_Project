@@ -22,7 +22,7 @@ class LoginForm(FlaskForm):
 	submit   = SubmitField('Login')
 
 class Track_New_Stock_From(FlaskForm):
-	ticker = StringField('Stock Ticker', validators=[DataRequired(), Length(min=4,max=4)])
+	ticker = StringField('Stock Ticker', validators=[DataRequired(), Length(min=1,max=4)])
 	submit = SubmitField('Track Stock')
 
 class SearchForm(FlaskForm):
