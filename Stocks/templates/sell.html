@@ -3,6 +3,31 @@
 
 <p>Welcome to the Selling page.</p>
 
+{% if current_user.is_authenticated %}
+	<p> Your current balance is {{ current_user.balance }} </p>
+	<p></p>
+	{% if portfolio != [] %}
+		<table>
+			<tr>
+				<th>Stock ID</th>
+				<th>Amount of Shares</th>
+			</tr>
+		{% for purchase in portfolio %}
+			<tr>
+				<td>{{ purchase.Stock_ID }}</td>
+				<td>{{ purchase.Amount_of_Shares }}</td>
+			</tr>
+		{% endfor %}
+		</table>
+	{% else %}
+		<p><b>You have not purchased any stocks</b></p>
+	{% endif %}
+
+{% else %}
+	<p> Hey Guest </p>
+	<p> Please login to view your portfolio</p>
+{% endif %}
+
 <form method="POST" action="">
 	{{ form.csrf_token }}
 
