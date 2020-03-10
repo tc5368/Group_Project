@@ -1,16 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>Stocks</h1>
-<p>
-	<a class='nav-item nav-link' href='/stocks'>Designated Stock Graph Viewing page</a>
-</p>
+<h1>Results</h1>
 
-<p>
-	<a class='nav-item nav-link' href="/track">Add new stock to database
-</p>
-
-<p>
-	<a class='nav-item nav-link' href='/news'>View news stories</a>
-</p>
+<title>Search Results</title>
+{{ table }}
 
 {% endblock content %}

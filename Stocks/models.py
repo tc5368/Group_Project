@@ -32,7 +32,6 @@ class User(UserMixin, db.Model):
 
 class Stock_Info(db.Model):
 	__tablename__ 	 = "Stock_Info"
-	__searchable__ = ['Stock_ID']
 	Stock_ID         = db.Column(db.String(4),  primary_key = True)
 	Stock_Name       = db.Column(db.String(45), nullable    = False)
 	Current_Price    = db.Column(db.Float,      nullable    = False)

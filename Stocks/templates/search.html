@@ -1,17 +1,23 @@
 {% extends "layout.html" %}
 {% block content %}
 <h1>This is the Search Page</h1>
-<form method="POST" action="">
-  {{ form.csrf_token }}
-  <div class="register">
-    {{ form.search.label }} {{ form.search}}
-		{% for error in form.search.errors %}
-      <span style="color: white;">[{{ error }}]</span>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class="flashes">
+    {% for message in messages %}
+      <li>{{ message }}</li>
     {% endfor %}
-  </div>
-  <div class="">
-    {{ form.submit() }}
-  </div>
+    </ul>
+  {% endif %}
+{% endwith %}
 
-</form>
+{% from "_formhelpers.html" import render_field %}
+<form method="post">
+  <dl>
+    {{ render_field(form.select) }}
+    <p>
+    {{ render_field(form.search) }}
+  </p></dl>
+  <p><input type="submit" value="Search">
+</p></form>
 {% endblock content %}

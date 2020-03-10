@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, DecimalField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, DecimalField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Regexp, NumberRange
 from Stocks.models import User
 
@@ -26,8 +26,9 @@ class Track_New_Stock_From(FlaskForm):
 	submit = SubmitField('Track Stock')
 
 class SearchForm(FlaskForm):
-	search = StringField('search', validators=[DataRequired()])
-	submit = SubmitField('Search', render_kw={'class': 'btn btn-success btn-block'})
+	choices = [('Stock_ID', 'Stock_ID'),('Stock_Name', 'Stock_Name')]
+	select = SelectField('Search Stocks:', choices=choices)
+	search = StringField('search')
 
 class NewsRequestForm(FlaskForm):
 	topic = StringField('Enter News Topic', validators=[DataRequired()])

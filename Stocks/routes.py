@@ -5,6 +5,7 @@ from Stocks.models import *
 from Stocks.forms import *
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import datetime
+from Stocks.tables import *
 
 # Plotly and Dash import
 import chart_studio.plotly as py
@@ -103,7 +104,7 @@ def sellConfirm(ticker,amount):
 		else:
 			return redirect(url_for('home'))
 	return render_template('sellConfirmation.html', title='Sell Confirmation', form=form)
-	
+
 
 
 @app.route("/buyConfirm/<ticker>/<amount>", methods=['GET','POST'])
@@ -136,7 +137,7 @@ def track():
 #to be implemented
 
 #Searching for a stock should take you to this particular page
-#It will show the graph, the news and the current price. 
+#It will show the graph, the news and the current price.
 #Also if the users owns shares how many shares they own should be shown.
 
 #@app.route("/stock/<ticker>",methods=['GET','POST'])
@@ -275,13 +276,34 @@ def portfolio():
 @app.route('/search', methods=['GET', 'POST'])
 @login_required
 def search():
-    form = SearchForm()
-    if request.method == 'POST' and form.validate_on_submit():
-        return redirect((url_for('search_results', query=form.search.data)))  # or what you want
-    return render_template('search.html', form=form)
+    search = SearchForm(request.form)
+    if request.method == 'POST':
+        return search_results(search)
+    return render_template('search.html', form=search)
 
-@app.route('/search_results/<query>')
-@login_required
-def search_results(query):
-	results = User.query.whoosh_search(query).all()
-	return render_template('search_results.html', query=query, results=results)
+@app.route('/search_results')
+def search_results(search):
+    results = []
+    search_string = search.data['search']
+    if search_string:
+        if search.data['select'] == 'Stock_ID':
+            qry = db.query(Stock_Info).filter(Stock_Info.Stock_ID.contains(search_string))
+            results = qry.all()
+        elif search.data['select'] == 'Stock_Name':
+            qry = db.query(Stock_Info).filter(Stock_Info.Stock_Name.contains(search_string))
+            results = qry.all()
+        else:
+            qry = db.query(Stock_Info)
+            results = qry.all()
+    else:
+        qry = db.query(Album)
+        results = qry.all()
+
+    if not results:
+        flash('No results found!')
+        return redirect('/search')
+    else:
+        # display results
+        table = Results(results)
+        table.border = True
+        return render_template('search_results.html', table=table)
