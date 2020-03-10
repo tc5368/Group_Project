@@ -1,6 +1,3 @@
 These need to be converted to fit the current template pages in the stocks folder.
-Just for things like the Login and register screen, for example no longer using username.
-Then have to make the html work with the flask form.
 
-Also may be worth changing the layout slightly, since all the pages share the same banner at the top if you make a layout.html and then just use extends layout (Look into the layout and home pages in the Stocks folder for refernce)
-Also need to remove the .* files from this folder
+Basically what we have in this folder dosen't fit anything in the Stocks Folder. This needs to be changed.
