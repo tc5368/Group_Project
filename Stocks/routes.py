@@ -5,7 +5,7 @@ from Stocks.models import *
 from Stocks.forms import *
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import datetime
-from Whoosh import whoosh_search
+from Stocks.tables import *
 
 # Plotly and Dash import
 import chart_studio.plotly as py
@@ -278,11 +278,19 @@ def portfolio():
 def search():
     form = SearchForm()
     if request.method == 'POST' and form.validate_on_submit():
-        return redirect((url_for('search_results', query=form.search.data)))  # or what you want
+         return search_results(search)
     return render_template('search.html', form=form)
 
-@app.route('/search_results/<query>')
-@login_required
-def search_results(query):
-	results = User.query.whoosh_search(query).all()
-	return render_template('search_results.html', query=query, results=results)
+@app.route('/results')
+def search_results(search):
+    results = []
+    search_string = search.data['search']
+    if search.data['search'] == '':
+        qry = db_session.query(Stock_Info)
+        results = qry.all()
+    if not results:
+        flash('No results found!')
+        return redirect('/')
+    else:
+        # display results
+        return render_template('search_results.html', results=results)
