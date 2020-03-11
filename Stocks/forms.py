@@ -35,12 +35,12 @@ class NewsRequestForm(FlaskForm):
 	submit = SubmitField('Search')
 
 class BuyingForm(FlaskForm):
-	ticker = StringField('Stock Ticker',      validators=[DataRequired(), Length(min=4,max=4)])
+	ticker = StringField('Stock Ticker',      validators=[DataRequired(), Length(min=1,max=4)])
 	amount = DecimalField('Amount of Shares', validators=[DataRequired(), NumberRange(min=0)])
 	submit = SubmitField('Next Stage')
 
 class SellingForm(FlaskForm):
-	ticker = StringField('Stock Ticker',      validators=[DataRequired(), Length(min=4,max=4)])
+	ticker = StringField('Stock Ticker',      validators=[DataRequired(), Length(min=1,max=4)])
 	amount = DecimalField('Amount of Shares', validators=[DataRequired(), NumberRange(min=0)])
 	submit = SubmitField('Next Stage')
 

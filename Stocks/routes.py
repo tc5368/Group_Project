@@ -77,7 +77,7 @@ def buy():
 	form = BuyingForm()
 	if form.validate_on_submit():
 		return redirect(url_for('buyConfirm', ticker=form.ticker.data.upper(), amount=form.amount.data))
-	return render_template('buy.html', title='Buying', form=form)
+	return render_template('buy.html', title='Buying', form=form) #add price in here to display on website how mush trade will cost.
 
 @app.route("/sell",methods=['GET','POST'])
 @login_required
@@ -98,7 +98,7 @@ def sellConfirm(ticker,amount):
 	if form.validate_on_submit():
 		if form.submit_yes.data :
 			if check_sell(current_user.id,ticker,amount):
-				flash('Stock Bought')
+				flash('Stock Sold')
 			else:
 				flash('Not high enough share amount or trying to sell stock you dont own')
 		else:
@@ -267,6 +267,7 @@ def portfolio():
 	#Completly get the thought behind the above but hopefully when we move over to the
 	#new html templates we will make it so thats immpossible to get to the portfolio
 	#page without being logged in.
+
 	user = current_user.id
 	user_portfolio = Portfolio.query.filter_by(Customer_ID=current_user.id).all()
 
@@ -285,16 +286,16 @@ def search():
 def search_results(search):
     results = []
     search_string = search.data['search']
-    if search_string:
+    if search_string != None:
         if search.data['select'] == 'Stock_ID':
-            qry = db.query(Stock_Info).filter(Stock_Info.Stock_ID.contains(search_string))
+            qry = Stock_Info.query().filter_by(Stock_Info.Stock_ID.contains(search_string))
             results = qry.all()
         elif search.data['select'] == 'Stock_Name':
-            qry = db.query(Stock_Info).filter(Stock_Info.Stock_Name.contains(search_string))
+            qry = Stock_Info.query().filter_by(Stock_Info.Stock_Name.contains(search_string))
             results = qry.all()
         else:
-            qry = db.query(Stock_Info)
-            results = qry.all()
+            qry = Stock_Info.query().all()
+            results = qry
     else:
         qry = db.query(Album)
         results = qry.all()
