@@ -6,17 +6,18 @@
 	<a class = 'nav-item nav-link' href = '/stocks'>Designated Stock Graph Viewing page</a>
 </p>
 
-<p> 
+<p>
 	<a class = 'nav-item nav-link' href = "/track">Add new stock to database
 </p>
 
 <p>
 	<a class = 'nav-item nav-link' href = '/newsSearch'>View news stories</a>
 </p>
-
-<p>
-	<a class = 'nav-item nav-link' href = '/portfolio'>View your portfolio</a>
-</p>
+{% if current_user.is_authenticated %}
+	<p>
+		<a class = 'nav-item nav-link' href = '/portfolio'>View your portfolio</a>
+	</p>
+{% endif %}
 
 <p>
 	<a class = 'nav-item nav-link' href = "/search">Search</a>

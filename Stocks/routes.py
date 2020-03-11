@@ -250,28 +250,12 @@ def news(topic):
 		return "<p>Couldn't find any article</p>"
 
 @app.route('/portfolio')
+@login_required
 def portfolio():
-
-	#This dosen't seem to be working for me
-	#the first if statment is always returning false can't find my accounts
-	#in the session.keys() ?
-
-	# if "user_id" in session.keys():
-	# 	user = User.query.get(session["id"])
-	# 	user_portfolio = Portfolio.query.filter_by(Customer_ID=session["user_id"]).all()
-	# else:
-	# 	user = None
-	# 	user_portfolio = []
-
-	#I have left your code where it is and if you want to change it back then no worries
-	#Completly get the thought behind the above but hopefully when we move over to the
-	#new html templates we will make it so thats immpossible to get to the portfolio
-	#page without being logged in.
 	user = current_user.id
 	user_portfolio = Portfolio.query.filter_by(Customer_ID=current_user.id).all()
 
-
-	return render_template("portfolio.html", portfolio = user_portfolio, user = user)
+	return render_template("portfolio.html", portfolio = user_portfolio)
 
 @app.route('/search', methods=['GET', 'POST'])
 @login_required
