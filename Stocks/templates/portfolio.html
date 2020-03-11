@@ -1,31 +1,25 @@
 {% extends "layout.html" %}
 {% block content %}
 
-{% if current_user.is_authenticated %}
-	<p>Hey {{ current_user.first_name }} {{ current_user.last_name }}</p>
-	<p> Your current balance is {{ current_user.balance }} </p>
+<p>Hey {{ current_user.first_name }} {{ current_user.last_name }}</p>
+<p> Your current balance is {{ current_user.balance }} </p>
 
-	<p></p>
-	{% if portfolio != [] %}
-		<table>
-			<tr>
-				<th>Stock ID</th>
-				<th>Amount of Shares</th>
-			</tr>
-		{% for purchase in portfolio %}
-			<tr>
-				<td>{{ purchase.Stock_ID }}</td>
-				<td>{{ purchase.Amount_of_Shares }}</td>
-			</tr>
-		{% endfor %}
-		</table>
-	{% else %}
-		<p><b>You have not purchased any stocks</b></p>
-	{% endif %}
-
+<p></p>
+{% if portfolio != [] %}
+	<table>
+		<tr>
+			<th>Stock ID</th>
+			<th>Amount of Shares</th>
+		</tr>
+	{% for purchase in portfolio %}
+		<tr>
+			<td>{{ purchase.Stock_ID }}</td>
+			<td>{{ purchase.Amount_of_Shares }}</td>
+		</tr>
+	{% endfor %}
+	</table>
 {% else %}
-	<p> Hey Guest </p>
-	<p> Please login to view your portfolio</p>
+	<p><b>You have not purchased any stocks</b></p>
 {% endif %}
 
 

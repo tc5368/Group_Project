@@ -250,7 +250,9 @@ def news(topic):
 		return "<p>Couldn't find any article</p>"
 
 @app.route('/portfolio')
+@login_required
 def portfolio():
+<<<<<<< HEAD
 
 	#This dosen't seem to be working for me
 	#the first if statment is always returning false can't find my accounts
@@ -268,11 +270,12 @@ def portfolio():
 	#new html templates we will make it so thats immpossible to get to the portfolio
 	#page without being logged in.
 
+=======
+>>>>>>> bdf2c2acd8c1bd3627ec22dda0ef0015c4350243
 	user = current_user.id
 	user_portfolio = Portfolio.query.filter_by(Customer_ID=current_user.id).all()
 
-
-	return render_template("portfolio.html", portfolio = user_portfolio, user = user)
+	return render_template("portfolio.html", portfolio = user_portfolio)
 
 @app.route('/search', methods=['GET', 'POST'])
 @login_required
