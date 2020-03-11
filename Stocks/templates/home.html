@@ -6,31 +6,38 @@
 	<a class = 'nav-item nav-link' href = '/stocks'>Designated Stock Graph Viewing page</a>
 </p>
 
+{% if current_user.is_authenticated %}
 <p>
 	<a class = 'nav-item nav-link' href = "/track">Add new stock to database
 </p>
+{% endif %}
 
 <p>
 	<a class = 'nav-item nav-link' href = '/newsSearch'>View news stories</a>
 </p>
+
 {% if current_user.is_authenticated %}
 	<p>
 		<a class = 'nav-item nav-link' href = '/portfolio'>View your portfolio</a>
 	</p>
 {% endif %}
 
+{% if current_user.is_authenticated %}
 <p>
 	<a class = 'nav-item nav-link' href = "/search">Search</a>
 </p>
+{% endif %}
 
+{% if current_user.is_authenticated %}
 <p>
 	<a class = 'nav-item nav-link' href = "/buy">Buy</a>
 </p>
+{% endif %}
 
+{% if current_user.is_authenticated %}
 <p>
 	<a class = 'nav-item nav-link' href = "/sell">Sell</a>
 </p>
-
-
+{% endif %}
 
 {% endblock content %}
