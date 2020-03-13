@@ -4,6 +4,7 @@ from Stocks import app, db
 from Stocks.models import *
 from Stocks.forms import *
 from flask_login import login_user, current_user, logout_user, login_required
+from flask_table import Table, Col
 from datetime import datetime
 from Stocks.tables import *
 
