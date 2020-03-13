@@ -21,14 +21,16 @@ class LoginForm(FlaskForm):
 	password = PasswordField('Password', validators=[DataRequired()])
 	submit   = SubmitField('Login')
 
-class Track_New_Stock_From(FlaskForm):
+class Get_Stock_Ticker_From(FlaskForm):
 	ticker = StringField('Stock Ticker', validators=[DataRequired(), Length(min=1,max=4)])
-	submit = SubmitField('Track Stock')
+	submit = SubmitField('Next')
 
 class SearchForm(FlaskForm):
 	choices = [('Stock_ID', 'Stock_ID'),('Stock_Name', 'Stock_Name')]
 	select = SelectField('Search Stocks:', choices=choices)
-	search = StringField('search')
+	search = StringField('Search')
+	submit = SubmitField('Submit')
+
 
 class NewsRequestForm(FlaskForm):
 	topic = StringField('Enter News Topic', validators=[DataRequired()])
