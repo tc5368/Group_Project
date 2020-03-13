@@ -1,23 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
 <h1>This is the Search Page</h1>
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class="flashes">
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
 
-{% from "_formhelpers.html" import render_field %}
-<form method="post">
-  <dl>
-    {{ render_field(form.select) }}
-    <p>
-    {{ render_field(form.search) }}
-  </p></dl>
-  <p><input type="submit" value="Search">
-</p></form>
+<form class="login_reg" method="POST" action="">
+    {{ form.csrf_token }}
+    <p>{{ form.select.label() }}<br>{{ form.select()}}</p>
+    <p>{{ form.search.label(class="lbl") }}<br>{{ form.search()}}</p>
+    <p>{{ form.submit(class="btnSub") }}</p>
+
+</form>
 {% endblock content %}

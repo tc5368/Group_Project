@@ -282,27 +282,27 @@ def portfolio():
 @app.route('/search', methods=['GET', 'POST'])
 @login_required
 def search():
-    search = SearchForm(request.form)
+    form = SearchForm()
     if request.method == 'POST':
-        return search_results(search)
-    return render_template('search.html', form=search)
+        return search_results(form)
+    return render_template('search.html', form=form)
 
 @app.route('/search_results')
 def search_results(search):
     results = []
-    search_string = search.data['search']
+    search_string = str(search.data['search'])
     if search_string != None:
         if search.data['select'] == 'Stock_ID':
-            qry = Stock_Info.query().filter_by(Stock_Info.Stock_ID.contains(search_string))
+            qry = db.session.query(Stock_Info).filter_by(Stock_ID = search_string)
             results = qry.all()
         elif search.data['select'] == 'Stock_Name':
-            qry = Stock_Info.query().filter_by(Stock_Info.Stock_Name.contains(search_string))
+            qry = db.session.query(Stock_Info).filter_by(Stock_Name = search_string)
             results = qry.all()
         else:
             qry = Stock_Info.query().all()
             results = qry
     else:
-        qry = db.query(Album)
+        qry = Stock_Info.query()
         results = qry.all()
 
     if not results:
@@ -313,3 +313,7 @@ def search_results(search):
         table = Results(results)
         table.border = True
         return render_template('search_results.html', table=table)
+# For unauthorized users, will redirect them to login page.
+@login_manager.unauthorized_handler
+def unauthorized():
+	return redirect(url_for('login'))

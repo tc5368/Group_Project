@@ -28,7 +28,9 @@ class Get_Stock_Ticker_From(FlaskForm):
 class SearchForm(FlaskForm):
 	choices = [('Stock_ID', 'Stock_ID'),('Stock_Name', 'Stock_Name')]
 	select = SelectField('Search Stocks:', choices=choices)
-	search = StringField('search')
+	search = StringField('Search')
+	submit = SubmitField('Submit')
+
 
 class NewsRequestForm(FlaskForm):
 	topic = StringField('Enter News Topic', validators=[DataRequired()])
