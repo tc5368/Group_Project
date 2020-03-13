@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, DecimalField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Regexp, NumberRange
 from Stocks.models import User
-from flask_table import Table, Col
+from flask_table import Table, Col, LinkCol
 
 class RegistrationForm(FlaskForm):
 	first_name       = StringField('First Name', validators=[DataRequired(), Length(min=3, max=20)])
@@ -56,7 +56,7 @@ class SellConfirmation(FlaskForm):
 	submit_no  = SubmitField('No')
 
 class Results(Table):
-    Stock_ID         = Col('Stock ID')
-    Stock_Name       = Col('Stock Name')
-    Current_Price    = Col('Current Price')
-    Stock_Table      = Col('Stock Table', show='False')
+	Stock_ID         = LinkCol('Stock ID','stock_page',attr='Stock_ID',url_kwargs=dict(ticker='Stock_ID'))
+	Stock_Name       = Col('Stock Name')
+	Current_Price    = Col('Current Price')
+	Stock_Table      = Col('Stock Table', show='False')
