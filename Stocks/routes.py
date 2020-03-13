@@ -77,18 +77,6 @@ def logout():
 	return redirect(url_for('home'))
 
 
-#to be implemented
-
-#Searching for a stock should take you to this particular page
-#It will show the graph, the news and the current price.
-#Also if the users owns shares how many shares they own should be shown.
-
-#@app.route("/stock/<ticker>",methods=['GET','POST'])
-#def stock_page(ticker):
-#	stock_data = Stock_Info.query.filter_by(Stock_ID=ticker).first()
-#	return render_template('stockpage.html', title=stock-page)
-
-
 
 # Uses Flask as the server and dash as the app that connects to the server and works together.
 app_dash = dash.Dash(
