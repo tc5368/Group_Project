@@ -5,6 +5,7 @@ import pandas_datareader as web
 import yfinance as yf 
 from Stocks import db
 from Stocks.models import *
+from flask import flash
 
 def get_Name(ticker):
 	return(yf.Ticker(ticker).info['longName'])
@@ -48,20 +49,25 @@ def make_new_stock_history_table(ticker, df):
 		stock_name {String} -- 4 character string unique to the stock
 		df {pandas dataframe} -- raw infomation of the stock's history.
 	'''
-	query = ("""CREATE TABLE `c1769261_Second_Year`.`"""+ticker+"""_HIST` (
-  											`Date` DATE NOT NULL,
-											`Open` DOUBLE NOT NULL,
-											`High` DOUBLE NOT NULL,
-											`Close` DOUBLE NOT NULL,
-											`Low` DOUBLE NOT NULL,
-											PRIMARY KEY (`Date`));""")
-	execute_query(query)
-	df['Date'] = df.index.map(lambda x: x.strftime('%Y-%m-%d'))
-	df.to_sql(name=ticker+'_HIST', con=db.engine, index=False, if_exists='append')
-	
-	newEntry = Stock_Info(ticker,get_Name(ticker),float(df['Close'].iloc[-1]),ticker+'_HIST')
-	db.session.add(newEntry)
-	db.session.commit()
+
+	tables = db.engine.table_names()
+	if ticker+"_HIST" in tables:
+		flash("Stock already being tracked")
+	else:
+		query = ("""CREATE TABLE `c1769261_Second_Year`.`"""+ticker+"""_HIST` (
+												`Date` DATE NOT NULL,
+												`Open` DOUBLE NOT NULL,
+												`High` DOUBLE NOT NULL,
+												`Close` DOUBLE NOT NULL,
+												`Low` DOUBLE NOT NULL,
+												PRIMARY KEY (`Date`));""")
+		execute_query(query)
+		df['Date'] = df.index.map(lambda x: x.strftime('%Y-%m-%d'))
+		df.to_sql(name=ticker+'_HIST', con=db.engine, index=False, if_exists='append')
+		
+		newEntry = Stock_Info(ticker,get_Name(ticker),float(df['Close'].iloc[-1]),ticker+'_HIST')
+		db.session.add(newEntry)
+		db.session.commit()
 
 
 

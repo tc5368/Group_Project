@@ -12,11 +12,11 @@
   <div id="header">
     <a href="{{ url_for('home') }}" class="header">Home</a>&nbsp|
     {% if current_user.is_authenticated %}
-    Hello, {{ current_user.first_name }}!
-    <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>&nbsp|
+      Hello, {{ current_user.first_name }}!
+      <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>&nbsp|
     {% else %}
-    Hello, Guest! &nbsp| <a href="{{ url_for('login') }}">Login&nbsp;</a>
-    or <a href="{{ url_for('register') }}">Register</a>&nbsp|
+      Hello, Guest! &nbsp| <a href="{{ url_for('login') }}">Login&nbsp;</a>
+      or <a href="{{ url_for('register') }}">Register</a>&nbsp|
     {% endif %}
 
 
