@@ -76,69 +76,6 @@ def logout():
 	logout_user()
 	return redirect(url_for('home'))
 
-@app.route("/buy", methods=['GET','POST'])
-@login_required
-def buy():
-	form = BuyingForm()
-	if form.validate_on_submit():
-		return redirect(url_for('buyConfirm', ticker=form.ticker.data.upper(), amount=form.amount.data))
-	return render_template('buy.html', title='Buying', form=form) #add price in here to display on website how mush trade will cost.
-
-@app.route("/sell",methods=['GET','POST'])
-@login_required
-def sell():
-	form = SellingForm()
-	user_portfolio = Portfolio.query.filter_by(Customer_ID=current_user.id).all()
-	if form.validate_on_submit():
-		return redirect(url_for('sellConfirm', ticker=form.ticker.data.upper(), amount=form.amount.data))
-	return render_template('sell.html', title='sell', form=form, portfolio=user_portfolio)
-
-@app.route("/sellConfirm/<ticker>/<amount>", methods=['GET','POST'])
-@login_required
-def sellConfirm(ticker,amount):
-	if (ticker or amount) == None:
-		return redirect(url_for('home'))
-		#This needs more validation implemented
-	form = SellConfirmation()
-	if form.validate_on_submit():
-		if form.submit_yes.data :
-			if check_sell(current_user.id,ticker,amount):
-				flash('Stock Sold')
-			else:
-				flash('Not high enough share amount or trying to sell stock you dont own')
-		else:
-			return redirect(url_for('home'))
-	return render_template('sellConfirmation.html', title='Sell Confirmation', form=form)
-
-
-
-@app.route("/buyConfirm/<ticker>/<amount>", methods=['GET','POST'])
-@login_required
-def buyConfirm(ticker,amount):
-	if (ticker or amount) == None:
-		return redirect(url_for('home'))
-		#This needs more validation implemented
-	form = BuyConfirmation()
-	if form.validate_on_submit():
-		if form.submit_yes.data :
-			if check_buy(current_user.id,ticker,amount):
-				flash('Stock Bought')
-			else:
-				flash('Not high enough balance or trying to buy untracked stock')
-		else:
-			return redirect(url_for('home'))
-	ticker_info = Stock_Info.query.filter_by(Stock_ID=ticker).first()
-	return render_template('buyConfirmation.html', title='Buy Confirmation', form=form, ticker=ticker_info, amount=amount)
-
-@app.route("/track", methods=['GET','POST'])
-@login_required
-def track():
-	form = Track_New_Stock_From()
-	if form.validate_on_submit():
-		make_new_hist(form.ticker.data)
-	return render_template('track.html', title='Track', form=form)
-
-
 
 #to be implemented
 
@@ -253,8 +190,8 @@ def news(topic):
 			count = count + 1
 		return render_template("news.html", articles=articleList)
 	else:
-		return "<p>Couldn't find any articles</p>"
 
+		return "<p>Couldn't find any articles</p>"
 
 @app.route("/buy", methods=['GET','POST'])
 @login_required
@@ -264,7 +201,6 @@ def buy():
 		return redirect(url_for('buyConfirm', ticker=form.ticker.data.upper(), amount=form.amount.data))
 	return render_template('buy.html', title='Buying', form=form) #add price in here to display on website how mush trade will cost.
 
-
 @app.route("/sell",methods=['GET','POST'])
 @login_required
 def sell():
@@ -273,7 +209,6 @@ def sell():
 	if form.validate_on_submit():
 		return redirect(url_for('sellConfirm', ticker=form.ticker.data.upper(), amount=form.amount.data))
 	return render_template('sell.html', title='sell', form=form, portfolio=user_portfolio)
-
 
 @app.route("/sellConfirm/<ticker>/<amount>", methods=['GET','POST'])
 @login_required
@@ -309,13 +244,13 @@ def buyConfirm(ticker,amount):
 				flash('Not high enough balance or trying to buy untracked stock')
 		else:
 			return redirect(url_for('home'))
-	return render_template('buyConfirmation.html', title='Buy Confirmation', form=form)
-
+	ticker_info = Stock_Info.query.filter_by(Stock_ID=ticker).first()
+	return render_template('buyConfirmation.html', title='Buy Confirmation', form=form, ticker=ticker_info, amount=amount)
 
 @app.route("/track", methods=['GET','POST'])
 @login_required
 def track():
-	form = Get_Stock_Ticker_From()
+	form = Track_New_Stock_From()
 	if form.validate_on_submit():
 		make_new_hist(form.ticker.data)
 	return render_template('track.html', title='Track', form=form)
@@ -339,7 +274,6 @@ def stock_page(ticker):
 							, ticker = ticker
 							, price  = price	
 							, info   = info)
-
 
 @app.route('/portfolio')
 @login_required
