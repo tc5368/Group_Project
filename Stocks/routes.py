@@ -254,7 +254,10 @@ def news(topic):
 		return render_template("news.html", articles=articleList)
 	else:
 		return "<p>Couldn't find any article</p>"
+<<<<<<< HEAD
 		return "<p>Couldn't find any articles</p>"
+=======
+>>>>>>> b51ddea9a42260033acba34234eee14c30a046b1
 
 
 @app.route("/buy", methods=['GET','POST'])
@@ -341,7 +344,10 @@ def stock_page(ticker):
 							, price  = price	
 							, info   = info)
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> b51ddea9a42260033acba34234eee14c30a046b1
 @app.route('/portfolio')
 @login_required
 def portfolio():
