@@ -38,6 +38,8 @@ def make_new_hist(ticker):
 	df = get_raw_info(ticker)
 	if df is None:
 		None
+		#this should flash that stock dosen't exsist.
+		
 	else:
 		make_new_stock_history_table(ticker,df)
 
@@ -99,6 +101,12 @@ def execute_query(query):
 def check_buy(user_id, stock, amount):
 	amount = float(amount)
 	user = User.query.filter_by(id=user_id).first()
+
+	# get * from stock info. if stock in stock_info then continues
+	# else try and run make_new_hist() on the stock.
+
+	# the track function will return it dosen't exsist for you here.
+
 	stock_info = Stock_Info.query.filter_by(Stock_ID=stock).first()
 	if stock_info != None and (amount > 0):
 		price = float(amount) * stock_info.Current_Price
