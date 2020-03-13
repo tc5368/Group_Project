@@ -215,7 +215,8 @@ def sellConfirm(ticker,amount):
 				flash('Not high enough share amount or trying to sell stock you dont own')
 		else:
 			return redirect(url_for('home'))
-	return render_template('sellConfirmation.html', title='Sell Confirmation', form=form)
+	ticker_info = Stock_Info.query.filter_by(Stock_ID=ticker).first()
+	return render_template('sellConfirmation.html', title='Sell Confirmation', form=form, ticker=ticker_info, amount=amount)
 
 
 @app.route("/buyConfirm/<ticker>/<amount>", methods=['GET','POST'])
@@ -262,7 +263,7 @@ def stock_page(ticker):
 	return render_template('stock_page.html'
 							, title  = 'stock_page'
 							, ticker = ticker
-							, price  = price	
+							, price  = price
 							, info   = info)
 
 
