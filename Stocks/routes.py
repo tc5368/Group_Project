@@ -1,12 +1,14 @@
 import os
-from flask import render_template, url_for, request, redirect, flash, session
+#From initilisation
 from Stocks import app, db
+
+#Import models and forms
 from Stocks.models import *
 from Stocks.forms import *
+
+#Import Flask methods
+from flask import render_template, url_for, request, redirect, flash, session
 from flask_login import login_user, current_user, logout_user, login_required
-from flask_table import Table, Col
-from datetime import datetime
-from Stocks.tables import *
 
 # Plotly and Dash import
 import chart_studio.plotly as py
@@ -14,16 +16,18 @@ import plotly.graph_objs as go
 import dash
 import dash_html_components as html
 import dash_core_components as dcc
-from dash.dependencies import Input, Output
+from   dash.dependencies import Input, Output
 
 import chart_studio
 # Login: group13Yes
 # Password: group13HelloWorld
 chart_studio.tools.set_credentials_file(username ='group13Yes', api_key='OspkIgNNW6CTIM7110px')
+
+#Other libraries
 import pandas as pd
 from datetime import datetime
 
-# Sql
+#
 from sqlConnector import *
 
 # News API
