@@ -262,11 +262,12 @@ def stock():
 @app.route("/stock_page/<ticker>",methods=['GET','POST'])
 def stock_page(ticker):
 	stock_data = Stock_Info.query.filter_by(Stock_ID=ticker).first()
-	print(stock_data.Current_Price)
-	return render_template('stock_page.html', title=stock_page)
-
-
-
+	price = stock_data.Current_Price
+	info = get_Info(ticker)
+	return render_template('stock_page.html', title  = 'stock_page'
+											, ticker = ticker
+											, price  = price
+											, info   = info)
 
 
 
