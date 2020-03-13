@@ -11,7 +11,7 @@ def get_Name(ticker):
 	return(yf.Ticker(ticker).info['longName'])
 
 def get_Info(ticker):
-	return(yf.Ticker('tsla').info['longBusinessSummary'])
+	return(yf.Ticker(ticker).info['longBusinessSummary'])
 
 def get_raw_info(stock_ticker):
 	'''Get a csv file for the past data of a given stock
