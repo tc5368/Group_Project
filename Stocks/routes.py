@@ -1,11 +1,14 @@
 import os
-from flask import render_template, url_for, request, redirect, flash, session
+#From initilisation
 from Stocks import app, db
+
+#Import models and forms
 from Stocks.models import *
 from Stocks.forms import *
+
+#Import Flask methods
+from flask import render_template, url_for, request, redirect, flash, session
 from flask_login import login_user, current_user, logout_user, login_required
-from datetime import datetime
-from Stocks.tables import *
 
 # Plotly and Dash import
 import chart_studio.plotly as py
@@ -13,16 +16,18 @@ import plotly.graph_objs as go
 import dash
 import dash_html_components as html
 import dash_core_components as dcc
-from dash.dependencies import Input, Output
+from   dash.dependencies import Input, Output
 
 import chart_studio
 # Login: group13Yes
 # Password: group13HelloWorld
 chart_studio.tools.set_credentials_file(username ='group13Yes', api_key='OspkIgNNW6CTIM7110px')
+
+#Other libraries
 import pandas as pd
 from datetime import datetime
 
-# Sql
+#
 from sqlConnector import *
 
 # News API
@@ -248,7 +253,98 @@ def news(topic):
 			count = count + 1
 		return render_template("news.html", articles=articleList)
 	else:
+<<<<<<< HEAD
 		return "<p>Couldn't find any article</p>"
+=======
+		return "<p>Couldn't find any articles</p>"
+
+
+@app.route("/buy", methods=['GET','POST'])
+@login_required
+def buy():
+	form = BuyingForm()
+	if form.validate_on_submit():
+		return redirect(url_for('buyConfirm', ticker=form.ticker.data.upper(), amount=form.amount.data))
+	return render_template('buy.html', title='Buying', form=form) #add price in here to display on website how mush trade will cost.
+
+
+@app.route("/sell",methods=['GET','POST'])
+@login_required
+def sell():
+	form = SellingForm()
+	user_portfolio = Portfolio.query.filter_by(Customer_ID=current_user.id).all()
+	if form.validate_on_submit():
+		return redirect(url_for('sellConfirm', ticker=form.ticker.data.upper(), amount=form.amount.data))
+	return render_template('sell.html', title='sell', form=form, portfolio=user_portfolio)
+
+
+@app.route("/sellConfirm/<ticker>/<amount>", methods=['GET','POST'])
+@login_required
+def sellConfirm(ticker,amount):
+	if (ticker or amount) == None:
+		return redirect(url_for('home'))
+		#This needs more validation implemented
+	form = SellConfirmation()
+	if form.validate_on_submit():
+		if form.submit_yes.data :
+			if check_sell(current_user.id,ticker,amount):
+				flash('Stock Sold')
+			else:
+				flash('Not high enough share amount or trying to sell stock you dont own')
+		else:
+			return redirect(url_for('home'))
+	return render_template('sellConfirmation.html', title='Sell Confirmation', form=form)
+
+
+
+@app.route("/buyConfirm/<ticker>/<amount>", methods=['GET','POST'])
+@login_required
+def buyConfirm(ticker,amount):
+	if (ticker or amount) == None:
+		return redirect(url_for('home'))
+		#This needs more validation implemented
+	form = BuyConfirmation()
+	if form.validate_on_submit():
+		if form.submit_yes.data :
+			if check_buy(current_user.id,ticker,amount):
+				flash('Stock Bought')
+			else:
+				flash('Not high enough balance or trying to buy untracked stock')
+		else:
+			return redirect(url_for('home'))
+	return render_template('buyConfirmation.html', title='Buy Confirmation', form=form)
+
+
+@app.route("/track", methods=['GET','POST'])
+@login_required
+def track():
+	form = Get_Stock_Ticker_From()
+	if form.validate_on_submit():
+		make_new_hist(form.ticker.data)
+	return render_template('track.html', title='Track', form=form)
+
+
+@app.route("/stock",methods=['GET','POST'])
+def stock():
+	form = Get_Stock_Ticker_From()
+	if form.validate_on_submit():
+		return redirect(url_for('stock_page',ticker=form.ticker.data.upper()))
+	return render_template('stock.html', title='Stock',form=form)
+
+
+@app.route("/stock_page/<ticker>",methods=['GET','POST'])
+def stock_page(ticker):
+	stock_data = Stock_Info.query.filter_by(Stock_ID=ticker).first()
+	price = stock_data.Current_Price
+	info = get_Info(ticker)
+	return render_template('stock_page.html'
+							, title  = 'stock_page'
+							, ticker = ticker
+							, price  = price	
+							, info   = info)
+
+
+>>>>>>> b57da5b7d87aa00218d79176408915e119f9a010
 
 @app.route('/portfolio')
 @login_required
