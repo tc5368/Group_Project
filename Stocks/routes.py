@@ -236,13 +236,6 @@ def buyConfirm(ticker,amount):
 	return render_template('buyConfirmation.html', title='Buy Confirmation', form=form)
 
 
-
-#to be implemented
-
-#Searching for a stock should take you to this particular page
-#It will show the graph, the news and the current price.
-#Also if the users owns shares how many shares they own should be shown.
-
 @app.route("/track", methods=['GET','POST'])
 @login_required
 def track():
@@ -250,10 +243,6 @@ def track():
 	if form.validate_on_submit():
 		make_new_hist(form.ticker.data)
 	return render_template('track.html', title='Track', form=form)
-
-
-
-
 
 
 @app.route("/stock",methods=['GET','POST'])
@@ -269,10 +258,11 @@ def stock_page(ticker):
 	stock_data = Stock_Info.query.filter_by(Stock_ID=ticker).first()
 	price = stock_data.Current_Price
 	info = get_Info(ticker)
-	return render_template('stock_page.html', title  = 'stock_page'
-											, ticker = ticker
-											, price  = price
-											, info   = info)
+	return render_template('stock_page.html'
+							, title  = 'stock_page'
+							, ticker = ticker
+							, price  = price	
+							, info   = info)
 
 
 
