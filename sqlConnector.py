@@ -37,12 +37,10 @@ def make_new_hist(ticker):
 	ticker = ticker.upper()
 	try:
 		df = get_raw_info(ticker)
-		print("aa")
 		make_new_stock_history_table(ticker,df)
-		print("bb")
 		return True
 	except:
-		return None
+		return False
 
 
 def make_new_stock_history_table(ticker, df):
@@ -56,6 +54,7 @@ def make_new_stock_history_table(ticker, df):
 	tables = db.engine.table_names()
 	if ticker+"_HIST" in tables:
 		flash("Stock already being tracked")
+		raise Exception('Stock has been already tracked')
 	else:
 		query = ("""CREATE TABLE `c1769261_Second_Year`.`"""+ticker+"""_HIST` (
 												`Date` DATE NOT NULL,
@@ -100,7 +99,6 @@ def execute_query(query):
 
 
 def check_buy(user_id, stock, amount):
-	amount = float(amount)
 	user = User.query.filter_by(id=user_id).first()
 
 	stock_info = Stock_Info.query.filter_by(Stock_ID=stock).first()
@@ -127,14 +125,11 @@ def check_buy(user_id, stock, amount):
 		print('Could not find',stock)
 
 def check_sell(user_id, stock, amount):
-	amount = float(amount)
 	user = User.query.filter_by(id=user_id).first()
 	stock_info = Stock_Info.query.filter_by(Stock_ID=stock).first()
 
 	if stock_info != None and (amount > 0):
 		price = float(amount) * stock_info.Current_Price
-		#print('%s is trying to buy %s shares of %s stock at price %s, totaling %s' %(user.first_name,amount,stock,stock_info.Current_Price, float(amount)*float(stock_info.Current_Price)))
-		#print('Their balance is %s' %(user.balance))
 
 		portfolio = Portfolio.query.filter_by(Customer_ID = user_id).all()
 		found = False
@@ -143,12 +138,10 @@ def check_sell(user_id, stock, amount):
 				if i.Amount_of_Shares >= amount:
 					i.Amount_of_Shares -= amount
 					user.balance += price
-				found = True
+					print("adding")
+				else:
+					return False
 				break
-
-		if found == False:
-			return False
-
 		db.session.commit()
 		return True
 	else:

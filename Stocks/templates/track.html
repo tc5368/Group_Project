@@ -4,11 +4,11 @@
 <form method="POST" action="">
 	{{ form.csrf_token }}
 
-    <p>{{ form.ticker.label(class="lbl") }}<br>{{ form.ticker(class="inp")}}</p>
+  <p>{{ form.ticker.label(class="lbl") }}<br>{{ form.ticker(class="inp")}}</p>
 	{% for error in form.ticker.errors %}
     	<span style="color: white;">That is not a valid ticker</span>
-    {% endfor %}
-    
+  {% endfor %}
+
     <p>{{ form.submit(class="btnSub") }}</p>
 
 </form>

@@ -191,7 +191,6 @@ def buy():
 		for stock in stocks:
 			if stock.Stock_ID == usr_ticker:
 				return redirect(url_for('buyConfirm', ticker=usr_ticker, amount=form.amount.data))
-		print(make_new_hist(usr_ticker))
 		if (make_new_hist(usr_ticker)):
 			return redirect(url_for('buyConfirm', ticker=usr_ticker, amount=form.amount.data))
 		else:
@@ -212,6 +211,7 @@ def sell():
 @app.route("/sellConfirm/<ticker>/<amount>", methods=['GET','POST'])
 @login_required
 def sellConfirm(ticker,amount):
+	amount = float(amount)
 	if (ticker or amount) == None:
 		return redirect(url_for('home'))
 		#This needs more validation implemented
@@ -219,9 +219,11 @@ def sellConfirm(ticker,amount):
 	if form.validate_on_submit():
 		if form.submit_yes.data :
 			if check_sell(current_user.id,ticker,amount):
-				flash('Stock Sold')
+				flash('You have sold ' + str(amount) + " of " + ticker + " shares.")
+				return redirect(url_for('portfolio'))
 			else:
-				flash('Not high enough share amount or trying to sell stock you dont own')
+				flash('You don\'t own that much shares')
+				return redirect(url_for('sell'))
 		else:
 			return redirect(url_for('home'))
 	ticker_info = Stock_Info.query.filter_by(Stock_ID=ticker).first()
@@ -231,13 +233,16 @@ def sellConfirm(ticker,amount):
 @app.route("/buyConfirm/<ticker>/<amount>", methods=['GET','POST'])
 @login_required
 def buyConfirm(ticker,amount):
+	amount = float(amount)
 	form = BuyConfirmation()
 	if form.validate_on_submit():
 		if form.submit_yes.data:
 			if check_buy(current_user.id,ticker,amount):
-				flash('Stock Bought')
+				flash('You have bought ' + str(amount) + " of " + ticker + " shares.")
+				return redirect(url_for('portfolio'))
 			else:
 				flash('Not high enough balance')
+				return redirect(url_for('buy'))
 		else:
 			return redirect(url_for('home'))
 	ticker_info = Stock_Info.query.filter_by(Stock_ID=ticker).first()
@@ -249,7 +254,7 @@ def buyConfirm(ticker,amount):
 def track():
 	form = Get_Stock_Ticker_Form()
 	if form.validate_on_submit():
-		print(make_new_hist(form.ticker.data))
+		make_new_hist(form.ticker.data)
 	return render_template('track.html', title='Track', form=form)
 
 
