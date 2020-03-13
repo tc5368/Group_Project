@@ -71,6 +71,83 @@ def logout():
 	logout_user()
 	return redirect(url_for('home'))
 
+@app.route("/buy", methods=['GET','POST'])
+@login_required
+def buy():
+	form = BuyingForm()
+	if form.validate_on_submit():
+		return redirect(url_for('buyConfirm', ticker=form.ticker.data.upper(), amount=form.amount.data))
+	return render_template('buy.html', title='Buying', form=form) #add price in here to display on website how mush trade will cost.
+
+@app.route("/sell",methods=['GET','POST'])
+@login_required
+def sell():
+	form = SellingForm()
+	user_portfolio = Portfolio.query.filter_by(Customer_ID=current_user.id).all()
+	if form.validate_on_submit():
+		return redirect(url_for('sellConfirm', ticker=form.ticker.data.upper(), amount=form.amount.data))
+	return render_template('sell.html', title='sell', form=form, portfolio=user_portfolio)
+
+@app.route("/sellConfirm/<ticker>/<amount>", methods=['GET','POST'])
+@login_required
+def sellConfirm(ticker,amount):
+	if (ticker or amount) == None:
+		return redirect(url_for('home'))
+		#This needs more validation implemented
+	form = SellConfirmation()
+	if form.validate_on_submit():
+		if form.submit_yes.data :
+			if check_sell(current_user.id,ticker,amount):
+				flash('Stock Sold')
+			else:
+				flash('Not high enough share amount or trying to sell stock you dont own')
+		else:
+			return redirect(url_for('home'))
+	return render_template('sellConfirmation.html', title='Sell Confirmation', form=form)
+
+
+
+@app.route("/buyConfirm/<ticker>/<amount>", methods=['GET','POST'])
+@login_required
+def buyConfirm(ticker,amount):
+	if (ticker or amount) == None:
+		return redirect(url_for('home'))
+		#This needs more validation implemented
+	form = BuyConfirmation()
+	if form.validate_on_submit():
+		if form.submit_yes.data :
+			if check_buy(current_user.id,ticker,amount):
+				flash('Stock Bought')
+			else:
+				flash('Not high enough balance or trying to buy untracked stock')
+		else:
+			return redirect(url_for('home'))
+	ticker_info = Stock_Info.query.filter_by(Stock_ID=ticker).first()
+	return render_template('buyConfirmation.html', title='Buy Confirmation', form=form, ticker=ticker_info, amount=amount)
+
+@app.route("/track", methods=['GET','POST'])
+@login_required
+def track():
+	form = Track_New_Stock_From()
+	if form.validate_on_submit():
+		make_new_hist(form.ticker.data)
+	return render_template('track.html', title='Track', form=form)
+
+
+
+#to be implemented
+
+#Searching for a stock should take you to this particular page
+#It will show the graph, the news and the current price.
+#Also if the users owns shares how many shares they own should be shown.
+
+#@app.route("/stock/<ticker>",methods=['GET','POST'])
+#def stock_page(ticker):
+#	stock_data = Stock_Info.query.filter_by(Stock_ID=ticker).first()
+#	return render_template('stockpage.html', title=stock-page)
+
+
+
 # Uses Flask as the server and dash as the app that connects to the server and works together.
 app_dash = dash.Dash(
 	__name__,
@@ -142,7 +219,6 @@ def update_figure(selected_stock):
 	print()
 	return fig, options
 
-
 @app.route('/newsSearch',methods=['GET','POST'])
 def newsSearch():
 	form = NewsRequestForm()
@@ -172,103 +248,7 @@ def news(topic):
 			count = count + 1
 		return render_template("news.html", articles=articleList)
 	else:
-		return "<p>Couldn't find any articles</p>"
-
-
-@app.route("/buy", methods=['GET','POST'])
-@login_required
-def buy():
-	form = BuyingForm()
-	if form.validate_on_submit():
-		return redirect(url_for('buyConfirm', ticker=form.ticker.data.upper(), amount=form.amount.data))
-	return render_template('buy.html', title='Buying', form=form) #add price in here to display on website how mush trade will cost.
-
-
-@app.route("/sell",methods=['GET','POST'])
-@login_required
-def sell():
-	form = SellingForm()
-	user_portfolio = Portfolio.query.filter_by(Customer_ID=current_user.id).all()
-	if form.validate_on_submit():
-		return redirect(url_for('sellConfirm', ticker=form.ticker.data.upper(), amount=form.amount.data))
-	return render_template('sell.html', title='sell', form=form, portfolio=user_portfolio)
-
-
-@app.route("/sellConfirm/<ticker>/<amount>", methods=['GET','POST'])
-@login_required
-def sellConfirm(ticker,amount):
-	if (ticker or amount) == None:
-		return redirect(url_for('home'))
-		#This needs more validation implemented
-	form = SellConfirmation()
-	if form.validate_on_submit():
-		if form.submit_yes.data :
-			if check_sell(current_user.id,ticker,amount):
-				flash('Stock Sold')
-			else:
-				flash('Not high enough share amount or trying to sell stock you dont own')
-		else:
-			return redirect(url_for('home'))
-	return render_template('sellConfirmation.html', title='Sell Confirmation', form=form)
-
-
-
-@app.route("/buyConfirm/<ticker>/<amount>", methods=['GET','POST'])
-@login_required
-def buyConfirm(ticker,amount):
-	if (ticker or amount) == None:
-		return redirect(url_for('home'))
-		#This needs more validation implemented
-	form = BuyConfirmation()
-	if form.validate_on_submit():
-		if form.submit_yes.data :
-			if check_buy(current_user.id,ticker,amount):
-				flash('Stock Bought')
-			else:
-				flash('Not high enough balance or trying to buy untracked stock')
-		else:
-			return redirect(url_for('home'))
-	return render_template('buyConfirmation.html', title='Buy Confirmation', form=form)
-
-
-
-#to be implemented
-
-#Searching for a stock should take you to this particular page
-#It will show the graph, the news and the current price.
-#Also if the users owns shares how many shares they own should be shown.
-
-@app.route("/track", methods=['GET','POST'])
-@login_required
-def track():
-	form = Get_Stock_Ticker_From()
-	if form.validate_on_submit():
-		make_new_hist(form.ticker.data)
-	return render_template('track.html', title='Track', form=form)
-
-
-
-
-
-
-@app.route("/stock",methods=['GET','POST'])
-def stock():
-	form = Get_Stock_Ticker_From()
-	if form.validate_on_submit():
-		return redirect(url_for('stock_page',ticker=form.ticker.data.upper()))
-	return render_template('stock.html', title='Stock',form=form)
-
-
-@app.route("/stock_page/<ticker>",methods=['GET','POST'])
-def stock_page(ticker):
-	stock_data = Stock_Info.query.filter_by(Stock_ID=ticker).first()
-	print(stock_data.Current_Price)
-	return render_template('stock_page.html', title=stock_page)
-
-
-
-
-
+		return "<p>Couldn't find any article</p>"
 
 @app.route('/portfolio')
 @login_required
@@ -281,27 +261,27 @@ def portfolio():
 @app.route('/search', methods=['GET', 'POST'])
 @login_required
 def search():
-    form = SearchForm()
+    search = SearchForm(request.form)
     if request.method == 'POST':
-        return search_results(form)
-    return render_template('search.html', form=form)
+        return search_results(search)
+    return render_template('search.html', form=search)
 
 @app.route('/search_results')
 def search_results(search):
     results = []
-    search_string = str(search.data['search'])
+    search_string = search.data['search']
     if search_string != None:
         if search.data['select'] == 'Stock_ID':
-            qry = db.session.query(Stock_Info).filter_by(Stock_ID = search_string)
+            qry = Stock_Info.query().filter_by(Stock_Info.Stock_ID.contains(search_string))
             results = qry.all()
         elif search.data['select'] == 'Stock_Name':
-            qry = db.session.query(Stock_Info).filter_by(Stock_Name = search_string)
+            qry = Stock_Info.query().filter_by(Stock_Info.Stock_Name.contains(search_string))
             results = qry.all()
         else:
             qry = Stock_Info.query().all()
             results = qry
     else:
-        qry = Stock_Info.query()
+        qry = db.query(Album)
         results = qry.all()
 
     if not results:
