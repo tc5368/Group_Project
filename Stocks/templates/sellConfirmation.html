@@ -2,6 +2,9 @@
 {% block content %}
 
 <p>Welcome to the Selling Confirmation page.</p>
+<p>You are about to sell {{ amount }} {{ ticker.Stock_Name }} shares. The current share price is ${{ ticker.Current_Price }}</p>
+<p>You have a current balance of ${{ current_user.balance }}</p>
+<p>Your balance after this transaction will be ${{ current_user.balance }} + ${{ ticker.Current_Price }} = ${{ current_user.balance + ticker.Current_Price }}</p>
 
 <form method="POST" action="">
 	{{ form.csrf_token }}
