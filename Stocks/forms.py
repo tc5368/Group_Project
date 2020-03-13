@@ -17,10 +17,6 @@ class RegistrationForm(FlaskForm):
 		if user:
 			raise ValidationError('Email already exists, please choose a different one.')
 
-class Track_New_Stock_Form(FlaskForm):
-	ticker = StringField('Stock Ticker', validators=[DataRequired(), Length(min=1,max=4)])
-	submit = SubmitField('Track Stock')
-
 class LoginForm(FlaskForm):
 	email    = StringField('Email', validators=[DataRequired(), Email()])
 	password = PasswordField('Password', validators=[DataRequired()])

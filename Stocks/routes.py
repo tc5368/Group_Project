@@ -247,7 +247,7 @@ def buyConfirm(ticker,amount):
 @app.route("/track", methods=['GET','POST'])
 @login_required
 def track():
-	form = Track_New_Stock_Form()
+	form = Get_Stock_Ticker_Form()
 	if form.validate_on_submit():
 		print(make_new_hist(form.ticker.data))
 	return render_template('track.html', title='Track', form=form)
