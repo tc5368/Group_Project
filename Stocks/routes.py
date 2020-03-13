@@ -291,3 +291,7 @@ def search_results(search):
         table = Results(results)
         table.border = True
         return render_template('search_results.html', table=table)
+# For unauthorized users, will redirect them to login page.
+@login_manager.unauthorized_handler
+def unauthorized():
+	return redirect(url_for('login'))

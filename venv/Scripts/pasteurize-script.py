@@ -1,4 +1,4 @@
-#!"h:\my documents\group project\group_project\venv\scripts\python.exe"
+#!"h:\my documents\documents\group_project\venv\scripts\python.exe"
 # EASY-INSTALL-ENTRY-SCRIPT: 'future==0.18.2','console_scripts','pasteurize'
 __requires__ = 'future==0.18.2'
 import re

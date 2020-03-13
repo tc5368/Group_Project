@@ -1,4 +1,4 @@
-#!"h:\my documents\group project\group_project\venv\scripts\python.exe"
+#!"h:\my documents\documents\group_project\venv\scripts\python.exe"
 # EASY-INSTALL-ENTRY-SCRIPT: 'yfinance==0.1.54','console_scripts','sample'
 __requires__ = 'yfinance==0.1.54'
 import re
