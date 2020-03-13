@@ -77,7 +77,6 @@ def logout():
 	return redirect(url_for('home'))
 
 
-
 # Uses Flask as the server and dash as the app that connects to the server and works together.
 app_dash = dash.Dash(
 	__name__,
@@ -181,6 +180,7 @@ def news(topic):
 
 		return "<p>Couldn't find any articles</p>"
 
+
 @app.route("/buy", methods=['GET','POST'])
 @login_required
 def buy():
@@ -188,6 +188,7 @@ def buy():
 	if form.validate_on_submit():
 		return redirect(url_for('buyConfirm', ticker=form.ticker.data.upper(), amount=form.amount.data))
 	return render_template('buy.html', title='Buying', form=form) #add price in here to display on website how mush trade will cost.
+
 
 @app.route("/sell",methods=['GET','POST'])
 @login_required
@@ -197,6 +198,7 @@ def sell():
 	if form.validate_on_submit():
 		return redirect(url_for('sellConfirm', ticker=form.ticker.data.upper(), amount=form.amount.data))
 	return render_template('sell.html', title='sell', form=form, portfolio=user_portfolio)
+
 
 @app.route("/sellConfirm/<ticker>/<amount>", methods=['GET','POST'])
 @login_required
@@ -216,7 +218,6 @@ def sellConfirm(ticker,amount):
 	return render_template('sellConfirmation.html', title='Sell Confirmation', form=form)
 
 
-
 @app.route("/buyConfirm/<ticker>/<amount>", methods=['GET','POST'])
 @login_required
 def buyConfirm(ticker,amount):
@@ -234,6 +235,7 @@ def buyConfirm(ticker,amount):
 			return redirect(url_for('home'))
 	ticker_info = Stock_Info.query.filter_by(Stock_ID=ticker).first()
 	return render_template('buyConfirmation.html', title='Buy Confirmation', form=form, ticker=ticker_info, amount=amount)
+
 
 @app.route("/track", methods=['GET','POST'])
 @login_required
@@ -263,12 +265,14 @@ def stock_page(ticker):
 							, price  = price	
 							, info   = info)
 
+
 @app.route('/portfolio')
 @login_required
 def portfolio():
 	user = current_user.id
 	user_portfolio = Portfolio.query.filter_by(Customer_ID=current_user.id).all()
 	return render_template("portfolio.html", portfolio = user_portfolio)
+
 
 @app.route('/search', methods=['GET', 'POST'])
 @login_required
@@ -277,6 +281,7 @@ def search():
     if request.method == 'POST':
         return search_results(form)
     return render_template('search.html', form=form)
+
 
 @app.route('/search_results')
 def search_results(search):
@@ -305,6 +310,8 @@ def search_results(search):
         table.border = True
         return render_template('search_results.html', table=table)
 # For unauthorized users, will redirect them to login page.
+
+
 @login_manager.unauthorized_handler
 def unauthorized():
 	return redirect(url_for('login'))
