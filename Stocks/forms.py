@@ -59,4 +59,4 @@ class Results(Table):
 	Stock_ID         = LinkCol('Stock ID','stock_page',attr='Stock_ID',url_kwargs=dict(ticker='Stock_ID'))
 	Stock_Name       = Col('Stock Name')
 	Current_Price    = Col('Current Price')
-	Stock_Table      = Col('Stock Table', show='False')
+	Stock_Table      = Col('Stock Table', show=False)
