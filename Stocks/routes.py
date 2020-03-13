@@ -186,8 +186,17 @@ def news(topic):
 def buy():
 	form = BuyingForm()
 	if form.validate_on_submit():
-		return redirect(url_for('buyConfirm', ticker=form.ticker.data.upper(), amount=form.amount.data))
-	return render_template('buy.html', title='Buying', form=form) #add price in here to display on website how mush trade will cost.
+		usr_ticker = form.ticker.data.upper()
+		stocks = Stock_Info.query.all()
+		for stock in stocks:
+			if stock.Stock_ID == usr_ticker:
+				return redirect(url_for('buyConfirm', ticker=usr_ticker, amount=form.amount.data))
+		print(make_new_hist(usr_ticker))
+		if (make_new_hist(usr_ticker)):
+			return redirect(url_for('buyConfirm', ticker=usr_ticker, amount=form.amount.data))
+		else:
+			flash("Couldn't find '" + usr_ticker + "' such ticker. Make sure to enter an existent ticker")
+	return render_template('buy.html', title='Buying', form=form)
 
 
 @app.route("/sell",methods=['GET','POST'])
@@ -222,16 +231,13 @@ def sellConfirm(ticker,amount):
 @app.route("/buyConfirm/<ticker>/<amount>", methods=['GET','POST'])
 @login_required
 def buyConfirm(ticker,amount):
-	if (ticker or amount) == None:
-		return redirect(url_for('home'))
-		#This needs more validation implemented
 	form = BuyConfirmation()
 	if form.validate_on_submit():
-		if form.submit_yes.data :
+		if form.submit_yes.data:
 			if check_buy(current_user.id,ticker,amount):
 				flash('Stock Bought')
 			else:
-				flash('Not high enough balance or trying to buy untracked stock')
+				flash('Not high enough balance')
 		else:
 			return redirect(url_for('home'))
 	ticker_info = Stock_Info.query.filter_by(Stock_ID=ticker).first()
@@ -241,15 +247,15 @@ def buyConfirm(ticker,amount):
 @app.route("/track", methods=['GET','POST'])
 @login_required
 def track():
-	form = Track_New_Stock_From()
+	form = Track_New_Stock_Form()
 	if form.validate_on_submit():
-		make_new_hist(form.ticker.data)
+		print(make_new_hist(form.ticker.data))
 	return render_template('track.html', title='Track', form=form)
 
 
 @app.route("/stock",methods=['GET','POST'])
 def stock():
-	form = Get_Stock_Ticker_From()
+	form = Get_Stock_Ticker_Form()
 	if form.validate_on_submit():
 		return redirect(url_for('stock_page',ticker=form.ticker.data.upper()))
 	return render_template('stock.html', title='Stock',form=form)

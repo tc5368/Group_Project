@@ -2,7 +2,7 @@ import mysql.connector as mysql
 from datetime import date
 import pandas as pd
 import pandas_datareader as web
-import yfinance as yf 
+import yfinance as yf
 from Stocks import db
 from Stocks.models import *
 from flask import flash
@@ -15,16 +15,16 @@ def get_Info(ticker):
 
 def get_raw_info(stock_ticker):
 	'''Get a csv file for the past data of a given stock
-	
+
 	Takes the stocks ticker and then will create a data frame of the stock but without the Adj Close or Volume
-	
+
 	Arguments:
 		stock_ticker {[String]} -- [4 Character unique identifier for the stock]
 	'''
 
 	#add validation later
 	if stock_ticker != "Invalid":
-		
+
 		df = web.DataReader(stock_ticker,"yahoo")
 		del (df['Volume'], df['Adj Close'])
 		return df
@@ -35,13 +35,14 @@ def get_raw_info(stock_ticker):
 
 def make_new_hist(ticker):
 	ticker = ticker.upper()
-	df = get_raw_info(ticker)
-	if df is None:
-		None
-		#this should flash that stock dosen't exsist.
-		
-	else:
+	try:
+		df = get_raw_info(ticker)
+		print("aa")
 		make_new_stock_history_table(ticker,df)
+		print("bb")
+		return True
+	except:
+		return None
 
 
 def make_new_stock_history_table(ticker, df):
@@ -66,7 +67,7 @@ def make_new_stock_history_table(ticker, df):
 		execute_query(query)
 		df['Date'] = df.index.map(lambda x: x.strftime('%Y-%m-%d'))
 		df.to_sql(name=ticker+'_HIST', con=db.engine, index=False, if_exists='append')
-		
+
 		newEntry = Stock_Info(ticker,get_Name(ticker),float(df['Close'].iloc[-1]),ticker+'_HIST')
 		db.session.add(newEntry)
 		db.session.commit()
@@ -102,16 +103,9 @@ def check_buy(user_id, stock, amount):
 	amount = float(amount)
 	user = User.query.filter_by(id=user_id).first()
 
-	# get * from stock info. if stock in stock_info then continues
-	# else try and run make_new_hist() on the stock.
-
-	# the track function will return it dosen't exsist for you here.
-
 	stock_info = Stock_Info.query.filter_by(Stock_ID=stock).first()
 	if stock_info != None and (amount > 0):
 		price = float(amount) * stock_info.Current_Price
-		#print('%s is trying to buy %s shares of %s stock at price %s, totaling %s' %(user.first_name,amount,stock,stock_info.Current_Price, float(amount)*float(stock_info.Current_Price)))
-		#print('Their balance is %s' %(user.balance))
 
 		if user.balance >= price:
 			user.balance -= price
@@ -123,7 +117,6 @@ def check_buy(user_id, stock, amount):
 					i.Amount_of_Shares += float(amount)
 					found = True
 					break
-
 			if found == False:
 				newEntry = Portfolio(user.id,stock_info.Stock_ID,float(amount))
 				db.session.add(newEntry)
@@ -181,4 +174,3 @@ def get_history(stock_ticker):
 	df = pd.DataFrame.from_records(data)
 	df.columns = ['Date','High','Low','Open','Close']
 	return(df)
-

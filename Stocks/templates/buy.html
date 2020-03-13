@@ -12,7 +12,7 @@
 	{% endfor %}
 
 	<p>{{ form.amount.label(class="lbl") }}<br>{{ form.amount(class="inp")}}</p>
-	{% for error in form.ticker.errors %}
+	{% for error in form.amount.errors %}
 		<span style="color: white;">That is not a valid amount of shares</span>
 	{% endfor %}
 
