@@ -253,9 +253,7 @@ def news(topic):
 			count = count + 1
 		return render_template("news.html", articles=articleList)
 	else:
-<<<<<<< HEAD
 		return "<p>Couldn't find any article</p>"
-=======
 		return "<p>Couldn't find any articles</p>"
 
 
@@ -343,8 +341,6 @@ def stock_page(ticker):
 							, price  = price	
 							, info   = info)
 
-
->>>>>>> b57da5b7d87aa00218d79176408915e119f9a010
 
 @app.route('/portfolio')
 @login_required
