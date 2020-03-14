@@ -1,6 +1,38 @@
 {% extends "layout.html" %}
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <title>Stock Market</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+    <!--Custom Stylesheet-->
+</head>
 {% block content %}
-<form class="login_reg" method="POST" action="">
+
+<div class = "login-box">
+    <h1>Login</h1>
+    <form class="login_reg" method="POST" action="">
+    	{{ form.csrf_token }}
+		<div class="textbox">
+			<p>{{ form.email.label(class="lbl") }}<br>{{ form.email(class="inp")}}</p>
+			{% for error in form.email.errors %}
+        		<span style="color: white;">That is not an email address</span>
+    		{% endfor %}
+		</div> 
+
+		<div class="textbox">
+		  <p>{{ form.password.label(class="lbl") }}<br>{{ form.password(class="inp")}}</p>
+		</div>
+
+		<p>{{ form.submit(class="btnSub") }}</p>
+		<a href="{{ url_for('register') }}" ><input class = "btn2" type="button" name="" value="Register"></a>
+	</form>
+</div>
+
+
+<!-- <form class="login_reg" method="POST" action="">
     {{ form.csrf_token }}
     <p>{{ form.email.label(class="lbl") }}<br>{{ form.email(class="inp")}}</p>
 		{% for error in form.email.errors %}
@@ -9,5 +41,5 @@
     <p>{{ form.password.label(class="lbl") }}<br>{{ form.password(class="inp")}}</p>
     <p>{{ form.submit(class="btnSub") }}</p>
 
-</form>
+</form> -->
 {% endblock content %}

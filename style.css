@@ -1,0 +1,105 @@
+body {
+     font-family:helvetica, sans-serif;
+     background-color: #4c525b;
+}
+
+ h1 {
+     padding-left: 20px;
+     font-family:sans-serif;
+     color:#eaecef;
+}
+ a {
+     text-decoration:none;
+     color:#ffffff;
+
+}
+ a:hover {
+     color:#000000;
+}
+
+ #header {
+     padding:10px 100px;
+     font-size:18px;
+     overflow:auto;
+     background-color: #b6c3d8;
+}
+
+.title{
+    color: #ffffff; 
+    font-family: 'Helvetica Neue', sans-serif; 
+    font-size: 30px; 
+    font-weight: bold; letter-spacing: -1px; 
+    line-height: 1; 
+}
+
+img.home{
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    padding: 5px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+ }
+
+
+p.price{
+    color: white;
+}
+
+
+.register{
+    color: white;
+}
+
+input{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+.dropbtn {
+  background-color: #ffffff;
+  color: black;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin-left: 40%;
+  margin-right: 40%;
+  margin-bottom: 10px;
+}
+
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+
+.dropdown:hover .dropdown-content {display: block;}
+
+
+.dropdown:hover .dropbtn {background-color: #c2d2ea;}
+
+
