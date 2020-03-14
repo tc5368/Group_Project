@@ -1,0 +1,74 @@
+
+
+/****Tommy****/
+
+.settings {
+
+	margin: 15px 450px;
+	width: 600px;
+	height:550px;
+
+	color: white;
+	background-color: rgba(22, 48, 69, 0.93);
+	border-radius:5px;
+	padding:20px;
+
+}
+
+.settings input{
+	width: 80%;
+	overflow: hidden;
+	padding: 8px 0;
+	border:none;
+	border: 2px solid grey;
+	outline-style: none;
+	background: none;
+	color : white;	
+	font-size: 18px;
+	float:right;
+	margin: auto 10px;
+	margin-bottom: 5px;
+	border-radius: 5px;
+	text-indent: 5px;
+}
+
+.settings input::-ms-input-placeholder { /* Microsoft Edge */
+   color: white;
+}
+
+.settings input::placeholder {
+    color: grey;
+    margin: 0 50px;
+}
+
+.settings label{
+	width:20%;
+	float:left;
+	position: relative;
+	top:28px;
+	padding-right:0px;
+	color:#fe9860;
+	font-weight: bold;
+}
+
+
+
+.settings input:nth-of-type(6){
+	background-color: #ff9800;
+	color: black;
+	border-color: #ff9800;
+}
+
+#form2 input:nth-of-type(2){
+	background-color: #ff9800;
+	color: black;
+	border-color: #ff9800;
+}
+
+#form2 input::-ms-input-placeholder { /* Microsoft Edge */
+   color: grey;
+}
+
+#form2 input::placeholder {
+    color: grey;
+}

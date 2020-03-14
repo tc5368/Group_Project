@@ -4,23 +4,60 @@
 <head>
   <meta charset="utf-8">
   <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style2.css') }}">
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='AccountStyle.css') }}">
+  <link rel = "styleSheet" href = "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <title>The Stock Store</title>
 </head>
 
+  <section>
+    <div class="menu-bar">
+      <ul>
+        <li><i class="fa fa-home"></i><a href="{{ url_for('home') }}">Home</a></li>
+
+        <li >
+          <i class="fa fa-search"></i><a href="{{ url_for('stock') }}">Stocks</a>
+          <div class="sub-menu-1">
+            <ul>
+              <li><a href="{{ url_for('stock') }}">Stocks</a></li>
+            </ul>
+          </div>
+        </li>
+
+        <li><i class="fa fa-align-left"></i><a href="{{ url_for('portfolio') }}">Portfolio</a></li>
+
+        <li class="active">
+          <i class="fa fa-lock"></i><a href="#">Account</a>
+          <div class="sub-menu-1">
+            <ul>
+              <li><a href="#">Details</a></li>
+              <li>
+                {% if current_user.is_authenticated %}
+                  Hello, {{ current_user.first_name }}!
+                  <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>&nbsp
+                {% else %}
+                  Hello, Guest! &nbsp <a href="{{ url_for('login') }}">Login&nbsp;</a>
+                  or <a href="{{ url_for('register') }}">Register</a>&nbsp
+                {% endif %}
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <div class="search-bar">
+          <i class="fa fa-search"></i>
+          <input type="stock" placeholder="Input the stock name" name="" value="">
+        </div>
+
+        <div class="button3">
+          <input class="btn3" type="button" name="" value="Search">
+        </div>
+
+      </ul>
+      <div>
+  </section>
+
 <body>
-  <a href="{{ url_for('home') }}"><h1 class=title>The Stock Store</h1></a>
-  <div id="header">
-    <a href="{{ url_for('home') }}" class="header">Home</a>&nbsp|
-    {% if current_user.is_authenticated %}
-      Hello, {{ current_user.first_name }}!
-      <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>&nbsp|
-    {% else %}
-      Hello, Guest! &nbsp| <a href="{{ url_for('login') }}">Login&nbsp;</a>
-      or <a href="{{ url_for('register') }}">Register</a>&nbsp|
-    {% endif %}
-
-
-  </div>
 
   <div>
     {% with messages = get_flashed_messages() %}
