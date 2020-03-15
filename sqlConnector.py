@@ -172,8 +172,6 @@ def simulate_trading():
 	stocks = Stock_Info.query.all()
 	for stock in stocks:
 		growth = r.random()/100
-		if(stock.Stock_ID == "AAPL"):
-			continue
 		trade_type = ["buy", "sell"]
 		query = "SELECT * FROM " + stock.Stock_Table + " ORDER BY Date DESC LIMIT 1"
 		data = execute_query(query)
