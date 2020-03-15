@@ -1,5 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
+<body style="
+	background-image: url(../static/img/homepage.jpg);
+	background-size: cover;
+	background-attachment:fixed;
+	background-position: center;
+	box-sizing: border-box;
+	font-family: sans-serif;
+">
 
 <h1>Stocks</h1>
 <p>
@@ -43,5 +51,7 @@
 	<a class = 'nav-item nav-link' href = "/sell">Sell</a>
 </p>
 {% endif %}
+
+</body>
 
 {% endblock content %}

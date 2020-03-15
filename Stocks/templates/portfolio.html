@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
+<body>
 
 <p>Hey {{ current_user.first_name }} {{ current_user.last_name }}</p>
 <p> Your current balance is {{ current_user.balance }} </p>
@@ -22,6 +23,6 @@
 	<p><b>You have not purchased any stocks</b></p>
 {% endif %}
 
-
+</body>
 
 {% endblock content %}

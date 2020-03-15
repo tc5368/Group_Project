@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
+<body>
 
 <form method="POST" action="">
 	{{ form.csrf_token }}
@@ -12,4 +13,5 @@
     <p>{{ form.submit(class="btnSub") }}</p>
 
 </form>
+</body>
 {% endblock content %}
