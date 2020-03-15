@@ -177,15 +177,19 @@ def simulate_trading():
 		trade_type = ["buy", "sell"]
 		query = "SELECT * FROM " + stock.Stock_Table + " ORDER BY Date DESC LIMIT 1"
 		data = execute_query(query)
-
-<<<<<<< HEAD
 		if r.choice(trade_type) == "buy":
 			growth = 1 + growth
 		else:
 			growth = 1 - growth
 		stock.Current_Price = stock.Current_Price * growth
 		db.session.commit()
-=======
+		# high = data[0][2]
+		# low = data[0][4]
+		# if curr_price >= high:
+		# 	print("Higher")
+		# elif curr_price <+ low:
+		# 	print("Lower")
+
 def new_day():
 	print('All tables have been updated for the new day')
 	t = date.today()
@@ -198,19 +202,5 @@ def new_day():
 	#query = "INSERT INTO `c1769261_Second_Year`.`AAPL_HIST` (`Date`) VALUES ('"+y+"-"+m+"-"+d+"');"
 	query = "INSERT INTO `c1769261_Second_Year`.`AAPL_HIST` (`Date`) VALUES ('2020-03-15');"
 	print(query)
-	a = execute_query(query)
-	print(a)
-
-
-
-
-
-
->>>>>>> ae25e49d508850f93c42ffa7ae801b3db0ecc490
-
-		# high = data[0][2]
-		# low = data[0][4]
-		# if curr_price >= high:
-		# 	print("Higher")
-		# elif curr_price <+ low:
-		# 	print("Lower")
+	# a = execute_query(query)
+	# print(a)
