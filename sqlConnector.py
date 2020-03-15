@@ -194,38 +194,31 @@ def simulate_trading():
 		# Updating the HIST table each stock's OHLC values
 
 		#always reaching this point
-
 		query = "SELECT * FROM " + stock.Stock_Table + " ORDER BY Date DESC LIMIT 1"
 		curr_day = execute_query(query)
 		curr_price = str(stock.Current_Price)
-		print(stock)
 
 		# If new day, fill in the OHL
 		#If high = None
 		if curr_day[0][2] == None:
-			print(stock,'new day found')
 			update_curr_day = "UPDATE " + stock.Stock_Table + " SET Open = " + curr_price + ", High = " + curr_price + ", Low = " + curr_price + " WHERE Date = '" + str(curr_day[0][0]) + "'"
 			execute_query(update_curr_day)
 
 			query = "SELECT * FROM " + stock.Stock_Table + " ORDER BY Date DESC LIMIT 1"
 			curr_day = execute_query(query)
-			print(curr_day)
 
 		# Else, when the data is already in the table
 		else:
-			print(stock,'day already started')
 			high = curr_day[0][2]
 			low = curr_day[0][4]
 
 			if stock.Current_Price >= high:
 				update_higher = "UPDATE " + stock.Stock_Table + " SET High = " + curr_price + " WHERE Date = '" + str(curr_day[0][0]) + "'"
 				execute_query(update_higher)
-				print(stock.Stock_Table,"Higher")
 
 			elif stock.Current_Price <= low:
 				update_lower = "UPDATE " + stock.Stock_Table + " SET Low = " + curr_price + " WHERE Date = '" + str(curr_day[0][0]) + "'"
 				execute_query(update_lower)
-				print(stock.Stock_Table,"Lower")
 
 
 def time_decode(dateObj):
@@ -252,26 +245,18 @@ def new_day():
 
 			#Add validation to this to see if there is already an entry for this date
 
-			print('testing validation')
 			query = "SELECT * FROM "+ i + " WHERE (Date = '"+y+"-"+m+"-"+d+"' )"
 			data = execute_query(query)
-			print(data)
 			if data == []:
 
-				print('Creating empty row for the %sth for table %s' %(d,i))
 				query = "INSERT INTO `c1769261_Second_Year`.`"+i+"` (`Date`) VALUES ('"+y+"-"+m+"-"+d+"');"
 				execute_query(query)
-				print('done')
 
-			print('getting the last 2 days of trading for this stock')
 			query = "SELECT * FROM "+ i + " ORDER BY Date DESC LIMIT 2"
 			data = execute_query(query)
 			last_full_row = data[1]
-			print('done')
 
-			print('now setting last day of tradings close.')
 			y2,m2,d2 = time_decode(last_full_row[0])
 			query = "UPDATE `c1769261_Second_Year`.`"+i+"` SET `Close` = '"+price+"' WHERE (`Date` = '"+y2+"-"+m2+"-"+d2+"');"
 			execute_query(query)
-			print('done')
 
