@@ -170,6 +170,7 @@ def get_history(stock_ticker):
 
 def new_day():
 	print('All tables have been updated for the new day')
+	
 
 
 

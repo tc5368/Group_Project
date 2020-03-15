@@ -26,6 +26,7 @@ chart_studio.tools.set_credentials_file(username ='group13Yes', api_key='OspkIgN
 #Other libraries
 import pandas as pd
 from datetime import datetime
+from apscheduler.schedulers.background import BackgroundScheduler
 
 #
 from sqlConnector import *
@@ -36,12 +37,9 @@ from sqlConnector import *
 from newsapi import NewsApiClient
 newsapi = NewsApiClient(api_key='0f58067ab2ad447ba8e4af81ecea25c5')
 
-
-#Scheduler goes here
-
-
-
-
+scheduler = BackgroundScheduler()
+scheduler.add_job(func=new_day, trigger="cron", hour=8, minute=30)
+scheduler.start()
 
 @app.route("/")
 @app.route("/home")
@@ -334,10 +332,6 @@ def search_results(search):
 @login_manager.unauthorized_handler
 def unauthorized():
 	return redirect(url_for('login'))
-
-
-
-
 
 
 
