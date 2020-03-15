@@ -26,6 +26,7 @@ chart_studio.tools.set_credentials_file(username ='group13Yes', api_key='OspkIgN
 #Other libraries
 import pandas as pd
 from datetime import datetime
+from apscheduler.schedulers.background import BackgroundScheduler
 
 #
 from sqlConnector import *
@@ -37,10 +38,9 @@ from newsapi import NewsApiClient
 newsapi = NewsApiClient(api_key='0f58067ab2ad447ba8e4af81ecea25c5')
 
 
-# scheduler = BackgroundScheduler()
-# scheduler.add_job(func=new_day, trigger="cron", hour=20, minute=30)
-# scheduler.start()
-new_day()
+scheduler = BackgroundScheduler()
+scheduler.add_job(func=new_day, trigger="cron", hour=20, minute=46)
+scheduler.start()
 
 
 #Scheduler goes here
@@ -328,3 +328,5 @@ def search_results(search):
 def unauthorized():
 	return redirect(url_for('login'))
 
+
+simulate_trading()
