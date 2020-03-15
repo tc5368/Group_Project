@@ -182,22 +182,38 @@ def get_history(stock_ticker):
 def simulate_trading():
 	stocks = Stock_Info.query.all()
 	for stock in stocks:
+		# Updating the Stock_Info table's current prices
 		growth = r.random()/100
 		trade_type = ["buy", "sell"]
-		query = "SELECT * FROM " + stock.Stock_Table + " ORDER BY Date DESC LIMIT 1"
-		data = execute_query(query)
 		if r.choice(trade_type) == "buy":
 			growth = 1 + growth
 		else:
 			growth = 1 - growth
 		stock.Current_Price = stock.Current_Price * growth
 		db.session.commit()
-		# high = data[0][2]
-		# low = data[0][4]
-		# if curr_price >= high:
-		# 	print("Higher")
-		# elif curr_price <+ low:
-		# 	print("Lower")
+
+		# Updating the HIST table each stock's OHLC values
+
+		query = "SELECT * FROM " + stock.Stock_Table + " ORDER BY Date DESC LIMIT 1"
+		curr_day = execute_query(query)
+		curr_price = str(stock.Current_Price)
+
+		# If new day, fill in the OHL
+		if curr_day[0][2] == None:
+			update_curr_day = "UPDATE " + stock.Stock_Table + " SET Open = " + curr_price + ", High = " + curr_price + ", Low = " + curr_price + " WHERE Date = '" + str(curr_day[0][0]) + "'"
+			execute_query(update_curr_day)
+		# Else, when the data is already in the table
+		else:
+			high = curr_day[0][2]
+			low = curr_day[0][4]
+			if stock.Current_Price >= high:
+				update_higher = "UPDATE " + stock.Stock_Table + " SET High = " + curr_price + " WHERE Date = '" + str(curr_day[0][0]) + "'"
+				execute_query(update_higher)
+				print("Higher")
+			elif stock.Current_Price <= low:
+				update_lower = "UPDATE " + stock.Stock_Table + " SET Low = " + curr_price + " WHERE Date = '" + str(curr_day[0][0]) + "'"
+				execute_query(update_lower)
+				print("Lower")
 
 def new_day():
 	print('All tables have been updated for the new day')
@@ -215,21 +231,3 @@ def new_day():
 
 		#previous day set close to the current price
 		#open high and low set to previous close & close is left blank
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
