@@ -94,15 +94,6 @@ app_dash = dash.Dash(
 	external_stylesheets   = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 )
 
-def find_avaliable():
-	stock_list     = db.engine.table_names()
-	history_tables = []
-	for i in stock_list:
-		if i.endswith('_HIST'):
-			history_tables.append(i)
-	if history_tables == []:
-		history_tables.append(None)
-	return history_tables
 
 stock_list = find_avaliable()
 
