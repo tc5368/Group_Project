@@ -37,11 +37,9 @@ from sqlConnector import *
 from newsapi import NewsApiClient
 newsapi = NewsApiClient(api_key='0f58067ab2ad447ba8e4af81ecea25c5')
 
-
 scheduler = BackgroundScheduler()
 scheduler.add_job(func=new_day, trigger="cron", hour=20, minute=46)
 scheduler.start()
-
 
 #Scheduler goes here
 
