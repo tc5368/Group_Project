@@ -328,5 +328,3 @@ def search_results(search):
 def unauthorized():
 	return redirect(url_for('login'))
 
-
-simulate_trading()
