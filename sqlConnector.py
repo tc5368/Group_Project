@@ -58,11 +58,11 @@ def make_new_stock_history_table(ticker, df):
 		raise Exception('Stock has been already tracked')
 	else:
 		query = ("""CREATE TABLE `c1769261_Second_Year`.`"""+ticker+"""_HIST` (
-												`Date` DATE NOT NULL,
-												`Open` DOUBLE NOT NULL,
-												`High` DOUBLE NOT NULL,
-												`Close` DOUBLE NOT NULL,
-												`Low` DOUBLE NOT NULL,
+												`Date`  DATE NOT NULL,
+												`Open`  DOUBLE,
+												`High`  DOUBLE,
+												`Close` DOUBLE,
+												`Low`   DOUBLE,
 												PRIMARY KEY (`Date`));""")
 		execute_query(query)
 		df['Date'] = df.index.map(lambda x: x.strftime('%Y-%m-%d'))
@@ -178,12 +178,35 @@ def simulate_trading():
 		query = "SELECT * FROM " + stock.Stock_Table + " ORDER BY Date DESC LIMIT 1"
 		data = execute_query(query)
 
+<<<<<<< HEAD
 		if r.choice(trade_type) == "buy":
 			growth = 1 + growth
 		else:
 			growth = 1 - growth
 		stock.Current_Price = stock.Current_Price * growth
 		db.session.commit()
+=======
+def new_day():
+	print('All tables have been updated for the new day')
+	t = date.today()
+	y,m,d = str(t.year),str(t.month),str(t.day)
+	if len(d) == 1:
+		d = '0'+d
+	if len(m) == 1:
+		m = '0'+m
+
+	#query = "INSERT INTO `c1769261_Second_Year`.`AAPL_HIST` (`Date`) VALUES ('"+y+"-"+m+"-"+d+"');"
+	query = "INSERT INTO `c1769261_Second_Year`.`AAPL_HIST` (`Date`) VALUES ('2020-03-15');"
+	print(query)
+	a = execute_query(query)
+	print(a)
+
+
+
+
+
+
+>>>>>>> ae25e49d508850f93c42ffa7ae801b3db0ecc490
 
 		# high = data[0][2]
 		# low = data[0][4]
