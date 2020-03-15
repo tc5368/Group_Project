@@ -57,11 +57,11 @@ def make_new_stock_history_table(ticker, df):
 		raise Exception('Stock has been already tracked')
 	else:
 		query = ("""CREATE TABLE `c1769261_Second_Year`.`"""+ticker+"""_HIST` (
-												`Date` DATE NOT NULL,
-												`Open` DOUBLE NOT NULL,
-												`High` DOUBLE NOT NULL,
-												`Close` DOUBLE NOT NULL,
-												`Low` DOUBLE NOT NULL,
+												`Date`  DATE NOT NULL,
+												`Open`  DOUBLE,
+												`High`  DOUBLE,
+												`Close` DOUBLE,
+												`Low`   DOUBLE,
 												PRIMARY KEY (`Date`));""")
 		execute_query(query)
 		df['Date'] = df.index.map(lambda x: x.strftime('%Y-%m-%d'))
@@ -170,7 +170,18 @@ def get_history(stock_ticker):
 
 def new_day():
 	print('All tables have been updated for the new day')
-	
+	t = date.today()
+	y,m,d = str(t.year),str(t.month),str(t.day)
+	if len(d) == 1:
+		d = '0'+d
+	if len(m) == 1:
+		m = '0'+m
+
+	#query = "INSERT INTO `c1769261_Second_Year`.`AAPL_HIST` (`Date`) VALUES ('"+y+"-"+m+"-"+d+"');"
+	query = "INSERT INTO `c1769261_Second_Year`.`AAPL_HIST` (`Date`) VALUES ('2020-03-15');"
+	print(query)
+	a = execute_query(query)
+	print(a)
 
 
 
