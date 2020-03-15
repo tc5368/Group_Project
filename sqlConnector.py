@@ -14,6 +14,16 @@ def get_Name(ticker):
 def get_Info(ticker):
 	return(yf.Ticker(ticker).info['longBusinessSummary'])
 
+def find_avaliable():
+	stock_list     = db.engine.table_names()
+	history_tables = []
+	for i in stock_list:
+		if i.endswith('_HIST'):
+			history_tables.append(i)
+	if history_tables == []:
+		history_tables.append(None)
+	return history_tables
+
 def get_raw_info(stock_ticker):
 	'''Get a csv file for the past data of a given stock
 
@@ -93,6 +103,7 @@ def execute_query(query):
 	try:
 		data = cursor.fetchall()
 	except:
+		cnx.commit()
 		data = None
 	cnx.close()
 	return data
@@ -199,8 +210,28 @@ def new_day():
 	if len(m) == 1:
 		m = '0'+m
 
-	#query = "INSERT INTO `c1769261_Second_Year`.`AAPL_HIST` (`Date`) VALUES ('"+y+"-"+m+"-"+d+"');"
-	query = "INSERT INTO `c1769261_Second_Year`.`AAPL_HIST` (`Date`) VALUES ('2020-03-15');"
-	print(query)
-	# a = execute_query(query)
-	# print(a)
+	history_tables = find_avaliable()
+	for i in history_tables:
+		query = "INSERT INTO `c1769261_Second_Year`.`"+i+"` (`Date`) VALUES ('"+y+"-"+m+"-"+d+"');"
+		execute_query(query)
+
+		#previous day set close to the current price
+		#open high and low set to previous close & close is left blank
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
