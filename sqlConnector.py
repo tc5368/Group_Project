@@ -180,6 +180,7 @@ def get_history(stock_ticker):
 	return(df)
 
 def simulate_trading():
+	print('Fluctating prices')
 	stocks = Stock_Info.query.all()
 	for stock in stocks:
 		# Updating the Stock_Info table's current prices
