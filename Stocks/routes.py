@@ -41,8 +41,6 @@ newsapi = NewsApiClient(api_key='0f58067ab2ad447ba8e4af81ecea25c5')
 
 
 
-
-
 @app.route("/")
 @app.route("/home")
 def home():
@@ -336,10 +334,4 @@ def unauthorized():
 	return redirect(url_for('login'))
 
 
-
-
-
-
-
-
-
+simulate_trading()

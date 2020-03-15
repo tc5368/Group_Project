@@ -6,6 +6,7 @@ import yfinance as yf
 from Stocks import db
 from Stocks.models import *
 from flask import flash
+import random as r
 
 def get_Name(ticker):
 	return(yf.Ticker(ticker).info['longName'])
@@ -167,13 +168,26 @@ def get_history(stock_ticker):
 	df.columns = ['Date','High','Low','Open','Close']
 	return(df)
 
+def simulate_trading():
+	stocks = Stock_Info.query.all()
+	for stock in stocks:
+		growth = r.random()/100
+		if(stock.Stock_ID == "AAPL"):
+			continue
+		trade_type = ["buy", "sell"]
+		query = "SELECT * FROM " + stock.Stock_Table + " ORDER BY Date DESC LIMIT 1"
+		data = execute_query(query)
 
-def new_day():
-	print('All tables have been updated for the new day')
+		if r.choice(trade_type) == "buy":
+			growth = 1 + growth
+		else:
+			growth = 1 - growth
+		stock.Current_Price = stock.Current_Price * growth
+		db.session.commit()
 
-
-
-
-
-
-
+		# high = data[0][2]
+		# low = data[0][4]
+		# if curr_price >= high:
+		# 	print("Higher")
+		# elif curr_price <+ low:
+		# 	print("Lower")
