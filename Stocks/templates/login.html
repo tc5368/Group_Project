@@ -1,15 +1,12 @@
 {% extends "layout.html" %}
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <title>Stock Market</title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
-    <!--Custom Stylesheet-->
-</head>
 {% block content %}
+<body style="
+	background-image: url(../static/img/login2.jpg);
+	background-size: cover;
+	background-attachment:fixed;
+	background-position: center;
+	box-sizing: border-box;
+	font-family: sans-serif;">
 
 <div class = "login-box">
     <h1>Login</h1>
@@ -42,4 +39,6 @@
     <p>{{ form.submit(class="btnSub") }}</p>
 
 </form> -->
+
+</body>
 {% endblock content %}

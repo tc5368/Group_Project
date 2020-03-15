@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
+<body>
 
 <p>Welcome to the Selling Confirmation page.</p>
 <p>You are about to sell {{ amount }} {{ ticker.Stock_Name }} shares. The current share price is ${{ ticker.Current_Price }}</p>
@@ -14,5 +15,7 @@
 	<p>{{ form.submit_no(class="btnSub") }}</p>
 
 </form>
+
+</body>
 
 {% endblock content %}
