@@ -191,7 +191,6 @@ def simulate_trading():
 			growth = 1 - growth
 		stock.Current_Price = stock.Current_Price * growth
 		db.session.commit()
-
 		# Updating the HIST table each stock's OHLC values
 
 		query = "SELECT * FROM " + stock.Stock_Table + " ORDER BY Date DESC LIMIT 1"
@@ -215,19 +214,52 @@ def simulate_trading():
 				execute_query(update_lower)
 				print("Lower")
 
-def new_day():
-	print('All tables have been updated for the new day')
-	t = date.today()
-	y,m,d = str(t.year),str(t.month),str(t.day)
+
+def time_decode(dateObj):
+	y,m,d = str(dateObj.year),str(dateObj.month),str(dateObj.day)
 	if len(d) == 1:
 		d = '0'+d
 	if len(m) == 1:
 		m = '0'+m
+	return y,m,d
+
+
+def new_day():
+	print('All tables have been updated for the new day')
+	t = date.today()
+	y,m,d = time_decode(t)
 
 	history_tables = find_avaliable()
-	for i in history_tables:
-		query = "INSERT INTO `c1769261_Second_Year`.`"+i+"` (`Date`) VALUES ('"+y+"-"+m+"-"+d+"');"
-		execute_query(query)
+	if history_tables[0] != None:
+		for i in history_tables:
+			i = str(i)
 
-		#previous day set close to the current price
-		#open high and low set to previous close & close is left blank
+			stock_info = Stock_Info.query.filter_by(Stock_ID=i.split('_')[0]).first()
+			price      = str(stock_info.Current_Price)
+
+			#Add validation to this to see if there is already an entry for this date
+
+			print('testing validation')
+			query = "SELECT * FROM "+ i + " WHERE (Date = '"+y+"-"+m+"-"+d+"' )"
+			data = execute_query(query)
+			print(data)
+			if data == []:
+
+				print('Creating empty row for the %sth for table %s' %(d,i))
+				query = "INSERT INTO `c1769261_Second_Year`.`"+i+"` (`Date`) VALUES ('"+y+"-"+m+"-"+d+"');"
+				execute_query(query)
+				print('done')
+
+			print('getting the last 2 days of trading for this stock')
+			query = "SELECT * FROM "+ i + " ORDER BY Date DESC LIMIT 2"
+			data = execute_query(query)
+			last_full_row = data[1]
+			print('done')
+
+			print('now setting last day of tradings close.')
+			y2,m2,d2 = time_decode(last_full_row[0])
+			query = "UPDATE `c1769261_Second_Year`.`"+i+"` SET `Close` = '"+price+"' WHERE (`Date` = '"+y2+"-"+m2+"-"+d2+"');"
+			execute_query(query)
+			print('done')
+
+#simulate_trading()
