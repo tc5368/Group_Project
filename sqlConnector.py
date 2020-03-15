@@ -100,7 +100,6 @@ def execute_query(query):
 
 def check_buy(user_id, stock, amount):
 	user = User.query.filter_by(id=user_id).first()
-
 	stock_info = Stock_Info.query.filter_by(Stock_ID=stock).first()
 	if stock_info != None and (amount > 0):
 		price = float(amount) * stock_info.Current_Price
@@ -127,7 +126,6 @@ def check_buy(user_id, stock, amount):
 def check_sell(user_id, stock, amount):
 	user = User.query.filter_by(id=user_id).first()
 	stock_info = Stock_Info.query.filter_by(Stock_ID=stock).first()
-
 	if stock_info != None and (amount > 0):
 		price = float(amount) * stock_info.Current_Price
 
@@ -138,10 +136,12 @@ def check_sell(user_id, stock, amount):
 				if i.Amount_of_Shares >= amount:
 					i.Amount_of_Shares -= amount
 					user.balance += price
-					print("adding")
 				else:
 					return False
 				break
+
+		Portfolio.query.filter_by(Amount_of_Shares=0).delete()
+
 		db.session.commit()
 		return True
 	else:
