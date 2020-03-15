@@ -220,10 +220,18 @@ def new_day():
 			stock_info = Stock_Info.query.filter_by(Stock_ID=i.split('_')[0]).first()
 			price      = str(stock_info.Current_Price)
 
-			print('Creating empty row for the %sth for table %s' %(d,i))
-			query = "INSERT INTO `c1769261_Second_Year`.`"+i+"` (`Date`) VALUES ('"+y+"-"+m+"-"+d+"');"
-			execute_query(query)
-			print('done')
+			#Add validation to this to see if there is already an entry for this date
+
+			print('testing validation')
+			query = "SELECT * FROM "+ i + " WHERE (Date = '"+y+"-"+m+"-"+d+"' )"
+			data = execute_query(query)
+			print(data)
+			if data == []:
+
+				print('Creating empty row for the %sth for table %s' %(d,i))
+				query = "INSERT INTO `c1769261_Second_Year`.`"+i+"` (`Date`) VALUES ('"+y+"-"+m+"-"+d+"');"
+				execute_query(query)
+				print('done')
 
 			print('getting the last 2 days of trading for this stock')
 			query = "SELECT * FROM "+ i + " ORDER BY Date DESC LIMIT 2"
