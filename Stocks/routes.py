@@ -36,6 +36,13 @@ from sqlConnector import *
 from newsapi import NewsApiClient
 newsapi = NewsApiClient(api_key='0f58067ab2ad447ba8e4af81ecea25c5')
 
+
+#Scheduler goes here
+
+
+
+
+
 @app.route("/")
 @app.route("/home")
 def home():
@@ -327,3 +334,12 @@ def search_results(search):
 @login_manager.unauthorized_handler
 def unauthorized():
 	return redirect(url_for('login'))
+
+
+
+
+
+
+
+
+

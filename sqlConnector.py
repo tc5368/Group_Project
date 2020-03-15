@@ -94,7 +94,6 @@ def execute_query(query):
 	except:
 		data = None
 	cnx.close()
-
 	return data
 
 
@@ -167,3 +166,14 @@ def get_history(stock_ticker):
 	df = pd.DataFrame.from_records(data)
 	df.columns = ['Date','High','Low','Open','Close']
 	return(df)
+
+
+def new_day():
+	print('All tables have been updated for the new day')
+
+
+
+
+
+
+
