@@ -1,17 +1,33 @@
 {% extends "layout.html" %}
 {% block content %}
-<body>
+<body style="
+	background-image: url(../static/img/login2.jpg);
+	background-size: cover;
+	background-attachment:fixed;
+	background-position: center;
+	box-sizing: border-box;
+	font-family: sans-serif;
+">
 
+<div class = "login-box">
+	<h1>Track a new stock</h1>
 <form method="POST" action="">
 	{{ form.csrf_token }}
 
-  <p>{{ form.ticker.label(class="lbl") }}<br>{{ form.ticker(class="inp")}}</p>
+	<div = class="textbox">
+
+  <p>{{ form.ticker.label(class="lbl") }}<br>{{ form.ticker}}</p>
 	{% for error in form.ticker.errors %}
     	<span style="color: white;">That is not a valid ticker</span>
   {% endfor %}
+</div>
 
-    <p>{{ form.submit(class="btnSub") }}</p>
+<p>{{ form.submit(class="btn2") }}</p>
+</div>
+
+    
 
 </form>
+</div>
 </body>
 {% endblock content %}
