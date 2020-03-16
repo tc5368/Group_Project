@@ -27,20 +27,19 @@
 
         <li><i class="fa fa-align-left"></i><a href="{{ url_for('portfolio') }}">Portfolio</a></li>
 
-        <li class="active">
+        <li>
           <i class="fa fa-lock"></i><a href="#">Account</a>
           <div class="sub-menu-1">
             <ul>
-              <li><a href="#">Details</a></li>
-              <li>
                 {% if current_user.is_authenticated %}
-                  Hello, {{ current_user.first_name }}!
-                  <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>&nbsp
+                  <li>Hello, {{ current_user.first_name }}!</li>
+                  <li><a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+                  <li><a href="#">Details</a></li>
                 {% else %}
-                  Hello, Guest! &nbsp <a href="{{ url_for('login') }}">Login&nbsp;</a>
-                  or <a href="{{ url_for('register') }}">Register</a>&nbsp
+                  <li>Hello, Guest!</li>
+                  <li> <a href="{{ url_for('login') }}">Login</a></li>
+                  <li><a href="{{ url_for('register') }}">Register</a></li>
                 {% endif %}
-              </li>
             </ul>
           </div>
         </li>
@@ -60,7 +59,7 @@
 
 <!-- <body> -->
 
-<!--   <div>
+  <div>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     <ul class=flashes>
@@ -70,7 +69,7 @@
     </ul>
     {% endif %}
     {% endwith %}
-  </div> -->
+  </div>
 
   <div id="content">
     {% block content %}

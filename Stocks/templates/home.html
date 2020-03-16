@@ -9,48 +9,134 @@
 	font-family: sans-serif;
 ">
 
-<h1>Stocks</h1>
+		<div id="wholePage">
+			<div class="intro">
+				<div class="wrapper">
+					<h2>Welcome to our market!</h2>
+					<p>
+						Int r oIntr oInt roI nt roIn troI nt oInt roIn troI ntro Intr oI ntroI ntro I ntro Int ro Intro I ntr oIntro ntroIn troIn t roIntr oInt roIntr o Intro Intr oIn tr Intr oIntroI  troIntr oIn troI ntro Int roI ntroIn troIn troI n tro Intr oIn tr oIntr oIn tro IntroI nt r oIn tro
+					</p>
+				</div>
+			</div>
+
+			<div class="index-news">
+				<div class="wrapper">
+					<article>
+						<div class="news-img"></div>
+						<div class header3><h3><a href="#">This is a news tittle!</a></h3></div>
+						<p>source:</p>
+						<p>author:</p>
+						<p>dwadada dadas dwaa dw a dwa dawas hkdwa jdaw dawhjk</p>
+					</article>
+
+					<article>
+						<div class="news-img"></div>
+						<h3><a href="#">This is a news tittle!</a></h3>
+						<p>source:</p>
+						<p>author:</p>
+						<p>dwadada dadas dwaa dw a dwa dawas hkdwa jdaw dawhjk</p>
+					</article>
+
+					<article>
+						<div class="news-img"></div>
+						<h3><a href="#">This is a news tittle!</a></h3>
+						<p>source:</p>
+						<p>author:</p>
+						<p>dwadada dadas dwaa dw a dwa dawas hkdwa jdaw dawhjk</p>
+					</article>
+				</div>
+			</div>
+
+			<div class="index-stock-viewing">
+
+				<div class="Table-Div">
+					<table>
+						<tr>
+							<th>Stock Name</th>
+							<th>Stock Price</th>
+							<th>Stock ****</th>
+							<th>Stock ****</th>
+						</tr>
+
+						<tr>
+							<td><a href="#">Apple</td>
+							<td>0.55</td>
+							<td>****</td>
+							<td>****</td>
+						</tr>
+
+						<tr>
+							<td><a href="#">Tesla</td>
+							<td>0.77</td>
+							<td>****</td>
+							<td>****</td>
+						</tr>
+
+						<tr>
+							<td><a href="#">NVDA</td>
+							<td>0.75</td>
+							<td>****</td>
+							<td>****</td>
+						</tr>
+
+						<tr>
+							<td><a href="#">Microsoft</td>
+							<td>0.88</td>
+							<td>****</td>
+							<td>****</td>
+						</tr>
+
+
+					</table>
+				</div>
+			</div>
+		</div>
+
+<div class="intro">
+<h2>Temporary links</h2>
 <p>
-	<a class = 'nav-item nav-link' href = '/stocks'>Designated Stock Graph Viewing page</a>
+	<a href="/stocks" ><input class = "btn2" type="button" name="" value="Designated Stock Graph Viewing page"></a>
 </p>
 
 {% if current_user.is_authenticated %}
 <p>
-	<a class = 'nav-item nav-link' href = "/track">Add new stock to database
+	<a href="/track" ><input class = "btn2" type="button" name="" value="Add new stock to database"></a>
 </p>
 {% endif %}
 
 <p>
-	<a class = 'nav-item nav-link' href = '/newsSearch'>View news stories</a>
+	<a href="/newsSearch" ><input class = "btn2" type="button" name="" value="View news stories"></a>
 </p>
 
 <p>
-	<a class = 'nav-item nav-link' href = '/stock'>View induvidual stock page</a>
+	<a href="/stock" ><input class = "btn2" type="button" name="" value="View induvidual stock page"></a>
 </p>
 
 {% if current_user.is_authenticated %}
 	<p>
-		<a class = 'nav-item nav-link' href = '/portfolio'>View your portfolio</a>
+		<a href="/portfolio" ><input class = "btn2" type="button" name="" value="View your portfolio"></a>
 	</p>
 {% endif %}
 
 {% if current_user.is_authenticated %}
 <p>
-	<a class = 'nav-item nav-link' href = "/search">Search</a>
+	<a href="/search" ><input class = "btn2" type="button" name="" value="Search"></a>
 </p>
 {% endif %}
 
 {% if current_user.is_authenticated %}
 <p>
-	<a class = 'nav-item nav-link' href = "/buy">Buy</a>
+	<a href="/buy" ><input class = "btn2" type="button" name="" value="Buy"></a>
 </p>
 {% endif %}
 
 {% if current_user.is_authenticated %}
 <p>
-	<a class = 'nav-item nav-link' href = "/sell">Sell</a>
+	<a href="/sell" ><input class = "btn2" type="button" name="" value="Sell"></a>
+
 </p>
 {% endif %}
+</div>
 
 </body>
 
