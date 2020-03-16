@@ -303,7 +303,7 @@ def search_results(search):
             qry = db.session.query(Stock_Info).filter_by(Stock_ID =search_string)
             results = qry.all()
         elif search.data['select'] == 'Stock_Name':
-            qry = db.session.query(Stock_Info).filter_by(Stock_Name = search_string)
+            qry = db.session.query(Stock_Info).filter(Stock_Info.Stock_Name.like("%"+search_string+"%"))
             results = qry.all()
         else:
             qry = Stock_Info.query().all()
