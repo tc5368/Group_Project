@@ -13,14 +13,14 @@
     <form class="login_reg" method="POST" action="">
     	{{ form.csrf_token }}
 		<div class="textbox">
-			<p>{{ form.email.label(class="lbl") }}<br>{{ form.email(class="inp")}}</p>
+			{{ form.email(placeholder="Email")}}
 			{% for error in form.email.errors %}
         		<span style="color: white;">That is not an email address</span>
     		{% endfor %}
 		</div> 
 
 		<div class="textbox">
-		  <p>{{ form.password.label(class="lbl") }}<br>{{ form.password(class="inp")}}</p>
+		  {{ form.password(placeholder="Password")}}
 		</div>
 			<p>{{ form.submit(class="btn2") }}</p>
 		<a href="{{ url_for('register') }}" ><input class = "btn2" type="button" name="" value="Register"></a>
