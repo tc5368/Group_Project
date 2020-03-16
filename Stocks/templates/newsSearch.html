@@ -1,20 +1,30 @@
 {% extends "layout.html" %}
 {% block content %}
-<body>
+<body style="
+	background-image: url(../static/img/login2.jpg);
+	background-size: cover;
+	background-attachment:fixed;
+	background-position: center;
+	box-sizing: border-box;
+	font-family: sans-serif;
+">
+<div class = "login-box">
 
-<p>Welcome to the news page.</p>
+<h1>Welcome to the news page.</h1>
 
 <form method="POST" action="">
 	{{ form.csrf_token }}
-
+<div class = "textbox">
 	<p>{{ form.topic.label(class="lbl") }}<br>{{ form.topic(class="inp")}}</p>
 	{% for error in form.topic.errors %}
 		<span style="color: white;">That is not a valid news topic</span>
 	{% endfor %}
 
-	<p>{{ form.submit(class="btnSub") }}</p>
-
+	
+</div>
+<p>{{ form.submit(class="btn2") }}</p>
 </form>
+</div>
 </body>
 
 {% endblock content %}
