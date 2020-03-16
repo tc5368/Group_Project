@@ -27,7 +27,7 @@ class Get_Stock_Ticker_Form(FlaskForm):
 	submit = SubmitField('Next')
 
 class SearchForm(FlaskForm):
-	choices = [('Stock_ID', 'Stock_ID'),('Stock_Name', 'Stock_Name')]
+	choices = [('Stock_ID', 'Stock ID'),('Stock_Name', 'Stock Name')]
 	select = SelectField('Search Stocks:', choices=choices)
 	search = StringField('Search')
 	submit = SubmitField('Submit')
