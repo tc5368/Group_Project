@@ -1,18 +1,27 @@
 {% extends "layout.html" %}
 {% block content %}
-<body>
+<body style="
+	background-image: url(../static/img/homepage.jpg);
+	background-size: cover;
+	background-attachment:fixed;
+	background-position: center;
+	box-sizing: border-box;
+	font-family: sans-serif;
+">
 
-<p>Welcome to the buying page.</p>
+
+<div class = "login-box">
+	<h1>Welcome to the buying page</h1>
 
 <form method="POST" action="">
 	{{ form.csrf_token }}
 
-	<p>{{ form.ticker.label(class="lbl") }}<br>{{ form.ticker(class="inp")}}</p>
+	<p>{{ form.ticker.label(class="lbl") }}<br>{{ form.ticker(class="btn2")}}</p>
 	{% for error in form.ticker.errors %}
 		<span style="color: white;">That is not a valid ticker</span>
 	{% endfor %}
 
-	<p>{{ form.amount.label(class="lbl") }}<br>{{ form.amount(class="inp")}}</p>
+	<p>{{ form.amount.label(class="lbl") }}<br>{{ form.amount(class="btn2")}}</p>
 	{% for error in form.amount.errors %}
 		<span style="color: white;">That is not a valid amount of shares</span>
 	{% endfor %}
@@ -20,6 +29,8 @@
 	<p>{{ form.submit(class="btnSub") }}</p>
 
 </form>
+
+</div>
 </body>
 
 {% endblock content %}
