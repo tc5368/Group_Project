@@ -89,7 +89,7 @@ def logout():
 app_dash = dash.Dash(
 	__name__,
 	server                 = app,
-	routes_pathname_prefix = '/stocks/',
+	routes_pathname_prefix = '/graphs/',
 	external_stylesheets   = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 )
 

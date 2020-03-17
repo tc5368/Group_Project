@@ -122,6 +122,11 @@ def check_buy(user_id, stock, amount):
 			found = False
 			for i in portfolio:
 				if i.Stock_ID == stock_info.Stock_ID:
+					# Growing the price of the stock.
+					growth = r.random()/100
+					growth = 1 + growth
+					stock_info.Current_Price = stock_info.Current_Price * growth
+
 					i.Amount_of_Shares += float(amount)
 					found = True
 					break
@@ -145,6 +150,11 @@ def check_sell(user_id, stock, amount):
 		for i in portfolio:
 			if i.Stock_ID == stock_info.Stock_ID:
 				if i.Amount_of_Shares >= amount:
+					# Decreasing the price of the stock.
+					growth = r.random()/100
+					growth = 1 - growth
+					stock_info.Current_Price = stock_info.Current_Price * growth
+
 					i.Amount_of_Shares -= amount
 					user.balance += price
 				else:
@@ -180,7 +190,6 @@ def get_history(stock_ticker):
 	return(df)
 
 def simulate_trading():
-	print('Fluctating prices')
 	stocks = Stock_Info.query.all()
 	for stock in stocks:
 		# Updating the Stock_Info table's current prices
@@ -232,7 +241,6 @@ def time_decode(dateObj):
 
 
 def new_day():
-	print('All tables have been updated for the new day')
 	t = date.today()
 	y,m,d = time_decode(t)
 
@@ -260,4 +268,3 @@ def new_day():
 			y2,m2,d2 = time_decode(last_full_row[0])
 			query = "UPDATE `c1769261_Second_Year`.`"+i+"` SET `Close` = '"+price+"' WHERE (`Date` = '"+y2+"-"+m2+"-"+d2+"');"
 			execute_query(query)
-
