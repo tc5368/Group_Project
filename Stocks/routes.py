@@ -282,7 +282,14 @@ def stock_page(ticker):
 def portfolio():
 	user = current_user.id
 	user_portfolio = Portfolio.query.filter_by(Customer_ID=current_user.id).all()
-	return render_template("portfolio.html", portfolio = user_portfolio)
+	total = 0
+	stock_desc = []
+	for stock in user_portfolio:
+		stock_data = Stock_Info.query.filter_by(Stock_ID=stock.Stock_ID).first()
+		stock_desc.append(stock_data)
+		total = total + (stock_data.Current_Price * stock.Amount_of_Shares)
+
+	return render_template("portfolio.html", portfolio = user_portfolio, stock_desc = stock_desc, total = total)
 
 
 @app.route('/search', methods=['GET', 'POST'])

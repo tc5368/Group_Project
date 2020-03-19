@@ -11,14 +11,23 @@
 		<tr>
 			<th>Stock ID</th>
 			<th>Amount of Shares</th>
+			<th>Price per stock</th>
+			<th>Overall price for stock</th>
 		</tr>
 	{% for purchase in portfolio %}
 		<tr>
 			<td>{{ purchase.Stock_ID }}</td>
 			<td>{{ purchase.Amount_of_Shares }}</td>
+			{% for stock in stock_desc %}
+				{% if purchase.Stock_ID == stock.Stock_ID %}
+					<td>{{ stock.Current_Price }}</td>
+					<td>{{ stock.Current_Price * purchase.Amount_of_Shares }}</td>
+				{% endif %}
+			{% endfor %}
 		</tr>
 	{% endfor %}
 	</table>
+<p> The total value of your portfolio is {{ total }} </p>
 {% else %}
 	<p><b>You have not purchased any stocks</b></p>
 {% endif %}
