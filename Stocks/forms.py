@@ -23,8 +23,12 @@ class LoginForm(FlaskForm):
 	submit   = SubmitField('Login')
 
 class Get_Stock_Ticker_Form(FlaskForm):
-	ticker = StringField('Stock Ticker', validators=[DataRequired(), Length(min=1,max=4)])
+	ticker = StringField('Stock Ticker', validators=[Length(min=1,max=4)])
 	submit = SubmitField('Next')
+
+class Retrieve_Stock_Ticker_Form(FlaskForm):
+	stock_name = StringField('Stock Name')
+	submit = SubmitField('Find')
 
 class SearchForm(FlaskForm):
 	choices = [('Stock_ID', 'Stock ID'),('Stock_Name', 'Stock Name')]

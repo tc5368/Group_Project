@@ -252,9 +252,18 @@ def buyConfirm(ticker,amount):
 @login_required
 def track():
 	form = Get_Stock_Ticker_Form()
+	ticker_form = Retrieve_Stock_Ticker_Form()
+	found_tickers = []
 	if form.validate_on_submit():
 		make_new_hist(form.ticker.data)
-	return render_template('track.html', title='Track', form=form)
+	if ticker_form.validate_on_submit():
+		if(ticker_form.stock_name.data == ""):
+			pass
+		else:
+			found_tickers = find_tickers(ticker_form.stock_name.data)[:5]
+			if found_tickers == []:
+				found_tickers = ["None"]
+	return render_template('track.html', title='Track', form=form, ticker_form=ticker_form, tickers=found_tickers)
 
 
 @app.route("/stock",methods=['GET','POST'])

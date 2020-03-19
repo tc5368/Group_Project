@@ -9,25 +9,32 @@
 	font-family: sans-serif;
 ">
 
-<div class = "login-box">
+	<div class = "login-box">
 	<h1>Track a new stock</h1>
-<form method="POST" action="">
+	<form method="POST" action="">
 	{{ form.csrf_token }}
 
-	<div = class="textbox">
+	<p>{{ ticker_form.stock_name.label(class="lbl") }}<br>{{ ticker_form.stock_name}}</p>
+	{% for error in ticker_form.stock_name.errors %}
+    	<span style="color: white;">That is not a valid stock name</span>
+  {% endfor %}
+	<p>{{ ticker_form.submit(class="btn2") }}</p>
+	{% if tickers == ["None"] %}
+		<p>Did not find any relevant Stock Tickers</p>
+	{% elif tickers != [] %}
+		<p>Have found all of the relevant Stock Tickers</p>
+		{% for ticker in tickers %}
+		<p>{{ ticker }}</p>
+		{% endfor %}
+	{% endif %}
 
+	<div = class="textbox">
   <p>{{ form.ticker.label(class="lbl") }}<br>{{ form.ticker}}</p>
 	{% for error in form.ticker.errors %}
     	<span style="color: white;">That is not a valid ticker</span>
   {% endfor %}
-</div>
-
-<p>{{ form.submit(class="btn2") }}</p>
-</div>
-
-    
-
-</form>
-</div>
+	</div>
+	<p>{{ form.submit(class="btn2") }}</p>
+	</div>
 </body>
 {% endblock content %}
