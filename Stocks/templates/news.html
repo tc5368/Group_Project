@@ -1,13 +1,17 @@
+
 {% extends "layout.html" %}
 {% block content %}
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='NewsStyle.css') }}">
 <body>
 {%for article in articles%}
+  <div class ="articles">
   <h1>{{ article['title'] }}</h1>
   <p>Author : {{ article['author'] }}</p>
   <p>Source : {{ article['source']['name'] }}</p>
   <p>Description : {{ article['description'] }}</p>
   <a href={{ article['url'] }}> <img src={{ article['urlToImage'] }} height="126" width="240"> </a>
   <p>Published at : {{ article['publishedAt'] }}</p>
+  </div>
 {%endfor%}
 </body>
 {% endblock content %}

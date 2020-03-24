@@ -1,0 +1,24 @@
+body {
+	background-color: white;
+}
+.price{
+position: relative;
+top: 120px;
+right:-30px;
+font-weight: bold;
+font-size:25px;
+}
+
+.info{
+width:750px;
+position: relative;
+top: 50px;
+right:-30px;
+}
+
+.ticker {
+	font-size:40px;
+	font-weight: bold;
+	position: relative;
+	right:-30px;
+}

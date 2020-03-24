@@ -1,13 +1,24 @@
 {% extends "layout.html" %}
 {% block content %}
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='StockStyle.css') }}">
 <body>
 
 
-<p>{{ title }}</p>
-<p>{{ ticker }}<p>
-<p>{{ info }}</p>
-<p>{{ price }}</p>
+<div class = "title">
+  <p>{{ title }}</p>
+ </div>
 
+ <div class = "ticker">
+  <p>{{ ticker }}<p>
+</div>
+
+<div class = "info">
+  <p>{{ info }}</p>
+</div>
+
+<div class = "price">
+  <p>{{ price }}</p>
+</div>
 </body>
 
 {% endblock content %}
