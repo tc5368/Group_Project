@@ -229,6 +229,60 @@ def simulate_trading():
 			elif stock.Current_Price <= low:
 				update_lower = "UPDATE " + stock.Stock_Table + " SET Low = " + curr_price + " WHERE Date = '" + str(curr_day[0][0]) + "'"
 				execute_query(update_lower)
+	check_automated_strategies()
+
+
+
+
+
+def check_automated_strategies():
+	users_with_strategies = Automation.query.order_by(Automation.Customer_ID).all()
+	for user in users_with_strategies:
+		s = Automation.query.filter_by(Customer_ID = user.Customer_ID).first()
+
+		#Determines which trigger to use, (A | B) above or below...
+		stock_info = Stock_Info.query.filter_by(Stock_ID=s.Stock_ID).first()
+		print(s)
+		if (s.Trigger == 'A' and stock_info.Current_Price > s.Trigger_Price) or (s.Trigger == 'B' and stock_info.Current_Price < s.Trigger_Price):
+			print('%s ing %s shares of %s for %s' %(s.Strategy, s.Increment, stock_info.Stock_Name ,s.Customer_ID))
+
+			if s.Limit - s.Increment >= 0:
+				if s.Strategy == 'B':
+					check_buy (s.Customer_ID, s.Stock_ID, s.Increment)
+				else:
+					check_sell(s.Customer_ID, s.Stock_ID, s.Increment)
+
+				#update limit.
+				print('updating %s - %s:' %(s.Limit, s.Increment))
+				newValue = s.Limit - s.Increment
+				s.Limit = newValue
+
+				print('to %s' %(s.Limit))
+				print(s)
+				db.session.commit()
+				print('commited')
+
+
+			else:
+				print('Stategy finished needs deletion')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def time_decode(dateObj):
@@ -273,3 +327,22 @@ def find_tickers(inp):
 	inp = inp.capitalize()
 	tickers = web.get_nasdaq_symbols()
 	return tickers.index[tickers['Security Name'].str.contains(inp)].tolist()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

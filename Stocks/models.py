@@ -37,7 +37,7 @@ class Stock_Info(db.Model):
 	Current_Price    = db.Column(db.Float,      nullable    = False)
 	Stock_Table      = db.Column(db.String(10), nullable    = False)
 
-	def __init__(self,Stock_ID,Stock_Name,Current_Price,Stock_Table):
+	def __init__(self, Stock_ID, Stock_Name, Current_Price, Stock_Table):
 		self.Stock_ID      = Stock_ID
 		self.Stock_Name    = Stock_Name
 		self.Current_Price = Current_Price
@@ -49,11 +49,28 @@ class Portfolio(db.Model):
 	Stock_ID         = db.Column(db.String(4), db.ForeignKey('Stock_Info.Stock_ID'), primary_key = True)
 	Amount_of_Shares = db.Column(db.Float, nullable=False)
 
-	def __init__(self,Customer_ID,Stock_ID,Amount_of_Shares):
+	def __init__(self, Customer_ID, Stock_ID, Amount_of_Shares):
 		self.Customer_ID      = Customer_ID
 		self.Stock_ID         = Stock_ID
 		self.Amount_of_Shares = Amount_of_Shares
 
+class Automation(db.Model):
+	__tablename__ = "Automation"
+	Customer_ID   = db.Column(db.Integer,   db.ForeignKey(User.id), primary_key = True)
+	Stock_ID      = db.Column(db.String(4), db.ForeignKey('Stock_Info.Stock_ID'), primary_key = True)
+	Trigger       = db.Column(db.String(1), nullable = False)
+	Trigger_Price = db.Column(db.Float,     nullable = False)
+	Strategy      = db.Column(db.String(1), nullable = False)
+	Increment     = db.Column(db.Float,     nullable = False)
+	Limit         = db.Column(db.Integer,   nullable = True)
+
+	def __init__(self, Customer_ID, Stock_ID, Trigger, Trigger_Price, Strategy, Limit):
+		self.Customer_ID   = Customer_ID
+		self.Stock_ID      = Stock_ID
+		self.Trigger 	   = Trigger
+		self.Trigger_Price = Trigger_Price
+		self.Strategy      = Strategy
+		self.Limit 		   = Limit
 
 
 @login_manager.user_loader
@@ -62,3 +79,29 @@ def load_user(user_id):
 
 db.create_all()
 db.session.commit()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
