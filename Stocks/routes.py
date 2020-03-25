@@ -216,7 +216,7 @@ def sellConfirm(ticker,amount):
 	if (ticker or amount) == None:
 		return redirect(url_for('home'))
 		#This needs more validation implemented
-	form = SellConfirmation()
+	form = Confirmation()
 	if form.validate_on_submit():
 		if form.submit_yes.data :
 			if check_sell(current_user.id,ticker,amount):
@@ -235,7 +235,7 @@ def sellConfirm(ticker,amount):
 @login_required
 def buyConfirm(ticker,amount):
 	amount = float(amount)
-	form = BuyConfirmation()
+	form = Confirmation()
 	if form.validate_on_submit():
 		if form.submit_yes.data:
 			if check_buy(current_user.id,ticker,amount):
@@ -339,6 +339,14 @@ def search_results(search):
         table.border = True
         return render_template('search_results.html', table=table)
 # For unauthorized users, will redirect them to login page.
+
+@app.route('/automation', methods=['GET', 'POST'])
+def automation():
+	form = AutomationForm()
+	if form.validate_on_submit():
+		print('This is now working, tell Tom')
+		return render_template('automation.html')
+	return render_template('automation.html')
 
 
 @login_manager.unauthorized_handler

@@ -22,10 +22,6 @@ class LoginForm(FlaskForm):
 	password = PasswordField('Password', validators=[DataRequired()])
 	submit   = SubmitField('Login')
 
-class Get_Stock_Ticker_Form(FlaskForm):
-	ticker = StringField('Stock Ticker', validators=[Length(min=1,max=4)])
-	submit = SubmitField('Next')
-
 class Retrieve_Stock_Ticker_Form(FlaskForm):
 	stock_name = StringField('Stock Name')
 	submit = SubmitField('Find')
@@ -36,31 +32,67 @@ class SearchForm(FlaskForm):
 	search = StringField('Search')
 	submit = SubmitField('Submit')
 
-
 class NewsRequestForm(FlaskForm):
 	topic = StringField('Enter News Topic', validators=[DataRequired()])
 	submit = SubmitField('Search')
 
 class BuyingForm(FlaskForm):
-	ticker = StringField('Stock Ticker',      validators=[DataRequired(), Length(min=1,max=4)])
-	amount = DecimalField('Amount of Shares', validators=[DataRequired(), NumberRange(min=0)])
+	ticker = StringField('Stock Ticker',      validators=[DataRequired()])
+	amount = DecimalField('Amount of Shares', validators=[DataRequired()])
 	submit = SubmitField('Next Stage')
 
 class SellingForm(FlaskForm):
-	ticker = StringField('Stock Ticker',      validators=[DataRequired(), Length(min=1,max=4)])
+	ticker = StringField('Stock Ticker',      validators=[DataRequired()])
 	amount = DecimalField('Amount of Shares', validators=[DataRequired(), NumberRange(min=0)])
 	submit = SubmitField('Next Stage')
 
-class BuyConfirmation(FlaskForm):
+class Confirmation(FlaskForm):
 	submit_yes = SubmitField('Yes')
 	submit_no  = SubmitField('No')
 
-class SellConfirmation(FlaskForm):
-	submit_yes = SubmitField('Yes')
-	submit_no  = SubmitField('No')
+
+class AutomationForm(FlaskForm):
+	# ticker        = StringField('Stock Ticker', validators=[DataRequired()])
+	# trigger_price = DecimalField('Price Trigger', validators=[DataRequired()])
+	# limit         = DecimalField('Limit of shares to trade', validators=[DataRequired()])
+	# increment     = DecimalField('The amount of shares to buy or sell at a time when the trigger is activated', validators=[DataRequired()])
+	# trigger       = Either Above or Below in dropdown
+	# strategy      = Either Buy or Sell in dropdown
+	#
+	# Someone please look into how to get the trigger and strategy field to be dropdown
+	# Then make a html page for taking input for this form.
+	#
+	# when this is done please let Tom know so he can finish the sql and route side
+	None
+
+
+
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////#
+#								Tables																#
+#///////////////////////////////////////////////////////////////////////////////////////////////////#
+
 
 class Results(Table):
 	Stock_ID         = LinkCol('Stock ID','stock_page',attr='Stock_ID',url_kwargs=dict(ticker='Stock_ID'))
 	Stock_Name       = Col('Stock Name')
 	Current_Price    = Col('Current Price')
 	Stock_Table      = Col('Stock Table', show=False)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

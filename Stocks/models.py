@@ -70,6 +70,7 @@ class Automation(db.Model):
 		self.Trigger 	   = Trigger
 		self.Trigger_Price = Trigger_Price
 		self.Strategy      = Strategy
+		self.Increment     = Increment
 		self.Limit 		   = Limit
 
 
