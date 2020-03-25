@@ -51,6 +51,7 @@ scheduler.start()
 def home():
 	return render_template('home.html')
 
+
 @app.route("/register", methods=['GET', 'POST'])
 def register():
 	form = RegistrationForm()
@@ -68,6 +69,7 @@ def register():
 		return redirect(url_for('home'))
 	return render_template('register.html', title='Register', form=form)
 
+
 @app.route("/login", methods=['GET', 'POST'])
 def login():
 	form = LoginForm()
@@ -79,6 +81,7 @@ def login():
 			return redirect(url_for('home'))
 		flash('Invalid email or password.')
 	return render_template('login.html', title='Login', form=form)
+
 
 @app.route("/logout")
 @login_required
@@ -148,6 +151,7 @@ def update_figure(selected_stock):
 	)
 	print()
 	return fig, options
+
 
 @app.route('/newsSearch',methods=['GET','POST'])
 def newsSearch():
@@ -303,6 +307,13 @@ def portfolio():
 	return render_template("portfolio.html", portfolio = user_portfolio, stock_desc = stock_desc, total = total)
 
 
+@app.route('/avaliable')
+def avaliable():
+	stocks = Stock_Info.query.order_by(Stock_Info.Stock_ID).all()
+
+	return render_template('avaliable.html', stocks = stocks)
+
+
 @app.route('/search', methods=['GET', 'POST'])
 @login_required
 def search():
@@ -339,6 +350,7 @@ def search_results(search):
         table.border = True
         return render_template('search_results.html', table=table)
 # For unauthorized users, will redirect them to login page.
+
 
 @app.route('/automation', methods=['GET', 'POST'])
 def automation():

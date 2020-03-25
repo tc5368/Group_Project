@@ -314,7 +314,3 @@ def find_tickers(inp):
 
 
 
-
-
-
-
