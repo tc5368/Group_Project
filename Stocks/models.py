@@ -62,7 +62,7 @@ class Automation(db.Model):
 	Trigger_Price = db.Column(db.Float,     nullable = False)
 	Strategy      = db.Column(db.String(1), nullable = False)
 	Increment     = db.Column(db.Float,     nullable = False)
-	Limit         = db.Column(db.Integer,   nullable = True)
+	Limit         = db.Column(db.Float,   nullable = True)
 
 	def __init__(self, Customer_ID, Stock_ID, Trigger, Trigger_Price, Strategy, Limit):
 		self.Customer_ID   = Customer_ID

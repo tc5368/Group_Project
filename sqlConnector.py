@@ -238,8 +238,9 @@ def simulate_trading():
 def check_automated_strategies():
 	users_with_strategies = Automation.query.order_by(Automation.Customer_ID).all()
 	for user in users_with_strategies:
-		s = Automation.query.filter_by(Customer_ID = user.Customer_ID).first()
 
+		s = Automation.query.filter_by(Customer_ID = user.Customer_ID).first()
+		
 		#Determines which trigger to use, (A | B) above or below...
 		stock_info = Stock_Info.query.filter_by(Stock_ID=s.Stock_ID).first()
 		print(s)
@@ -264,7 +265,7 @@ def check_automated_strategies():
 
 
 			else:
-				print('Stategy finished needs deletion')
+				print('Strategy finished needs deletion')
 
 
 
