@@ -8,11 +8,14 @@ from Stocks.models import *
 from flask import flash
 import random as r
 
+
 def get_Name(ticker):
 	return(yf.Ticker(ticker).info['longName'])
 
+
 def get_Info(ticker):
 	return(yf.Ticker(ticker).info['longBusinessSummary'])
+
 
 def find_avaliable():
 	stock_list     = db.engine.table_names()
@@ -23,6 +26,7 @@ def find_avaliable():
 	if history_tables == []:
 		history_tables.append(None)
 	return history_tables
+
 
 def get_raw_info(stock_ticker):
 	'''Get a csv file for the past data of a given stock
@@ -83,7 +87,6 @@ def make_new_stock_history_table(ticker, df):
 		db.session.commit()
 
 
-
 def execute_query(query):
 	'''Executes SQL statments
 
@@ -139,6 +142,7 @@ def check_buy(user_id, stock, amount):
 	else:
 		print('Could not find',stock)
 
+
 def check_sell(user_id, stock, amount):
 	user = User.query.filter_by(id=user_id).first()
 	stock_info = Stock_Info.query.filter_by(Stock_ID=stock).first()
@@ -189,6 +193,7 @@ def get_history(stock_ticker):
 	df.columns = ['Date','High','Low','Open','Close']
 	return(df)
 
+
 def simulate_trading():
 	stocks = Stock_Info.query.all()
 	for stock in stocks:
@@ -232,58 +237,23 @@ def simulate_trading():
 	check_automated_strategies()
 
 
-
-
-
 def check_automated_strategies():
 	users_with_strategies = Automation.query.order_by(Automation.Customer_ID).all()
 	for user in users_with_strategies:
-
 		s = Automation.query.filter_by(Customer_ID = user.Customer_ID).first()
-		
-		#Determines which trigger to use, (A | B) above or below...
 		stock_info = Stock_Info.query.filter_by(Stock_ID=s.Stock_ID).first()
-		print(s)
 		if (s.Trigger == 'A' and stock_info.Current_Price > s.Trigger_Price) or (s.Trigger == 'B' and stock_info.Current_Price < s.Trigger_Price):
-			print('%s ing %s shares of %s for %s' %(s.Strategy, s.Increment, stock_info.Stock_Name ,s.Customer_ID))
-
+			#print('Automation is %s ing %s shares of %s for user %s' %(s.Strategy, s.Increment, stock_info.Stock_Name ,s.Customer_ID))
 			if s.Limit - s.Increment >= 0:
 				if s.Strategy == 'B':
 					check_buy (s.Customer_ID, s.Stock_ID, s.Increment)
 				else:
 					check_sell(s.Customer_ID, s.Stock_ID, s.Increment)
-
-				#update limit.
-				print('updating %s - %s:' %(s.Limit, s.Increment))
 				newValue = s.Limit - s.Increment
 				s.Limit = newValue
-
-				print('to %s' %(s.Limit))
-				print(s)
-				db.session.commit()
-				print('commited')
-
-
 			else:
-				print('Strategy finished needs deletion')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+				db.session.delete(s)
+			db.session.commit()
 
 
 def time_decode(dateObj):
@@ -324,6 +294,7 @@ def new_day():
 			query = "UPDATE `c1769261_Second_Year`.`"+i+"` SET `Close` = '"+price+"' WHERE (`Date` = '"+y2+"-"+m2+"-"+d2+"');"
 			execute_query(query)
 			
+
 def find_tickers(inp):
 	inp = inp.capitalize()
 	tickers = web.get_nasdaq_symbols()
