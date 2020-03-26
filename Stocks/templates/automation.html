@@ -1,7 +1,33 @@
 {% extends "layout.html" %}
 {% block content %}
+<body style="
+  background-image: url(../static/img/login2.jpg);
+  background-size: cover;
+  background-attachment:fixed;
+  background-position: center;
+  box-sizing: border-box;
+  font-family: sans-serif;">
+<div class = "register">
+    <h1>Automated Stratergy</h1>
+    <form method="POST" action="">
+    {{ form.csrf_token }}
+    {{ form.ticker(placeholder="Stock Ticker")}}
+		{% for error in form.ticker.errors %}
+      <span style="color: white;">[{{ error }}]</span>
+    {% endfor %}
+    {{ form.trigger_price()}}
+    {{ form.limit()}}
+    {{ form.increment()}}
+    {{ form.trigger()}}
+    {{ form.stratergy()}}
+    {{ form.submit() }}
+    </form>
 
-<p>SOMEONE MAKE THIS PAGE</p>
+
+</div>
+
+</body>
+
 
 
 {% endblock content %}
