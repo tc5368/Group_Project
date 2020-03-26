@@ -52,18 +52,19 @@ class Confirmation(FlaskForm):
 
 
 class AutomationForm(FlaskForm):
-	# ticker        = StringField('Stock Ticker', validators=[DataRequired()])
-	# trigger_price = DecimalField('Price Trigger', validators=[DataRequired()])
-	# limit         = DecimalField('Limit of shares to trade', validators=[DataRequired()])
-	# increment     = DecimalField('The amount of shares to buy or sell at a time when the trigger is activated', validators=[DataRequired()])
-	# trigger       = Either Above or Below in dropdown
-	# strategy      = Either Buy or Sell in dropdown
-	#
+	ticker        = StringField('Stock Ticker', validators=[DataRequired()])
+	trigger_price = DecimalField('Price Trigger', validators=[DataRequired()])
+	limit         = DecimalField('Limit of shares to trade', validators=[DataRequired()])
+	increment     = DecimalField('The amount of shares to buy or sell at a time when the trigger is activated', validators=[DataRequired()])
+	choices1 = [('Above', 'Above'),('Below', 'Below')]
+	trigger       = SelectField('Trigger:', choices=choices1)Either Above or Below in dropdown
+	choices2 = [('Buy', 'Buy'),('Sell', 'Sell')]
+	strategy      = SelectField('Strategy:', choices=choices2)Either Buy or Sell in dropdown
+	
 	# Someone please look into how to get the trigger and strategy field to be dropdown
 	# Then make a html page for taking input for this form.
-	#
+	
 	# when this is done please let Tom know so he can finish the sql and route side
-	None
 
 
 
