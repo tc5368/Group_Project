@@ -3,7 +3,7 @@
 <body>
 
 <p>Hey {{ current_user.first_name }} {{ current_user.last_name }}</p>
-<p> Your current balance is {{ current_user.balance }} </p>
+<p> Your current balance is ${{ "%.2f"|format(current_user.balance) }} </p>
 
 <p></p>
 {% if portfolio != [] %}
@@ -20,14 +20,22 @@
 			<td>{{ purchase.Amount_of_Shares }}</td>
 			{% for stock in stock_desc %}
 				{% if purchase.Stock_ID == stock.Stock_ID %}
-					<td>{{ stock.Current_Price }}</td>
-					<td>{{ stock.Current_Price * purchase.Amount_of_Shares }}</td>
+					<td>${{ "%.2f"|format(stock.Current_Price) }}</td>
+					<td>${{ "%.2f"|format(stock.Current_Price * purchase.Amount_of_Shares) }}</td>
 				{% endif %}
 			{% endfor %}
 		</tr>
 	{% endfor %}
 	</table>
-<p> The total value of your portfolio is {{ total }} </p>
+
+	<p> The total value of your portfolio is ${{ "%.2f"|format(total) }} </p>
+	<p> Portfolio value combined with your balance is ${{ "%.2f"|format(total + current_user.balance) }} </p>
+	{% if perc >= 0.0 %}
+	<p> Your percentage increase is +{{ "%.2f"|format(perc) }}% from what you have started </p>
+	{% else %}
+	<p> Your percentage decrease is {{ "%.2f"|format(perc) }}% from what you have started </p>
+	{% endif %}
+
 {% else %}
 	<p><b>You have not purchased any stocks</b></p>
 {% endif %}

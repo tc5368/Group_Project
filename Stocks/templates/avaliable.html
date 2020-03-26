@@ -15,7 +15,7 @@
 		<tr>
 			<td>{{ stock.Stock_Name}}</td>
 			<td>{{ stock.Stock_ID }}</td>
-			<td>{{ stock.Current_Price }}</td>
+			<td>{{ "%.2f"|format(stock.Current_Price) }}</td>
 		</tr>
 	{% endfor %}
 	</table>

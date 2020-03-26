@@ -307,10 +307,13 @@ def portfolio():
 	stock_desc = []
 	for stock in user_portfolio:
 		stock_data = Stock_Info.query.filter_by(Stock_ID=stock.Stock_ID).first()
+		stock_data.Current_Price = stock_data.Current_Price
 		stock_desc.append(stock_data)
 		total = total + (stock_data.Current_Price * stock.Amount_of_Shares)
-
-	return render_template("portfolio.html", portfolio = user_portfolio, stock_desc = stock_desc, total = total)
+	usr_total = current_user.balance + total
+	default = 100
+	perc = usr_total - default
+	return render_template("portfolio.html", portfolio = user_portfolio, stock_desc = stock_desc, total = total, perc = perc)
 
 
 @app.route('/avaliable')
@@ -369,15 +372,3 @@ def automation():
 @login_manager.unauthorized_handler
 def unauthorized():
 	return redirect(url_for('login'))
-
-
-
-
-
-
-
-
-
-
-
-
