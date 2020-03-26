@@ -27,7 +27,7 @@ class Retrieve_Stock_Ticker_Form(FlaskForm):
 	submit = SubmitField('Find')
 
 class Get_Stock_Ticker_Form(FlaskForm):
-	ticker = StringField('Stock Ticker', validators=[DataRequired()])
+	ticker = StringField('Stock Ticker')
 	submit = SubmitField('Find')
 
 class SearchForm(FlaskForm):
