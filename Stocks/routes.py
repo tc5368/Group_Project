@@ -349,7 +349,6 @@ def search_results(search):
         table = Results(results)
         table.border = True
         return render_template('search_results.html', table=table)
-# For unauthorized users, will redirect them to login page.
 
 
 @app.route('/automation', methods=['GET', 'POST'])
@@ -360,7 +359,7 @@ def automation():
 		return render_template('automation.html')
 	return render_template('automation.html')
 
-
+# For unauthorized users, will redirect them to login page.
 @login_manager.unauthorized_handler
 def unauthorized():
 	return redirect(url_for('login'))
