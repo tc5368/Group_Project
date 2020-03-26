@@ -358,8 +358,8 @@ def automation():
 	form = AutomationForm()
 	if form.validate_on_submit():
 		print('This is now working, tell Tom')
-		return render_template('automation.html')
-	return render_template('automation.html')
+		return render_template('automation.html', form=form)
+	return render_template('automation.html', form=form)
 
 # For unauthorized users, will redirect them to login page.
 @login_manager.unauthorized_handler
