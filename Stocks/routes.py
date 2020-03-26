@@ -283,13 +283,15 @@ def stock():
 @app.route("/stock_page/<ticker>",methods=['GET','POST'])
 def stock_page(ticker):
 	stock_data = Stock_Info.query.filter_by(Stock_ID=ticker).first()
+	user_amount = Portfolio.query.filter_by(Stock_ID=ticker).filter(Portfolio.Customer_ID = current_user.id).first()
 	price = stock_data.Current_Price
 	info = get_Info(ticker)
 	return render_template('stock_page.html'
 							, title  = 'stock_page'
 							, ticker = ticker
 							, price  = price
-							, info   = info)
+							, info   = info
+							, amount = user_amount)
 
 
 @app.route('/portfolio')
