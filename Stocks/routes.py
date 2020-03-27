@@ -406,7 +406,7 @@ def search_results(search):
 def automation():
 	form = AutomationForm()
 	if form.validate_on_submit():
-		print('This is now working, tell Tom')
+		add_new_automated_strategy(current_user.id,form)
 		return render_template('automation.html', form=form)
 	return render_template('automation.html', form=form)
 
@@ -414,3 +414,24 @@ def automation():
 @login_manager.unauthorized_handler
 def unauthorized():
 	return redirect(url_for('login'))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
