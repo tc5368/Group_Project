@@ -1,6 +1,44 @@
 {% extends "layout.html" %}
 {% block content %}
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='StockStyle.css') }}">
+<html>
+<head>
+<script type="text/javascript">
+window.onload = function () {
+	var ohlc_data = {x: new Date(2012,01,01),y:[5198, 5629, 5159, 5385]};
+	console.log(ohlc_data);
+
+	var chart = new CanvasJS.Chart("chartContainer",
+	{
+		title:{
+			text: "Candle Stick Chart for {{ticker}}"
+		},
+		zoomEnabled: true,
+		axisY: {
+			includeZero:false,
+			title: "Prices",
+			prefix: "$ "
+		},
+		axisX: {
+			interval:2,
+			intervalType: "month",
+			valueFormatString: "MMM-YY",
+			labelAngle: -45
+		},
+		data: [
+		{
+			type: "candlestick",
+			dataPoints: {{list}}
+		}
+		]
+	});
+	chart.render();
+}
+</script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</head>
+</html>
+
 <body>
 
 
@@ -24,6 +62,8 @@
   <p>You own {{ amount }} {{ ticker }} shares. </p>
 </div>
 
+<div id="chartContainer" style="height: 300px; width: 100%;">
+</div>
 
 </body>
 
