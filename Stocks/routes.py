@@ -282,6 +282,7 @@ def stock():
 
 @app.route("/stock_page/<ticker>",methods=['GET','POST'])
 def stock_page(ticker):
+	form = stock_page_form()
 	stock_data = Stock_Info.query.filter_by(Stock_ID=ticker).first()
 	user_amount = Portfolio.query.filter_by(Stock_ID=ticker).filter_by(Customer_ID = current_user.id).first()
 	if user_amount == None:

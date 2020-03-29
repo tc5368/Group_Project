@@ -29,3 +29,18 @@ position: relative;
 top: 50px;
 right:-30px;
 }
+
+.quantity input{
+		border:none;
+		outline: none;
+		background: none;
+		color : white;
+		font-size: 18px;
+		width: 80%;
+		float: left;
+		margin: 0 10px;
+}
+
+.buy {
+
+}

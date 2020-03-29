@@ -3,7 +3,6 @@
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='StockStyle.css') }}">
 <body>
 
-
 <div class = "title">
   <p>{{ title }}</p>
  </div>
@@ -24,7 +23,13 @@
   <p>You own {{ amount }} {{ ticker }} shares. </p>
 </div>
 
+<div class = "quantity">
+  <p> Please enter amount </p>
+</div>
 
+<div class = "buy">
+  <p></p>
+</div>
 </body>
 
 {% endblock content %}

@@ -71,7 +71,10 @@ class AutomationForm(FlaskForm):
 	
 	# when this is done please let Tom know so he can finish the sql and route side
 
-
+class stock_Page_Form(FlaskForm):
+	amount = DecimalField('Amount of Shares', validators=[DataRequired()])
+	submit_yes = SubmitField('Next Stage')
+	submit_no = SubmitField('Next Stage')
 
 
 #///////////////////////////////////////////////////////////////////////////////////////////////////#
