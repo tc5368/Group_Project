@@ -54,6 +54,9 @@ class Confirmation(FlaskForm):
 	submit_yes = SubmitField('Yes')
 	submit_no  = SubmitField('No')
 
+class stock_page_form(FlaskForm):
+	submit_buy = SubmitField('Buy')
+	submit_sell = SubmitField('Sell')
 
 class AutomationForm(FlaskForm):
 	ticker        = StringField('Stock Ticker', validators=[DataRequired()])
@@ -71,10 +74,7 @@ class AutomationForm(FlaskForm):
 	
 	# when this is done please let Tom know so he can finish the sql and route side
 
-class stock_Page_Form(FlaskForm):
-	amount = DecimalField('Amount of Shares', validators=[DataRequired()])
-	submit_yes = SubmitField('Next Stage')
-	submit_no = SubmitField('Next Stage')
+
 
 
 #///////////////////////////////////////////////////////////////////////////////////////////////////#
@@ -87,21 +87,6 @@ class Results(Table):
 	Stock_Name       = Col('Stock Name')
 	Current_Price    = Col('Current Price')
 	Stock_Table      = Col('Stock Table', show=False)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

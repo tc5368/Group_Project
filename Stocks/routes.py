@@ -339,6 +339,8 @@ def stock_page(ticker):
 							, info   = info
 							, amount = amount
 							, list = list)
+	
+	
 
 
 @app.route('/portfolio')
@@ -415,15 +417,6 @@ def automation():
 @login_manager.unauthorized_handler
 def unauthorized():
 	return redirect(url_for('login'))
-
-
-
-
-
-
-
-
-
 
 
 
