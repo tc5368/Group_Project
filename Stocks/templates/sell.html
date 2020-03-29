@@ -5,7 +5,7 @@
 <p>Welcome to the Selling page.</p>
 
 {% if current_user.is_authenticated %}
-	<p> Your current balance is {{ current_user.balance }} </p>
+	<p> Your current balance is {{ "%.2f"|format(current_user.balance) }} </p>
 	<p></p>
 	{% if portfolio != [] %}
 		<table>

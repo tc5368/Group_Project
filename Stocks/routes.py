@@ -18,6 +18,16 @@ import dash_html_components as html
 import dash_core_components as dcc
 from   dash.dependencies import Input, Output
 
+import json
+
+# Matplotlib Graph
+from matplotlib import style
+from mpl_finance import candlestick_ohlc
+import matplotlib.dates as mdates
+import pandas as pd
+import matplotlib.pyplot as plt, mpld3
+from matplotlib.pyplot import figure
+
 import chart_studio
 # Login: group13Yes
 # Password: group13HelloWorld
@@ -83,12 +93,29 @@ def login():
 	return render_template('login.html', title='Login', form=form)
 
 
-@app.route("/logout")
+@app.route("/logout", methods=['GET', 'POST'])
 @login_required
 def logout():
 	logout_user()
 	return redirect(url_for('home'))
 
+@app.route('/xy')
+def xy():
+    stock_name = 'F_HIST'
+    df = get_history(stock_name)
+    df = df.set_index('Date')
+    df.index = pd.to_datetime(df.index)
+    test = "[{x: new Date(2012,01,01),y:[5198, 5629, 5159, 5385]}, {x: new Date(2012,02,01),y:[5198, 5629, 5159, 5385]}]"
+    list = "["
+    for row in df.iterrows():
+        if (str(row[1][3]) == "nan"):
+            continue
+        date = str(row[0]).replace("-",",")
+        date = date[:-9]
+        string = "{{x: new Date({0}),y:[{1},{2},{3},{4}]}}".format(date, "%0.2f" % row[1][2], "%0.2f" % row[1][0], "%0.2f" % row[1][1], "%0.2f" % row[1][3])
+        list = list + string + ", "
+    list = list[:-2] + "]"
+    return render_template('xy.html', df=df,test=list)
 
 # Uses Flask as the server and dash as the app that connects to the server and works together.
 app_dash = dash.Dash(
@@ -291,12 +318,27 @@ def stock_page(ticker):
 		amount = user_amount.Amount_of_Shares
 	price = stock_data.Current_Price
 	info = get_Info(ticker)
+	# Graph Code
+	df = get_history(ticker+"_HIST")
+	df = df.set_index('Date')
+	df.index = pd.to_datetime(df.index)
+	list = "["
+	for row in df.iterrows():
+		if (str(row[1][3]) == "nan"):
+			continue
+		date = str(row[0]).replace("-",",")
+		date = date[:-9]
+		string = "{{x: new Date({0}),y:[{1},{2},{3},{4}]}}".format(date, "%0.2f" % row[1][2], "%0.2f" % row[1][0], "%0.2f" % row[1][1], "%0.2f" % row[1][3])
+		list = list + string + ", "
+	list = list[:-2] + "]"
+
 	return render_template('stock_page.html'
 							, title  = 'stock_page'
 							, ticker = ticker
 							, price  = price
 							, info   = info
-							, amount = amount)
+							, amount = amount
+							, list = list)
 
 
 @app.route('/portfolio')
@@ -308,17 +350,20 @@ def portfolio():
 	stock_desc = []
 	for stock in user_portfolio:
 		stock_data = Stock_Info.query.filter_by(Stock_ID=stock.Stock_ID).first()
+		stock_data.Current_Price = stock_data.Current_Price
 		stock_desc.append(stock_data)
 		total = total + (stock_data.Current_Price * stock.Amount_of_Shares)
+	usr_total = current_user.balance + total
+	default = 100
+	perc = usr_total - default
+	return render_template("portfolio.html", portfolio = user_portfolio, stock_desc = stock_desc, total = total, perc = perc)
 
-	return render_template("portfolio.html", portfolio = user_portfolio, stock_desc = stock_desc, total = total)
 
-
-@app.route('/avaliable')
+@app.route('/available')
 def avaliable():
 	stocks = Stock_Info.query.order_by(Stock_Info.Stock_ID).all()
 
-	return render_template('avaliable.html', stocks = stocks)
+	return render_template('available.html', stocks = stocks)
 
 
 @app.route('/search', methods=['GET', 'POST'])
@@ -362,7 +407,7 @@ def search_results(search):
 def automation():
 	form = AutomationForm()
 	if form.validate_on_submit():
-		print('This is now working, tell Tom')
+		add_new_automated_strategy(current_user.id,form)
 		return render_template('automation.html', form=form)
 	return render_template('automation.html', form=form)
 
@@ -370,6 +415,15 @@ def automation():
 @login_manager.unauthorized_handler
 def unauthorized():
 	return redirect(url_for('login'))
+
+
+
+
+
+
+
+
+
 
 
 

@@ -60,11 +60,11 @@ class AutomationForm(FlaskForm):
 	trigger_price = DecimalField('Price Trigger', validators=[DataRequired()])
 	limit         = DecimalField('Limit of shares to trade', validators=[DataRequired()])
 	increment     = DecimalField('The amount of shares to buy or sell at a time when the trigger is activated', validators=[DataRequired()])
-	choices1 = [('Above', 'Above'),('Below', 'Below')]
+	choices1 	  = [('A', 'Above'),('B', 'Below')]
 	trigger       = SelectField('Trigger:', choices=choices1)#Either Above or Below in dropdown
-	choices2 = [('Buy', 'Buy'),('Sell', 'Sell')]
+	choices2 	  = [('B', 'Buy'),('S', 'Sell')]
 	strategy      = SelectField('Strategy:', choices=choices2)#Either Buy or Sell in dropdown
-	submit = SubmitField('Submit')
+	submit 	      = SubmitField('Submit')
 	
 	# Someone please look into how to get the trigger and strategy field to be dropdown
 	# Then make a html page for taking input for this form.

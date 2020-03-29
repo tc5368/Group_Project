@@ -244,7 +244,13 @@ def check_automated_strategies():
 		stock_info = Stock_Info.query.filter_by(Stock_ID=s.Stock_ID).first()
 		if (s.Trigger == 'A' and stock_info.Current_Price > s.Trigger_Price) or (s.Trigger == 'B' and stock_info.Current_Price < s.Trigger_Price):
 			#print('Automation is %s ing %s shares of %s for user %s' %(s.Strategy, s.Increment, stock_info.Stock_Name ,s.Customer_ID))
-			if s.Limit - s.Increment >= 0:
+			if s.Limit == None:
+				if s.Strategy == 'B':
+					check_buy (s.Customer_ID, s.Stock_ID, s.Increment)
+				else:
+					check_sell(s.Customer_ID, s.Stock_ID, s.Increment)
+
+			elif s.Limit - s.Increment >= 0:
 				if s.Strategy == 'B':
 					check_buy (s.Customer_ID, s.Stock_ID, s.Increment)
 				else:
@@ -254,6 +260,12 @@ def check_automated_strategies():
 			else:
 				db.session.delete(s)
 			db.session.commit()
+
+def add_new_automated_strategy(user, form):
+	query = """INSERT INTO `c1769261_Second_Year`.`Automation` (`Customer_ID`, `Stock_ID`, `Trigger`, `Trigger_Price`, `Strategy`, `Increment`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s');""" %(user, form.ticker.data, form.trigger.data, form.trigger_price.data, form.strategy.data, form.increment.data)
+	execute_query(query)
+
+
 
 
 def time_decode(dateObj):
