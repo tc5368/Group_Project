@@ -55,6 +55,7 @@ class Confirmation(FlaskForm):
 	submit_no  = SubmitField('No')
 
 class stock_page_form(FlaskForm):
+	amount = DecimalField('Amount of Shares', validators=[DataRequired(), NumberRange(min=0)])
 	submit_buy = SubmitField('Buy')
 	submit_sell = SubmitField('Sell')
 

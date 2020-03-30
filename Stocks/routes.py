@@ -249,7 +249,7 @@ def sellConfirm(ticker,amount):
 		#This needs more validation implemented
 	form = Confirmation()
 	if form.validate_on_submit():
-		if form.submit_yes.data :
+		if form.POST :
 			if check_sell(current_user.id,ticker,amount):
 				flash('You have sold ' + str(amount) + " of " + ticker + " shares.")
 				return redirect(url_for('portfolio'))
@@ -332,7 +332,14 @@ def stock_page(ticker):
 		list = list + string + ", "
 	list = list[:-2] + "]"
 
+	if form.validate_on_submit():
+		if form.submit_buy():
+			return redirect(url_for('buy'))
+		if form.submit_sell():
+			return redirect(url_for('sell'))
+
 	return render_template('stock_page.html'
+							, form = form
 							, title  = 'stock_page'
 							, ticker = ticker
 							, price  = price
@@ -340,8 +347,6 @@ def stock_page(ticker):
 							, amount = amount
 							, list = list)
 	
-	
-
 
 @app.route('/portfolio')
 @login_required
