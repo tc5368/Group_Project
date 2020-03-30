@@ -249,7 +249,7 @@ def sellConfirm(ticker,amount):
 		#This needs more validation implemented
 	form = Confirmation()
 	if form.validate_on_submit():
-		if form.POST :
+		if form.submit_yes.data :
 			if check_sell(current_user.id,ticker,amount):
 				flash('You have sold ' + str(amount) + " of " + ticker + " shares.")
 				return redirect(url_for('portfolio'))
