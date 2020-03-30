@@ -333,10 +333,10 @@ def stock_page(ticker):
 	list = list[:-2] + "]"
 
 	if form.validate_on_submit():
-		if form.submit_buy():
-			return redirect(url_for('buy'))
-		if form.submit_sell():
-			return redirect(url_for('sell'))
+		if form.submit_buy.data:
+			return redirect(url_for('buyConfirm', ticker=ticker, amount=form.amount.data))
+		else:
+			return redirect(url_for('sellConfirm', ticker=ticker, amount=form.amount.data))
 
 	return render_template('stock_page.html'
 							, form = form

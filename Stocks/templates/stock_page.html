@@ -61,8 +61,7 @@ window.onload = function () {
   <p>You own {{ amount }} {{ ticker }} shares. </p>
 </div>
 
-<div id="chartContainer" style="height: 300px; width: 100%;">
-</div>
+
 
 <form method="POST" action="">
   {{ form.csrf_token }}
@@ -77,7 +76,8 @@ window.onload = function () {
   <p>{{ form.submit_buy(class="buy") }} {{ form.submit_sell(class="sell") }}</p>
 
 </form>
-
+<div id="chartContainer" style="height: 300px; width: 100%;">
+</div>
 </body>
 
 {% endblock content %}
