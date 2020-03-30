@@ -1,3 +1,0 @@
-These need to be converted to fit the current template pages in the stocks folder.
-
-Basically what we have in this folder dosen't fit anything in the Stocks Folder. This needs to be changed.
