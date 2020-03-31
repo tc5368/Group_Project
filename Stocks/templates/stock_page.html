@@ -39,29 +39,23 @@ window.onload = function () {
 </head>
 </html>
 
-<body>
-
-<div class = "title">
-  <p>{{ title }}</p>
- </div>
-
+<body style="
+  background-image: url(../static/img/login2.jpg);
+  background-size: cover;
+  background-attachment:fixed;
+  background-position: center;
+  box-sizing: border-box;
+  font-family: sans-serif;">
+<div class = "layer">
+<div class = "flex">
  <div class = "ticker">
-  <p>{{ ticker }}<p>
-</div>
-
-<div class = "info">
+  <h1>{{ ticker }}</h1>
   <p>{{ info }}</p>
 </div>
 
 <div class = "price">
-  <p>&pound; {{ "%.2f"|format(price) }}</p>
-</div>
-
-<div class = "owned">
+  <h1>&pound; {{ "%.2f"|format(price) }}</h1>
   <p>You own {{ amount }} {{ ticker }} shares. </p>
-</div>
-
-
 
 <form method="POST" action="">
   {{ form.csrf_token }}
@@ -76,8 +70,13 @@ window.onload = function () {
   <p>{{ form.submit_buy(class="buy") }} {{ form.submit_sell(class="sell") }}</p>
 
 </form>
+</div>
+</div>
+
 <div id="chartContainer" style="height: 300px; width: 100%;">
 </div>
+</div>
 </body>
+
 
 {% endblock content %}

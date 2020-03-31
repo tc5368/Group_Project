@@ -2,7 +2,14 @@
 {% extends "layout.html" %}
 {% block content %}
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='NewsStyle.css') }}">
-<body>
+<body style="
+  background-image: url(../static/img/login2.jpg);
+  background-size: cover;
+  background-attachment:fixed;
+  background-position: center;
+  box-sizing: border-box;
+  font-family: sans-serif;">
+
 {%for article in articles%}
   <div class ="articles">
   <h1>{{ article['title'] }}</h1>
