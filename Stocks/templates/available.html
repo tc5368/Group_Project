@@ -1,6 +1,14 @@
 {% extends "layout.html" %}
 {% block content %}
-<body>
+<body style="
+  background-image: url(../static/img/login2.jpg);
+  background-size: cover;
+  background-attachment:fixed;
+  background-position: center;
+  box-sizing: border-box;
+  font-family: sans-serif;">
+
+<div class = "register">
 
 <h1>Currently tracked stocks</h1>
 
@@ -20,6 +28,8 @@
 	{% endfor %}
 	</table>
 {% endif %}
+
+</div>
 
 </body>
 

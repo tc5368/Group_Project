@@ -21,11 +21,11 @@
       <span style="color: white;">[{{ error }}]</span>
     {% endfor %}
 
-    {{ form.trigger_price()}}
-    {{ form.limit()}}
-    {{ form.increment()}}
-    {{ form.trigger()}}
-    {{ form.strategy()}}
+    {{ form.trigger_price(placeholder="Price Trigger")}}
+    {{ form.limit(placeholder="Limit of shares to trade")}}
+    {{ form.increment(placeholder="How many shares to trade")}}
+    <p>{{form.trigger.label()}}</p>{{ form.trigger()}}
+    <p>{{form.strategy.label()}}</p>{{ form.strategy()}}
     {{ form.submit() }}
     
     </form>
