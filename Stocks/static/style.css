@@ -66,4 +66,24 @@
 	margin: 12px 0;
 }
 
+.HomeBtn{
+	width: 100%;
+	background: none;
+	border: 2px solid #ff9800;
+	color: white;
+	padding : 5px;
+	font-size: 18px;
+	cursor: pointer;
+	margin: 12px 0;
+}
 
+.btnSub{
+	width: 100%;
+	background: none;
+	border: 2px solid #ff9800;
+	color: white;
+	padding : 5px;
+	font-size: 18px;
+	cursor: pointer;
+	margin: 12px 0;
+}

@@ -151,6 +151,7 @@
 	padding: 10px 40px;
 }
 
+
 /**-news-**/
 .index-news{
 	width: 60%;
@@ -211,17 +212,22 @@
 .index-news article h3 a:hover{
 	color: #fe9860;
 }
+
 /**make a stocks viewing table **/
 
+
 .index-stock-viewing {
-	background-color: rgba(17, 34, 49, 0.7);
-	width: 35%;
-	height: 340px;
-	margin-left: 20px;
-	margin-top: 20px;
-	border-radius: 5px;
+	margin: 350px 350px;
+	width: 750px;
+	height:1200px;
+
+	color: white;
+	background-color: rgba(22, 48, 69, 0.01);
+	border-radius:5px;
+	padding:20px;
 }
- .Table-Div {
+
+.index-stock-viewing .Table-Div3 {
 		width: 80%;
 		height: 80%;
 		display: table-cell;

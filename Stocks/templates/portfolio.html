@@ -1,45 +1,61 @@
 {% extends "layout.html" %}
 {% block content %}
-<body>
 
-<p>Hey {{ current_user.first_name }} {{ current_user.last_name }}</p>
-<p> Your current balance is ${{ "%.2f"|format(current_user.balance) }} </p>
 
-<p></p>
-{% if portfolio != [] %}
-	<table>
-		<tr>
-			<th>Stock ID</th>
-			<th>Amount of Shares</th>
-			<th>Price per stock</th>
-			<th>Overall price for stock</th>
-		</tr>
-	{% for purchase in portfolio %}
-		<tr>
-			<td>{{ purchase.Stock_ID }}</td>
-			<td>{{ purchase.Amount_of_Shares }}</td>
-			{% for stock in stock_desc %}
-				{% if purchase.Stock_ID == stock.Stock_ID %}
-					<td>${{ "%.2f"|format(stock.Current_Price) }}</td>
-					<td>${{ "%.2f"|format(stock.Current_Price * purchase.Amount_of_Shares) }}</td>
-				{% endif %}
-			{% endfor %}
-		</tr>
-	{% endfor %}
-	</table>
+<body style="
+	background-image: url(../static/img/homepage.jpg);
+	background-size: cover;
+	background-attachment:fixed;
+	background-position: center;
+	box-sizing: border-box;
+	font-family: sans-serif;
+">
 
-	<p> The total value of your portfolio is ${{ "%.2f"|format(total) }} </p>
-	<p> Portfolio value combined with your balance is ${{ "%.2f"|format(total + current_user.balance) }} </p>
-	{% if perc >= 0.0 %}
-	<p> Your percentage increase is +{{ "%.2f"|format(perc) }}% from what you have started </p>
-	{% else %}
-	<p> Your percentage decrease is {{ "%.2f"|format(perc) }}% from what you have started </p>
-	{% endif %}
+		<div id="wholePage">
+			<div class="intro">
+				<div class="wrapper">
+					<h1>Welcome to check your portfolio.</h1>
+				</div>
 
-{% else %}
-	<p><b>You have not purchased any stocks</b></p>
-{% endif %}
+					<p>Hey {{ current_user.first_name }} {{ current_user.last_name }}</p>
+					<p> Your current balance is ${{ "%.2f"|format(current_user.balance) }} </p>
 
+					<p></p>
+					{% if portfolio != [] %}
+						<table align="center">
+							<tr>
+								<th>Stock ID</th>
+								<th>Amount of Shares</th>
+								<th>Price per stock</th>
+								<th>Overall price for stock</th>
+							</tr>
+						{% for purchase in portfolio %}
+							<tr>
+								<td>{{ purchase.Stock_ID }}</td>
+								<td>{{ purchase.Amount_of_Shares }}</td>
+								{% for stock in stock_desc %}
+									{% if purchase.Stock_ID == stock.Stock_ID %}
+										<td>${{ "%.2f"|format(stock.Current_Price) }}</td>
+										<td>${{ "%.2f"|format(stock.Current_Price * purchase.Amount_of_Shares) }}</td>
+									{% endif %}
+								{% endfor %}
+							</tr>
+						{% endfor %}
+						</table>
+
+						<p> The total value of your portfolio is ${{ "%.2f"|format(total) }} </p>
+						<p> Portfolio value combined with your balance is ${{ "%.2f"|format(total + current_user.balance) }} </p>
+						{% if perc >= 0.0 %}
+						<p> Your percentage increase is +{{ "%.2f"|format(perc) }}% from what you have started </p>
+						{% else %}
+						<p> Your percentage decrease is {{ "%.2f"|format(perc) }}% from what you have started </p>
+						{% endif %}
+
+					{% else %}
+						<p><b>You have not purchased any stocks</b></p>
+					{% endif %}					
+			</div>
+		</div>
 </body>
 
 {% endblock content %}

@@ -1,20 +1,38 @@
 {% extends "layout.html" %}
 {% block content %}
-<body>
 
-<p>Welcome to the Buying Confirmation page.</p>
-<p>You are about to buy {{ amount }} {{ ticker.Stock_Name }} shares. The current share price is ${{ "%.2f"|format(ticker.Current_Price) }}</p>
-<p>You have a current balance of ${{ "%.2f"|format(current_user.balance) }}</p>
-<p>Your balance after this transaction will be ${{ "%.2f"|format(current_user.balance) }} - ( {{ amount }} * ${{ "%.2f"|format(ticker.Current_Price) }}) = ${{ "%.2f"|format(current_user.balance - (amount * ticker.Current_Price)) }}</p>
+<body style="
+	background-image: url(../../static/img/homepage.jpg);
+	background-size: cover;
+	background-attachment:fixed;
+	background-position: center;
+	box-sizing: border-box;
+	font-family: sans-serif;">
 
-<form method="POST" action="">
-	{{ form.csrf_token }}
+		<div id="wholePage">
+			<div class="intro">
+				<div class="wrapper">
+					<h1>Welcome to the Buying Confirmation page.</h1>
+					<p>
+						This is the home page for our stock market simulation trading page. All the stocks on this website are simulated and do not reflect real world stock movement. All stock bought are only simulated stocks and should not be used for training on a real stock market.
+					</p>
+				</div>
 
+					<p>You are about to buy {{ amount }} {{ ticker.Stock_Name }} shares. The current share price is ${{ "%.2f"|format(ticker.Current_Price) }}</p>
 
-	<p>{{ form.submit_yes(class="btnSub") }}</p>
-	<p>{{ form.submit_no(class="btnSub") }}</p>
+					<p>You have a current balance of ${{ "%.2f"|format(current_user.balance) }}</p>
+					
+					<p>Your balance after this transaction will be ${{ "%.2f"|format(current_user.balance) }} - ( {{ amount }} * ${{ "%.2f"|format(ticker.Current_Price) }}) = ${{ "%.2f"|format(current_user.balance - (amount * ticker.Current_Price)) }}</p>
 
-</form>
+					<form method="POST" action="">
+						{{ form.csrf_token }}
 
+						<p>{{ form.submit_yes(class="btnSub") }}</p>
+						<p>{{ form.submit_no(class="btnSub") }}</p>
+
+					</form>	
+			</div>
+		</div>
 </body>
+
 {% endblock content %}
