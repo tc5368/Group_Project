@@ -217,7 +217,7 @@
 
 
 .index-stock-viewing {
-	margin: 350px 350px;
+	margin: 10px 370px;
 	width: 750px;
 	height:1200px;
 
@@ -227,7 +227,7 @@
 	padding:20px;
 }
 
-.index-stock-viewing .Table-Div3 {
+.index-stock-viewing .Table-Div {
 		width: 80%;
 		height: 80%;
 		display: table-cell;
