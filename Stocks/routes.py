@@ -308,6 +308,7 @@ def stock():
 
 
 @app.route("/stock_page/<ticker>",methods=['GET','POST'])
+@login_required
 def stock_page(ticker):
 	form = stock_page_form()
 	stock_data = Stock_Info.query.filter_by(Stock_ID=ticker).first()
