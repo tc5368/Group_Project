@@ -18,9 +18,7 @@
 	<p>{{ form.topic.label(class="lbl") }}<br>{{ form.topic(class="inp")}}</p>
 	{% for error in form.topic.errors %}
 		<span style="color: white;">That is not a valid news topic</span>
-	{% endfor %}
-
-	
+	{% endfor %}	
 </div>
 <p>{{ form.submit(class="btn2") }}</p>
 </form>

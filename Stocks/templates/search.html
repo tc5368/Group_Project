@@ -1,14 +1,25 @@
 {% extends "layout.html" %}
 {% block content %}
-<body>
+<body style="
+	background-image: url(../static/img/login2.jpg);
+	background-size: cover;
+	background-attachment:fixed;
+	background-position: center;
+	box-sizing: border-box;
+	font-family: sans-serif;
+">
+<div class = "login-box">
 <h1>This is the Search Page</h1>
 
 <form class="login_reg" method="POST" action="">
     {{ form.csrf_token }}
+    <div class = "textbox">
     <p>{{ form.select.label() }}<br>{{ form.select()}}</p>
     <p>{{ form.search.label(class="lbl") }}<br>{{ form.search()}}</p>
+</div>
     <p>{{ form.submit(class="btnSub") }}</p>
 
 </form>
+</div>
 </body>
 {% endblock content %}

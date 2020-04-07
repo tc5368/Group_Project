@@ -1,12 +1,21 @@
 {% extends "layout.html" %}
 {% block content %}
-<body>
-
-<p>Welcome to the Selling Confirmation page.</p>
+<body style="
+	background-image: url(../../static/img/homepage.jpg);
+	background-size: cover;
+	background-attachment:fixed;
+	background-position: center;
+	box-sizing: border-box;
+	font-family: sans-serif;">
+	
+<div id="wholePage">
+			<div class="intro">
+				<div class="wrapper">
+<h1>Welcome to the Selling Confirmation page.</h1>
 <p>You are about to sell {{ amount }} {{ ticker.Stock_Name }} shares. The current share price is ${{ "%.2f"|format(ticker.Current_Price) }}</p>
 <p>You have a current balance of ${{ "%.2f"|format(current_user.balance) }}</p>
 <p>Your balance after this transaction will be ${{ "%.2f"|format(current_user.balance) }} + ( {{ amount }} * ${{ "%.2f"|format(ticker.Current_Price) }}) = ${{ "%.2f"|format(current_user.balance + (amount * ticker.Current_Price)) }}</p>
-
+</div>
 <form method="POST" action="">
 	{{ form.csrf_token }}
 
@@ -15,6 +24,8 @@
 	<p>{{ form.submit_no(class="btnSub") }}</p>
 
 </form>
+</div>
+</div>
 
 </body>
 

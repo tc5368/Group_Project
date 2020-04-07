@@ -1,5 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
+
+ <link rel=stylesheet type=text/css href="{{ url_for('static', filename='StockTableStyle.css') }}">
+
 <body style="
   background-image: url(../static/img/login2.jpg);
   background-size: cover;
@@ -8,29 +11,39 @@
   box-sizing: border-box;
   font-family: sans-serif;">
 
-<div class = "register">
 
-<h1>Currently tracked stocks</h1>
+		<div id="wholePage">
+			<div class="intro">
+				<div class="wrapper">
+					<h1>Currently tracked stocks</h1>
+				</div>
 
-{% if stocks != [] %}
-	<table>
-		<tr>
-			<th>Company</th>
-			<th>Stock ID</th>
-			<th>Price per stock</th>
-		</tr>
-	{% for stock in stocks %}
-		<tr>
-			<td><a href="/stock_page/{{stock.Stock_ID}}"> {{ stock.Stock_Name}}</a></td>
-			<td>{{ stock.Stock_ID }}</td>
-			<td>{{ "%.2f"|format(stock.Current_Price) }}</td>
-		</tr>
-	{% endfor %}
-	</table>
-{% endif %}
+			</div>
+			
+			<div class="index-stock-viewing2">
+					
+				<div class="Table-Div">
+					{% if stocks != [] %}
+						<table align="center">
+							<tr>
+								<th>Company</th>
+								<th>Stock ID</th>
+								<th>Price per stock</th>
+							</tr>
+						{% for stock in stocks %}
+							<tr>
+								<td><a href="/stock_page/{{stock.Stock_ID}}"> {{ stock.Stock_Name}}</a></td>
+								<td>{{ stock.Stock_ID }}</td>
+								<td>{{ "%.2f"|format(stock.Current_Price) }}</td>
+							</tr>
+						{% endfor %}
+						</table>	
+						{% endif %}
+				</div>
+			</div>
 
-</div>
-
+			
+	    </div>
 </body>
 
 {% endblock content %}
