@@ -1,0 +1,33 @@
+Need to leave refference for all of the APIs.
+Need to make all of the API keys local environment variables.
+
+Security Measures:
+Cross Site Scripting or XSS is an attack that tries to have your website or application load a malicious script in the browser using URL. 
+This script can try access user’s credentials data, get cookie information, modify settings, download bits, etc.. 
+We are using Jinja2 within our html templates that escapes all values unless explicitly told otherwise, 
+meaning that if script is injected, it will not be treated as the html/script but instead it will be treated as text and will not be run.
+
+A Cross-site request forgery is when a malicious site can cause a visitor's browser to make a request to your server that 
+causes a change on the server. The server thinks that because the request comes with the user's cookies, the user 
+wanted to submit that form. Cross-Site Request Forgery is a type of attack that occurs when a malicious web site, email, blog, instant message, 
+or program causes a user’s web browser to perform an unwanted action on a trusted site when the user is authenticated. 
+For most submission forms users need to be logged in or authenticated (such as updating database values, or changing passwords). 
+However, if the user is authenticated by the site, the site cannot distinguish anymore between a legitimate request or forged request. 
+The reasons for this is that all authentication credentials, such as the session variables, are already included in the request. 
+Therefore, another identifier is needed that is set up by the backend app and sent along with every request and validated by the 
+backend app again: it is a CSRF Token. Will use Flask's secret key to securely sign the token. When user first logs in, they will be given a
+generated CSRF token (a very long string) as a cookie. For each form that post requests on the system with the user authenticated, the system will 
+check the token if it matches. All of the form submissions include a hidden field containing the token.If the attacker tries to perform a 
+Cross-Site Request Forgery using a malicious site, they will not know the current token that is set in the cookie. 
+Your server will not process a request without this token, so the attack fails.
+
+For man-in the middle attacks, openshift the platform we will deploy our application on is using HTTPS protocol for that.
+
+We are also using sessions that allows the system to store information specific to a user. It uses encryption 
+which relies on a secret key that we have created. Our secret key was generated using os library that created a 24 random charactered hex string.
+
+App Cookie config.update, Improving session cookies that are used for user's sessions. - 
+SESSION_COOKIE_SECURE limits cookies to HTTPS traffic only.
+SESSION_COOKIE_HTTPONLY protects the contents of cookies from being read with JavaScript
+SESSION_COOKIE_SAMESITE restricts how cookies are sent with requests from external sites. Lax prevents sending cookies 
+with CSRF-prone requests from external sites, such as submitting a form.
