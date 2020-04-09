@@ -69,10 +69,10 @@ class AutomationForm(FlaskForm):
 	choices2 	  = [('B', 'Buy'),('S', 'Sell')]
 	strategy      = SelectField('Strategy:', choices=choices2)#Either Buy or Sell in dropdown
 	submit 	      = SubmitField('Submit')
-	
+
 	# Someone please look into how to get the trigger and strategy field to be dropdown
 	# Then make a html page for taking input for this form.
-	
+
 	# when this is done please let Tom know so he can finish the sql and route side
 
 
@@ -88,6 +88,3 @@ class Results(Table):
 	Stock_Name       = Col('Stock Name')
 	Current_Price    = Col('Current Price')
 	Stock_Table      = Col('Stock Table', show=False)
-
-
-

@@ -305,24 +305,9 @@ def new_day():
 			y2,m2,d2 = time_decode(last_full_row[0])
 			query = "UPDATE `c1769261_Second_Year`.`"+i+"` SET `Close` = '"+price+"' WHERE (`Date` = '"+y2+"-"+m2+"-"+d2+"');"
 			execute_query(query)
-			
+
 
 def find_tickers(inp):
 	inp = inp.capitalize()
 	tickers = web.get_nasdaq_symbols()
 	return tickers.index[tickers['Security Name'].str.contains(inp)].tolist()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

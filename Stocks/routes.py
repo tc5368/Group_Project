@@ -99,24 +99,6 @@ def logout():
 	logout_user()
 	return redirect(url_for('home'))
 
-@app.route('/xy')
-def xy():
-    stock_name = 'F_HIST'
-    df = get_history(stock_name)
-    df = df.set_index('Date')
-    df.index = pd.to_datetime(df.index)
-    test = "[{x: new Date(2012,01,01),y:[5198, 5629, 5159, 5385]}, {x: new Date(2012,02,01),y:[5198, 5629, 5159, 5385]}]"
-    list = "["
-    for row in df.iterrows():
-        if (str(row[1][3]) == "nan"):
-            continue
-        date = str(row[0]).replace("-",",")
-        date = date[:-9]
-        string = "{{x: new Date({0}),y:[{1},{2},{3},{4}]}}".format(date, "%0.2f" % row[1][2], "%0.2f" % row[1][0], "%0.2f" % row[1][1], "%0.2f" % row[1][3])
-        list = list + string + ", "
-    list = list[:-2] + "]"
-    return render_template('xy.html', df=df,test=list)
-
 # Uses Flask as the server and dash as the app that connects to the server and works together.
 app_dash = dash.Dash(
 	__name__,
@@ -288,7 +270,9 @@ def track():
 	ticker_form = Retrieve_Stock_Ticker_Form()
 	found_tickers = []
 	if form.validate_on_submit():
-		make_new_hist(form.ticker.data)
+		if make_new_hist(form.ticker.data) == True:
+			flash("You have successfully tracked stock! Now you can trade it and view information about it.")
+			return redirect(url_for('home'))
 	if ticker_form.validate_on_submit():
 		if(ticker_form.stock_name.data == ""):
 			pass
@@ -297,6 +281,11 @@ def track():
 			if found_tickers == []:
 				found_tickers = ["None"]
 	return render_template('track.html', title='Track', form=form, ticker_form=ticker_form, tickers=found_tickers)
+
+@app.route("/xy")
+@login_required
+def xy():
+	return render_template('xy.html')
 
 
 @app.route("/stock",methods=['GET','POST'])
@@ -347,7 +336,7 @@ def stock_page(ticker):
 							, info   = info
 							, amount = amount
 							, list = list)
-	
+
 
 @app.route('/portfolio')
 @login_required
@@ -423,15 +412,3 @@ def automation():
 @login_manager.unauthorized_handler
 def unauthorized():
 	return redirect(url_for('login'))
-
-
-
-
-
-
-
-
-
-
-
-
