@@ -282,12 +282,6 @@ def track():
 				found_tickers = ["None"]
 	return render_template('track.html', title='Track', form=form, ticker_form=ticker_form, tickers=found_tickers)
 
-@app.route("/xy")
-@login_required
-def xy():
-	return render_template('xy.html')
-
-
 @app.route("/stock",methods=['GET','POST'])
 def stock():
 	form = Get_Stock_Ticker_Form()
