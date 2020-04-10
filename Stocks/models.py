@@ -1,4 +1,3 @@
-
 from datetime import datetime
 from Stocks import login_manager,db
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -48,11 +47,13 @@ class Portfolio(db.Model):
 	Customer_ID      = db.Column(db.Integer, db.ForeignKey(User.id), primary_key = True)
 	Stock_ID         = db.Column(db.String(4), db.ForeignKey('Stock_Info.Stock_ID'), primary_key = True)
 	Amount_of_Shares = db.Column(db.Float, nullable=False)
+	Spend		 	 = db.Column(db.Float, nullable=False)
 
-	def __init__(self, Customer_ID, Stock_ID, Amount_of_Shares):
+	def __init__(self, Customer_ID, Stock_ID, Amount_of_Shares, Spend):
 		self.Customer_ID      = Customer_ID
 		self.Stock_ID         = Stock_ID
 		self.Amount_of_Shares = Amount_of_Shares
+		self.Spend 		  	  = Spend
 
 class Automation(db.Model):
 	__tablename__ = "Automation"
@@ -80,29 +81,3 @@ def load_user(user_id):
 
 db.create_all()
 db.session.commit()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

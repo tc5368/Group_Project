@@ -28,6 +28,7 @@
 								<th>Amount of Shares</th>
 								<th>Price per stock</th>
 								<th>Overall price for stock</th>
+								<th>Your investment</th>
 							</tr>
 						{% for purchase in portfolio %}
 							<tr>
@@ -36,7 +37,14 @@
 								{% for stock in stock_desc %}
 									{% if purchase.Stock_ID == stock.Stock_ID %}
 										<td>${{ "%.2f"|format(stock.Current_Price) }}</td>
-										<td>${{ "%.2f"|format(stock.Current_Price * purchase.Amount_of_Shares) }}</td>
+										{% if (stock.Current_Price * purchase.Amount_of_Shares) < purchase.Spend %}
+											<td><font color="red">${{ "%.2f"|format(stock.Current_Price * purchase.Amount_of_Shares) }} (down by ${{ "%.2f"|format(purchase.Spend - (stock.Current_Price * purchase.Amount_of_Shares)) }})</font></td>
+										{% elif (stock.Current_Price * purchase.Amount_of_Shares) == purchase.Spend %}
+											<td>${{ "%.2f"|format(stock.Current_Price * purchase.Amount_of_Shares) }}</td>
+										{% else %}
+											<td><font color="green">${{ "%.2f"|format(stock.Current_Price * purchase.Amount_of_Shares) }} (up by ${{ "%.2f"|format((stock.Current_Price * purchase.Amount_of_Shares) - purchase.Spend) }})</font></td>
+										{% endif %}
+										<td>${{ "%.2f"|format(purchase.Spend) }}</td>
 									{% endif %}
 								{% endfor %}
 							</tr>
@@ -53,7 +61,7 @@
 
 					{% else %}
 						<p><b>You have not purchased any stocks</b></p>
-					{% endif %}					
+					{% endif %}
 			</div>
 		</div>
 </body>

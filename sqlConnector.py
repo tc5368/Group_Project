@@ -131,10 +131,11 @@ def check_buy(user_id, stock, amount):
 					stock_info.Current_Price = stock_info.Current_Price * growth
 
 					i.Amount_of_Shares += float(amount)
+					i.Spend += (stock_info.Current_Price * amount)
 					found = True
 					break
 			if found == False:
-				newEntry = Portfolio(user.id,stock_info.Stock_ID,float(amount))
+				newEntry = Portfolio(user.id,stock_info.Stock_ID,float(amount),float(stock_info.Current_Price * amount))
 				db.session.add(newEntry)
 
 			db.session.commit()
@@ -160,6 +161,7 @@ def check_sell(user_id, stock, amount):
 					stock_info.Current_Price = stock_info.Current_Price * growth
 
 					i.Amount_of_Shares -= amount
+					i.Spend -= (stock_info.Current_Price * amount)
 					user.balance += price
 				else:
 					return False
