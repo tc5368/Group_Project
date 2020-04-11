@@ -54,6 +54,22 @@ class Portfolio(db.Model):
 		self.Stock_ID         = Stock_ID
 		self.Amount_of_Shares = Amount_of_Shares
 		self.Spend 		  	  = Spend
+class History(db.Model):
+	__tablename__ 	 = "History"
+	Customer_ID      = db.Column(db.Integer, db.ForeignKey(User.id), primary_key = True)
+	Date             = db.Column(db.DateTime, primary_key = True)
+	Stock_ID         = db.Column(db.String(4), db.ForeignKey('Stock_Info.Stock_ID'))
+	Price            = db.Column(db.Float, nullable = False)
+	Amount 			 = db.Column(db.Float, nullable=False)
+	Operation 	     = db.Column(db.String(4), nullable=False)
+
+	def __init__(self, Customer_ID, Date, Stock_ID, Price, Amount, Operation):
+		self.Customer_ID      = Customer_ID
+		self.Date      		  = Date
+		self.Stock_ID         = Stock_ID
+		self.Price 		  	  = Price
+		self.Amount			  = Amount
+		self.Operation		  = Operation
 
 class Automation(db.Model):
 	__tablename__ = "Automation"

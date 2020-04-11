@@ -331,6 +331,9 @@ def stock_page(ticker):
 							, amount = amount
 							, list = list)
 
+@app.route('/xy')
+def xy():
+	return render_template("xy.html")
 
 @app.route('/portfolio')
 @login_required
@@ -347,7 +350,17 @@ def portfolio():
 	usr_total = current_user.balance + total
 	default = 100
 	perc = usr_total - default
-	return render_template("portfolio.html", portfolio = user_portfolio, stock_desc = stock_desc, total = total, perc = perc)
+	history = History.query.filter_by(Customer_ID=current_user.id).all()
+	check_history = [False, False]
+	for entry in history:
+		entry.Date = (entry.Date).strftime("%B %d, %Y at %H:%M:%S")
+		if entry.Operation == "Buy":
+			check_history[0] = True
+		else:
+			check_history[1] = True
+	history.sort(key=lambda transaction: transaction.Date, reverse=True)
+	print(history)
+	return render_template("portfolio.html", portfolio = user_portfolio, stock_desc = stock_desc, total = total, perc = perc, history = history, check_history = check_history)
 
 
 @app.route('/available')

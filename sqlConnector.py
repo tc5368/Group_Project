@@ -123,6 +123,9 @@ def check_buy(user_id, stock, amount):
 
 			portfolio = Portfolio.query.filter_by(Customer_ID = user_id).all()
 			found = False
+			newHistoryEntry = History(user.id,datetime.now(),stock_info.Stock_ID,float(stock_info.Current_Price * amount),float(amount), "Buy")
+			db.session.add(newHistoryEntry)
+
 			for i in portfolio:
 				if i.Stock_ID == stock_info.Stock_ID:
 					# Growing the price of the stock.
@@ -152,6 +155,8 @@ def check_sell(user_id, stock, amount):
 
 		portfolio = Portfolio.query.filter_by(Customer_ID = user_id).all()
 		found = False
+		newHistoryEntry = History(user.id,datetime.now(),stock_info.Stock_ID,float(stock_info.Current_Price * amount),float(amount), "Sell")
+		db.session.add(newHistoryEntry)
 		for i in portfolio:
 			if i.Stock_ID == stock_info.Stock_ID:
 				if i.Amount_of_Shares >= amount:
