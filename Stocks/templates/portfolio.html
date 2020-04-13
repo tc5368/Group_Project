@@ -40,9 +40,11 @@
 					<p>Hey {{ current_user.first_name }} {{ current_user.last_name }}</p>
 					<p> Your current balance is ${{ "%.2f"|format(current_user.balance) }} </p>
 
-					<p></p>
+					
 					{% if portfolio != [] %}
-						<table align="center">
+					<div style = "margin:0 auto;text-align: center">
+
+						<table>
 							<tr>
 								<th>Stock ID</th>
 								<th>Amount of Shares</th>
@@ -70,7 +72,7 @@
 							</tr>
 						{% endfor %}
 						</table>
-
+				    </div>
 						<p> The total value of your portfolio is ${{ "%.2f"|format(total) }} </p>
 						<p> Portfolio value combined with your balance is ${{ "%.2f"|format(total + current_user.balance) }} </p>
 						{% if perc >= 0.0 %}
@@ -82,15 +84,17 @@
 					{% else %}
 						<p><b>You have not purchased any stocks</b></p>
 					{% endif %}
-			</div>
+
 			<p>History</p>
-			<button class="ShowHide">Show</button>
+
+			<button class="ShowHide"> Show </button>
 			<div id="History">
 			{% if history != [] %}
 				<p>Buy</p>
 				{% if check_history[0] == False %}
 					<p>You have not bought any stocks yet</p>
 				{% else %}
+				<div style = "margin:0 auto;text-align: center">
 					<table align="center" id="Buy">
 						<tr>
 							<th>Date</th>
@@ -109,11 +113,13 @@
 						{% endif %}
 					{% endfor %}
 				</table>
+			</div>
 			{% endif %}
 			<p>Sell</p>
 			{% if check_history[1] == False %}
 				<p>You have not sold any stocks yet</p>
 			{% else %}
+			<div style = "margin:0 auto;text-align: center">
 				<table align="center" id="Sell">
 					<tr>
 						<th>Date</th>
@@ -132,11 +138,15 @@
 					{% endif %}
 				{% endfor %}
 			</table>
+		</div>
 		{% endif %}
 			{% else %}
 				<p><b>Your portfolio history is empty</b></p>
 			{% endif %}
+			</div>					
 			</div>
+
+
 		</div>
 </body>
 
