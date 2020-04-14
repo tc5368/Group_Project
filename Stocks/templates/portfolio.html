@@ -34,7 +34,7 @@
 		<div id="wholePage">
 			<div class="intro">
 				<div class="wrapper">
-					<h1>Welcome to check your portfolio.</h1>
+					<h1>Welcome!</h1>
 				</div>
 
 					<p>Hey {{ current_user.first_name }} {{ current_user.last_name }}</p>
@@ -87,7 +87,7 @@
 
 			<p>History</p>
 
-			<button class="ShowHide"> Show </button>
+			<button class="ShowHide" id = "ShowHide"> Show </button>
 			<div id="History">
 			{% if history != [] %}
 				<p>Buy</p>
