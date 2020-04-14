@@ -1,9 +1,8 @@
 body {
-	
 	color:white;
 }
 .layer{
-	background-color:rgba(22, 48, 69, 0.7);	
+	background-color:rgba(22, 48, 69, 0.7);
 	padding:20px;
 	padding-bottom: 5px;
 	margin-left: 20px;
@@ -67,8 +66,4 @@ body {
 	font-size: 18px;
 	cursor: pointer;
 	margin: 12px 0;
-}
-
-form {
-
 }
