@@ -269,10 +269,25 @@ def check_automated_strategies():
 			db.session.commit()
 
 def add_new_automated_strategy(user, form):
-	query = """INSERT INTO `c1769261_Second_Year`.`Automation` (`Customer_ID`, `Stock_ID`, `Trigger`, `Trigger_Price`, `Strategy`, `Increment`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s');""" %(user, form.ticker.data, form.trigger.data, form.trigger_price.data, form.strategy.data, form.increment.data)
+	# need to add test to make the user track a stock before it can be automated.
+	test = Automation.query.filter_by(Customer_ID = user).all()
+	for i in test:
+		if form.ticker.data == i.Stock_ID:
+			return False
+	if form.limit.data == None:
+		limit = 'null'
+	else:
+		limit = '"'+str(form.limit.data)+'"'
+	query = """INSERT INTO `c1769261_Second_Year`.`Automation` (`Customer_ID`, `Stock_ID`, `Trigger`, `Trigger_Price`, `Strategy`, `Increment`, `Limit`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', %s);""" %(user, form.ticker.data, form.trigger.data, form.trigger_price.data, form.strategy.data, form.increment.data, limit)
 	execute_query(query)
+	return True
 
+	#add validation here
+	#also add delete functionaility.
 
+def getStategies(id):
+	stategies = Automation.query.filter_by(Customer_ID = id).all()
+	return stategies
 
 
 def time_decode(dateObj):

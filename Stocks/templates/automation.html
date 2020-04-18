@@ -1,41 +1,46 @@
 {% extends "layout.html" %}
 {% block content %}
-
 <body style="
-  background-image: url(../static/img/login2.jpg);
-  background-size: cover;
-  background-attachment:fixed;
-  background-position: center;
-  box-sizing: border-box;
-  font-family: sans-serif;">
+	background-image: url(../static/img/homepage.jpg);
+	background-size: cover;
+	background-attachment:fixed;
+	background-position: center;
+	box-sizing: border-box;
+	font-family: sans-serif;
+">
+		<div id="wholePage">
+			<div class="intro">
 
-<div class = "register">
-    <h1>Automated Stratergy</h1>
-    
-    <form method="POST" action="">
+				<div class="wrapper">
+					<h2>Automated trading strategy control.</h2>
+				</div>
 
-    {{ form.csrf_token }}
-    {{ form.ticker(placeholder="Stock Ticker")}}
+				<p>
+					<a href="/viewStategies" ><input class = "btn2" type="button" name="" value="View Current automated stategies"></a>
+				</p>
 
-		{% for error in form.ticker.errors %}
-      <span style="color: white;">[{{ error }}]</span>
-    {% endfor %}
+				<p>
+					<a href="/newStategy" ><input class = "btn2" type="button" name="" value="Create New Stategy"></a>
+				</p>
 
-    {{ form.trigger_price(placeholder="Price Trigger")}}
-    {{ form.limit(placeholder="Limit of shares to trade")}}
-    {{ form.increment(placeholder="How many shares to trade")}}
-    {{form.trigger.label()}}{{ form.trigger()}}
-    {{form.strategy.label()}}{{ form.strategy()}}
-
-    {{ form.submit(class = "btn2") }}
-    
-    </form>
+				<p>
+					<a href="/deleteStrategies" ><input class = "btn2" type="button" name="" value="Delete your Stategies"></a>
+				</p>
 
 
-</div>
+			</div>
+		</div>
+
+
 
 </body>
 
-
-
 {% endblock content %}
+
+
+
+
+
+
+
+

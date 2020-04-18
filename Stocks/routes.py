@@ -51,7 +51,7 @@ newsapi = NewsApiClient(api_key='0f58067ab2ad447ba8e4af81ecea25c5')
 
 scheduler = BackgroundScheduler()
 scheduler.add_job(func=new_day, trigger="cron", hour=20, minute=30)
-scheduler.add_job(func=simulate_trading, trigger="interval", seconds=5)
+scheduler.add_job(func=simulate_trading, trigger="interval", seconds=15)
 scheduler.start()
 
 
@@ -377,49 +377,94 @@ def avaliable():
 @app.route('/search', methods=['GET', 'POST'])
 @login_required
 def search():
-    form = SearchForm()
-    if request.method == 'POST':
-        return search_results(form)
-    return render_template('search.html', form=form)
+	form = SearchForm()
+	if request.method == 'POST':
+		return search_results(form)
+	return render_template('search.html', form=form)
 
 
 @app.route('/search_results')
 def search_results(search):
-    results = []
-    search_string = search.data['search']
-    if search_string != None:
-        if search.data['select'] == 'Stock_ID':
-            qry = db.session.query(Stock_Info).filter_by(Stock_ID =search_string)
-            results = qry.all()
-        elif search.data['select'] == 'Stock_Name':
-            qry = db.session.query(Stock_Info).filter(Stock_Info.Stock_Name.like("%"+search_string+"%"))
-            results = qry.all()
-        else:
-            qry = Stock_Info.query().all()
-            results = qry
-    else:
-        qry = db.session.query(Stock_Info)
-        results = qry.all()
+	results = []
+	search_string = search.data['search']
+	if search_string != None:
+		if search.data['select'] == 'Stock_ID':
+			qry = db.session.query(Stock_Info).filter_by(Stock_ID =search_string)
+			results = qry.all()
+		elif search.data['select'] == 'Stock_Name':
+			qry = db.session.query(Stock_Info).filter(Stock_Info.Stock_Name.like("%"+search_string+"%"))
+			results = qry.all()
+		else:
+			qry = Stock_Info.query().all()
+			results = qry
+	else:
+		qry = db.session.query(Stock_Info)
+		results = qry.all()
 
-    if not results:
-        flash('No results found!')
-        return redirect('/search')
-    else:
-        # display results
-        table = Results(results)
-        table.border = True
-        return render_template('search_results.html', table=table)
+	if not results:
+		flash('No results found!')
+		return redirect('/search')
+	else:
+		# display results
+		table = Results(results)
+		table.border = True
+		return render_template('search_results.html', table=table)
 
 
 @app.route('/automation', methods=['GET', 'POST'])
 def automation():
+	return render_template('/automation.html')
+
+
+@app.route('/newStategy', methods=['GET', 'POST'])
+def newStategy():
 	form = AutomationForm()
 	if form.validate_on_submit():
-		add_new_automated_strategy(current_user.id,form)
-		return render_template('automation.html', form=form)
-	return render_template('automation.html', form=form)
+		print('Valid')
+		adding = add_new_automated_strategy(current_user.id,form)
+		if adding == False:
+			flash("You already have a stategy in place for this stock")
+			return redirect('viewStategies')
+		# return render_template('newStategy.html', form=form)
+		return redirect('viewStategies')
+	return render_template('newStategy.html', form=form)
+
+
+@app.route('/viewStategies', methods=['GET', 'POST'])
+def viewStategies():
+	stategies = getStategies(current_user.id)
+	print(stategies)
+	return render_template('viewStategies.html')
+
+
+@app.route('/deleteStrategies', methods=['GET', 'POST'])
+def deleteStrategies():
+	return render_template('deleteStrategies.html')
+
 
 # For unauthorized users, will redirect them to login page.
 @login_manager.unauthorized_handler
 def unauthorized():
 	return redirect(url_for('login'))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

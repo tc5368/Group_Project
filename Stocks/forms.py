@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, DecimalField, SelectField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Regexp, NumberRange
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Regexp, NumberRange, Optional
 from Stocks.models import User
 from flask_table import Table, Col, LinkCol
 
@@ -62,7 +62,7 @@ class stock_page_form(FlaskForm):
 class AutomationForm(FlaskForm):
 	ticker        = StringField('Stock Ticker', validators=[DataRequired()])
 	trigger_price = DecimalField('Price Trigger', validators=[DataRequired()])
-	limit         = DecimalField('Limit of shares to trade', validators=[DataRequired()])
+	limit         = DecimalField('Limit of shares to trade', validators=[Optional()])
 	increment     = DecimalField('The amount of shares to buy or sell at a time when the trigger is activated', validators=[DataRequired()])
 	choices1 	  = [('A', 'Above'),('B', 'Below')]
 	trigger       = SelectField('Trigger:', choices=choices1)#Either Above or Below in dropdown
