@@ -20,8 +20,31 @@
 				<p>
 					<a href="/automation" ><input class = "btn2" type="button" name="" value="Back to automation menu"></a>
 				</p>
-
-				<p>This is where the stategies will show.</p>
+				<p>Your active Strategies</p>
+				{% if strategies != [] %}
+					<table>
+						<tr>
+							<th>Stock ID</th>
+							<th>Trigger</th>
+							<th>Trigger price</th>
+							<th>Strategy</th>
+							<th>Increment</th>
+							<th>Limit</th>
+						</tr>
+					{% for strat in strategies %}
+						<tr>
+							<td>{{ strat.Stock_ID }}</td>
+							<td>{{ strat.Trigger }}</td>
+							<td>{{ strat.Trigger_Price}}</td>
+							<td>{{ strat.Strategy }}</td>
+							<td>{{ strat.Increment }}</td>
+							<td>{{ strat.Limit }}</td>
+						</tr>
+					{% endfor %}
+					</table>
+				{% else %}
+					<p><b>You have not setup and automated trading</b></p>
+				{% endif %}
 
 
 			</div>

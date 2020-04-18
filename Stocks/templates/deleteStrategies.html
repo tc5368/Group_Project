@@ -21,7 +21,48 @@
 					<a href="/automation" ><input class = "btn2" type="button" name="" value="Back to automation menu"></a>
 				</p>
 
-				<p>This button clears all your stategies</p>
+				<p>Please enter the ticker of the stock you would like to stop your strategy for.</p>
+
+				<form method="POST" action="">
+					{{ form.csrf_token }}
+					<div class ="textbox">
+						<p>{{ form.ticker.label(class="lbl") }}<br>{{ form.ticker(class="inp")}}</p>
+						{% for error in form.ticker.errors %}
+							<span style="color: white;">That is not a valid ticker</span>
+
+						{% endfor %}
+					</div>
+				<p>{{ form.submit(class="btn2") }}</p>
+    
+				</form>
+
+
+
+				<p>Your active Strategies</p>
+				{% if strategies != [] %}
+					<table>
+						<tr>
+							<th>Stock ID</th>
+							<th>Trigger</th>
+							<th>Trigger price</th>
+							<th>Strategy</th>
+							<th>Increment</th>
+							<th>Limit</th>
+						</tr>
+					{% for strat in strategies %}
+						<tr>
+							<td>{{ strat.Stock_ID }}</td>
+							<td>{{ strat.Trigger }}</td>
+							<td>{{ strat.Trigger_Price}}</td>
+							<td>{{ strat.Strategy }}</td>
+							<td>{{ strat.Increment }}</td>
+							<td>{{ strat.Limit }}</td>
+						</tr>
+					{% endfor %}
+					</table>
+				{% else %}
+					<p><b>You have not setup and automated trading</b></p>
+				{% endif %}
 
 
 			</div>

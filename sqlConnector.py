@@ -285,9 +285,14 @@ def add_new_automated_strategy(user, form):
 	#add validation here
 	#also add delete functionaility.
 
-def getStategies(id):
+def getStratergies(id):
 	stategies = Automation.query.filter_by(Customer_ID = id).all()
 	return stategies
+
+def removeStrategy(ticker, id):
+	toRemove = Automation.query.filter_by(Customer_ID = id, Stock_ID = ticker).delete()
+	db.session.commit()
+
 
 
 def time_decode(dateObj):

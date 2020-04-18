@@ -363,14 +363,12 @@ def portfolio():
 		else:
 			check_history[1] = True
 	history.sort(key=lambda transaction: transaction.Date, reverse=True)
-	print(history)
 	return render_template("portfolio.html", portfolio = user_portfolio, stock_desc = stock_desc, total = total, perc = perc, history = history, check_history = check_history)
 
 
 @app.route('/available')
 def avaliable():
 	stocks = Stock_Info.query.order_by(Stock_Info.Stock_ID).all()
-
 	return render_template('available.html', stocks = stocks)
 
 
@@ -420,7 +418,6 @@ def automation():
 def newStategy():
 	form = AutomationForm()
 	if form.validate_on_submit():
-		print('Valid')
 		adding = add_new_automated_strategy(current_user.id,form)
 		if adding == False:
 			flash("You already have a stategy in place for this stock")
@@ -432,15 +429,30 @@ def newStategy():
 
 @app.route('/viewStategies', methods=['GET', 'POST'])
 def viewStategies():
-	stategies = getStategies(current_user.id)
-	print(stategies)
-	return render_template('viewStategies.html')
+	strategies = getStratergies(current_user.id)
+	return render_template('viewStategies.html', strategies = strategies)
 
 
 @app.route('/deleteStrategies', methods=['GET', 'POST'])
+@login_required
 def deleteStrategies():
-	return render_template('deleteStrategies.html')
+	form = DeletingAutomationForm()
+	strategies = getStratergies(current_user.id)
+	if form.validate_on_submit():
+		return redirect(url_for('deleteConfirm', ticker = form.ticker.data.upper()))
+	return render_template('deleteStrategies.html', title='Deleting Strategy', form=form, strategies = strategies)
 
+@app.route('/deleteConfirm/<ticker>', methods=['GET','POST'])
+@login_required
+def deleteConfirm(ticker):
+	form = Confirmation()
+	if form.validate_on_submit():
+		if form.submit_yes.data:
+			removeStrategy(ticker, current_user.id)
+			return redirect(url_for('viewStategies'))
+		else:
+			return redirect(url_for('automation'))
+	return render_template('deleteConfirm.html', title = 'Delete confirm', form=form, ticker = ticker)
 
 # For unauthorized users, will redirect them to login page.
 @login_manager.unauthorized_handler
