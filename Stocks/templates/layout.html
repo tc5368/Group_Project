@@ -23,11 +23,6 @@
 
         <li >
           <i class="fa fa-search"></i><a href="{{ url_for('stock') }}">Stocks</a>
-          <div class="sub-menu-1">
-            <ul>
-              <li><a href="{{ url_for('stock') }}">Stocks</a></li>
-            </ul>
-          </div>
         </li>
 
         <li><i class="fa fa-align-left"></i><a href="{{ url_for('portfolio') }}">Portfolio</a></li>
@@ -39,7 +34,6 @@
                 {% if current_user.is_authenticated %}
                   <li>Hello, {{ current_user.first_name }}!</li>
                   <li><a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a></li>
-                  <li><a href="#">Details</a></li>
                 {% else %}
                   <li>Hello, Guest!</li>
                   <li> <a href="{{ url_for('login') }}">Login</a></li>
