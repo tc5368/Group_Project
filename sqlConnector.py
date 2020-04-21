@@ -97,6 +97,22 @@ def execute_query(query):
 	Returns:
 		[Pandas Dataframe] -- This is used only for select statments will return the results from the sql select into a data frame.
 	'''
+
+	# Here is very basic error checking for sql injecttion.
+	# This needs work to make it more sophisticated also should be chaged so
+	# that these checks are made when the input is taken and not here.
+
+
+	# I cant test this but it should work if there is an error it will be here just comment it out
+	# Inbetween these 2 comments is untested
+	dangerWords = ['DROP','DELETE']
+	for i in dangerWords:
+		if i in query.upper():
+		print('SQL injection detected with query: %s' %query)
+		return None
+	# Inbetween these 2 comments is untested
+
+
 	cnx = mysql.connect(user     = 'c1769261',
 						password = 'apmWzUswLy6LvfX',
     						host = 'csmysql.cs.cf.ac.uk',
