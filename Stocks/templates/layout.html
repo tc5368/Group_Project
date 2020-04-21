@@ -21,8 +21,14 @@
       <ul>
         <li><i class="fa fa-home"></i><a href="{{ url_for('home') }}">Home</a></li>
 
-        <li >
-          <i class="fa fa-search"></i><a href="{{ url_for('track') }}">Stocks</a>
+        <li>
+          <i class="fa fa-align-left"></i><a href="/available">Stock</a>
+          <div class="sub-menu-1">
+            <ul>
+                  <li><a class="nav-item nav-link" href="/available">View all Stocks</a></li>
+                  <li><a class="nav-item nav-link" href="{{ url_for('track') }}">Track a New Stock</a></li>
+            </ul>
+          </div>
         </li>
 
         <li><i class="fa fa-align-left"></i><a href="{{ url_for('portfolio') }}">Portfolio</a></li>
