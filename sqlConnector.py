@@ -108,8 +108,8 @@ def execute_query(query):
 	dangerWords = ['DROP','DELETE']
 	for i in dangerWords:
 		if i in query.upper():
-		print('SQL injection detected with query: %s' %query)
-		return None
+			print('SQL injection detected with query: %s' %query)
+			return None
 	# Inbetween these 2 comments is untested
 	# This section of code will be replaced and updated to include better analysis of queries
 	# using better techniques for example checking to see if there is more then 1 keyword in the
