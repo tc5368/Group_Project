@@ -111,6 +111,20 @@ def execute_query(query):
 		print('SQL injection detected with query: %s' %query)
 		return None
 	# Inbetween these 2 comments is untested
+	# This section of code will be replaced and updated to include better analysis of queries
+	# using better techniques for example checking to see if there is more then 1 keyword in the
+	# query, currently in this code there is no reason for 2 key words so having two
+	# would mean a second query has been injected.
+
+	# Also worth exploring the idea of removing all of the mysql connecter code as that is an area
+	# of vunralbility. Instead moving completly to using the sql alchemy solution would make sql
+	# injecttion imporssible as there would be no query to inject. Instead using the object based 
+	# system in the sql alchemy.
+
+	# This wouldn'y be to difficult to do the main point would be changeing the plotly stuff.
+	# would just need to mvoe the data into a differnt format that would be possible to use with the plotly.
+
+	# New day function would not need changing as there is no opening for the user to inject into those statments
 
 
 	cnx = mysql.connect(user     = 'c1769261',
