@@ -22,10 +22,21 @@
         <li><i class="fa fa-home"></i><a href="{{ url_for('home') }}">Home</a></li>
 
         <li >
-          <i class="fa fa-search"></i><a href="{{ url_for('stock') }}">Stocks</a>
+          <i class="fa fa-search"></i><a href="{{ url_for('track') }}">Stocks</a>
         </li>
 
         <li><i class="fa fa-align-left"></i><a href="{{ url_for('portfolio') }}">Portfolio</a></li>
+
+        <li>
+          <i class="fa fa-align-left"></i><a href="{{ url_for('automation') }}">Automation</a>
+          <div class="sub-menu-1">
+            <ul>
+                  <li><a class="nav-item nav-link" href="{{ url_for('automation') }}">Automation Homepage</a></li>
+                  <li><a class="nav-item nav-link" href="{{ url_for('newStategy') }}">Create New Strategie</a></li>
+                  <li><a class="nav-item nav-link" href="{{ url_for('deleteStrategies') }}">Delete Strategies</a></li>
+            </ul>
+          </div>
+        </li>
 
         <li>
           <i class="fa fa-lock"></i><a href="#">Account</a>
