@@ -412,11 +412,13 @@ def search_results(search):
 
 
 @app.route('/automation', methods=['GET', 'POST'])
+@login_required
 def automation():
 	return render_template('/automation.html')
 
 
 @app.route('/newStategy', methods=['GET', 'POST'])
+@login_required
 def newStategy():
 	form = AutomationForm()
 	if form.validate_on_submit():
@@ -429,6 +431,7 @@ def newStategy():
 	return render_template('newStategy.html', form=form, choices=choices)
 
 @app.route('/viewStategies', methods=['GET', 'POST'])
+@login_required
 def viewStategies():
 	strategies = getStratergies(current_user.id)
 	return render_template('viewStategies.html', strategies = strategies)
