@@ -213,7 +213,8 @@ def buy():
 			return redirect(url_for('buyConfirm', ticker=usr_ticker, amount=form.amount.data))
 		else:
 			flash("Couldn't find '" + usr_ticker + "' such ticker. Make sure to enter an existent ticker")
-	return render_template('buy.html', title='Buying', form=form)
+	choices = [stock.Stock_ID for stock in Stock_Info.query.all()]
+	return render_template('buy.html', title='Buying', form=form, choices=choices)
 
 
 @app.route("/sell",methods=['GET','POST'])
@@ -223,6 +224,7 @@ def sell():
 	user_portfolio = Portfolio.query.filter_by(Customer_ID=current_user.id).all()
 	if form.validate_on_submit():
 		return redirect(url_for('sellConfirm', ticker=form.ticker.data.upper(), amount=form.amount.data))
+	choices = [stock.Stock_ID for stock in Stock_Info.query.all()]
 	return render_template('sell.html', title='sell', form=form, portfolio=user_portfolio)
 
 
@@ -422,10 +424,9 @@ def newStategy():
 		if adding == False:
 			flash("You already have a stategy in place for this stock")
 			return redirect('viewStategies')
-		# return render_template('newStategy.html', form=form)
 		return redirect('viewStategies')
-	return render_template('newStategy.html', form=form)
-
+	choices = [stock.Stock_ID for stock in Stock_Info.query.all()]
+	return render_template('newStategy.html', form=form, choices=choices)
 
 @app.route('/viewStategies', methods=['GET', 'POST'])
 def viewStategies():
@@ -458,25 +459,3 @@ def deleteConfirm(ticker):
 @login_manager.unauthorized_handler
 def unauthorized():
 	return redirect(url_for('login'))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

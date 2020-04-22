@@ -11,11 +11,16 @@
 
 <div class = "register">
     <h1>Automated Strategy</h1>
-    
+
     <form method="POST" action="">
 
     {{ form.csrf_token }}
-    {{ form.ticker(placeholder="Stock Ticker")}}
+    {{ form.ticker(list="ticker_choices", placeholder="Trigger ID")}}
+    <datalist id="ticker_choices">
+    {% for choice in choices %}
+    <option value={{ choice }}>
+    {% endfor %}
+    </datalist>
 
 		{% for error in form.ticker.errors %}
       <span style="color: white;">[{{ error }}]</span>
@@ -28,7 +33,7 @@
     {{ form.strategy.label()}} {{ form.strategy()}}
 
     {{ form.submit(class = "btn2") }}
-    
+
     </form>
 
 
