@@ -223,7 +223,8 @@ def sell():
 	form = SellingForm()
 	user_portfolio = Portfolio.query.filter_by(Customer_ID=current_user.id).all()
 	if form.validate_on_submit():
-		return redirect(url_for('sellConfirm', ticker=form.ticker.data.upper(), amount=form.amount.data))
+		if check_exists(form.ticker.data):
+			return redirect(url_for('sellConfirm', ticker=form.ticker.data.upper(), amount=form.amount.data))
 	choices = [stock.Stock_ID for stock in Stock_Info.query.all()]
 	return render_template('sell.html', title='sell', form=form, portfolio=user_portfolio)
 
@@ -242,7 +243,6 @@ def sellConfirm(ticker,amount):
 				flash('You have sold ' + str(amount) + " of " + ticker + " shares.")
 				return redirect(url_for('portfolio'))
 			else:
-				flash('You don\'t own that much shares')
 				return redirect(url_for('sell'))
 		else:
 			return redirect(url_for('home'))
