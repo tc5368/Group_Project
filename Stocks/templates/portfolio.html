@@ -58,18 +58,19 @@
 								<td>{{ purchase.Amount_of_Shares }}</td>
 								{% for stock in stock_desc %}
 									{% if purchase.Stock_ID == stock.Stock_ID %}
-										{% set current_price = stock.Current_Price %}
-										<td>${{ "%.2f"|format(current_price) }}</td>
-										{% set current_total = current_price * purchase.Amount_of_Shares %}
+										{% set current_price = stock.Current_Price|round(2,'common') %}
+										<td>${{ current_price }}</td>
+										{% set current_total = (current_price * purchase.Amount_of_Shares)|round(2,'common') %}
+										{% set spend = purchase.Spend|round(2,'common') %}
 
-										{% if "%.2f"|format(current_total) < "%.2f"|format(purchase.Spend) %}
-											<td><font color="red">${{ "%.2f"|format(current_total) }} (down by ${{ "%.2f"|format(purchase.Spend - current_total) }})</font></td>
-										{% elif "%.2f"|format(current_price * purchase.Amount_of_Shares) > "%.2f"|format(purchase.Spend) %}
-											<td><font color="green">${{ "%.2f"|format(current_total) }} (up by ${{ "%.2f"|format(current_total - purchase.Spend) }})</font></td>
+										{% if current_total < purchase.Spend %}
+											<td><font color="red">${{ current_total }} (down by ${{ (spend - current_total)|round(2,'common') }})</font></td>
+										{% elif current_total > spend %}
+											<td><font color="green">${{ current_total }} (up by ${{ (current_total - spend)|round(2,'common') }})</font></td>
 										{% else %}
-											<td>${{ "%.2f"|format(current_total) }}</td>
+											<td>${{ current_total }}</td>
 										{% endif %}
-										<td>${{ "%.2f"|format(purchase.Spend) }}</td>
+										<td>${{ spend }}</td>
 									{% endif %}
 								{% endfor %}
 							</tr>
