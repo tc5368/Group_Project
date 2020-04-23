@@ -76,8 +76,8 @@
 
 <!-- <body> -->
 
-  <div calss = "bg-modal">
-    <div class = "modal_content">
+  <div class = "bg-modal">
+
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     <ul class=flashes>
@@ -87,8 +87,9 @@
     </ul>
     {% endif %}
     {% endwith %}
-  </div>
-  </div>
+
+   </div>
+
 
   <div id="content">
     {% block content %}
