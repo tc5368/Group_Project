@@ -1,16 +1,75 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>About Us</h1>
-<p>This is the home page for our stock market simulation trading page. All the stocks on this website are simulated and do not reflect real world stock movement. All stock bought are only simulated stocks and should not be used for training on a real stock market.</p>
-<p>This website has been developed using many various open-source APIs and libraries which we would like to thank developers for. Without them, the website wouldn't be functional!</p>
-<a href="https://newsapi.org/"><p>NewsAPI</p></a>
-<a href="https://plotly.com/dash/"><p>Plotly Dash</p></a>
-<a href="https://plotly.com/chart-studio/"><p>Plotly Chart Studio</p></a>
-<a href="https://matplotlib.org/"><p>Matplotlib</p></a>
-<a href="http://wtfforms.com/"><p>WTFForms</p></a>
-<a href="https://pandas.pydata.org/"><p>Pandas</p></a>
-<a href="https://flask.palletsprojects.com/"><p>Flask</p></a>
-<a href="https://pypi.org/project/yfinance/"><p>Yahoo Finance</p></a>
-<a href="https://dev.mysql.com/"><p>MYSQL</p></a>
-<a href="https://flask-sqlalchemy.palletsprojects.com"><p>Flask-SQLAlchemy</p></a>
+
+
+<body style="
+	background-image: url(../static/img/homepage.jpg);
+	background-size: cover;
+	background-attachment:fixed;
+	background-position: center;
+	box-sizing: border-box;
+	font-family: sans-serif;
+">
+
+
+		<div id="wholePage">
+			<div class="intro">
+				<div class="wrapper">
+					<h2>About Us</h2>
+					<p>This is the home page for our stock market simulation trading page. All the stocks on this website are simulated and do not reflect real world stock movement. All stock bought are only simulated stocks and should not be used for training on a real stock market.</p>
+					<p>This website has been developed using many various open-source APIs and libraries which we would like to thank developers for. Without them, the website wouldn't be functional!</p>					
+				</div>
+
+				
+				<p>
+					<a href="https://newsapi.org/" ><input class = "btn2" type="button" name="" value="NewsAPI"></a>
+				</p>
+
+
+				<p>
+					<a href="https://plotly.com/dash" ><input class = "btn2" type="button" name="" value="Plotly Dash"></a>
+				</p>
+
+
+				<p>
+					<a href="https://plotly.com/chart-studio/" ><input class = "btn2" type="button" name="" value="Plotly Chart Studio"></a>
+				</p>
+
+				<p>
+					<a href="https://matplotlib.org/" ><input class = "btn2" type="button" name="" value="Matplotlib"></a>
+				</p>
+
+				<p>
+					<a href="http://wtfforms.com/" ><input class = "btn2" type="button" name="" value="WTFForms"></a>
+				</p>
+
+					<p>
+						<a href="https://pandas.pydata.org/" ><input class = "btn2" type="button" name="" value="Pandas"></a>
+					</p>
+
+					<p>
+						<a href="https://flask.palletsprojects.com/" ><input class = "btn2" type="button" name="" value="Flask"></a>
+					</p>
+
+					<p>
+						<a href="https://pypi.org/project/yfinance" ><input class = "btn2" type="button" name="" value="Yahoo Finance"></a>
+					</p>
+
+					<p>
+						<a href="https://dev.mysql.com/" ><input class = "btn2" type="button" name="" value="MYSQL"></a>
+					</p>
+					<p>
+						<a href="https://flask-sqlalchemy.palletsprojects.com" ><input class = "btn2" type="button" name="" value="Flask-SQLAlchemy"></a>
+					</p>
+					
+
+
+			</div>
+		</div>
+
+
+
+</body>
+
+
 {% endblock content %}
