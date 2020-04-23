@@ -118,7 +118,7 @@ def execute_query(query):
 
 	# Also worth exploring the idea of removing all of the mysql connecter code as that is an area
 	# of vunralbility. Instead moving completly to using the sql alchemy solution would make sql
-	# injecttion imporssible as there would be no query to inject. Instead using the object based 
+	# injecttion imporssible as there would be no query to inject. Instead using the object based
 	# system in the sql alchemy.
 
 	# This wouldn'y be to difficult to do the main point would be changeing the plotly stuff.
@@ -189,6 +189,7 @@ def check_sell(user_id, stock, amount):
 		db.session.add(newHistoryEntry)
 		for i in portfolio:
 			if i.Stock_ID == stock_info.Stock_ID:
+				found = True
 				if i.Amount_of_Shares >= amount:
 					# Decreasing the price of the stock.
 					growth = r.random()/100
@@ -199,9 +200,12 @@ def check_sell(user_id, stock, amount):
 					i.Spend -= (stock_info.Current_Price * amount)
 					user.balance += price
 				else:
+					flash('You don\'t own that much shares')
 					return False
 				break
-
+		if found == False:
+			flash("You don't own this Stock")
+			return False
 		Portfolio.query.filter_by(Amount_of_Shares=0).delete()
 
 		db.session.commit()
@@ -368,3 +372,13 @@ def find_tickers(inp):
 	inp = inp.capitalize()
 	tickers = web.get_nasdaq_symbols()
 	return tickers.index[tickers['Security Name'].str.contains(inp)].tolist()
+
+
+def check_exists(inp_ticker):
+	inp_ticker = inp_ticker.upper()
+	choices = [stock.Stock_ID for stock in Stock_Info.query.all()]
+	for ticker in choices:
+		if inp_ticker == ticker:
+			return True
+	flash("The Ticker you have entered doesn't exist")
+	return False

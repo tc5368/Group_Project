@@ -40,7 +40,7 @@
 					<p>Hey {{ current_user.first_name }} {{ current_user.last_name }}</p>
 					<p> Your current balance is ${{ "%.2f"|format(current_user.balance) }} </p>
 
-					
+
 					{% if portfolio != [] %}
 					<div style = "margin:0 auto;text-align: center">
 
@@ -58,15 +58,19 @@
 								<td>{{ purchase.Amount_of_Shares }}</td>
 								{% for stock in stock_desc %}
 									{% if purchase.Stock_ID == stock.Stock_ID %}
-										<td>${{ "%.2f"|format(stock.Current_Price) }}</td>
-										{% if (stock.Current_Price * purchase.Amount_of_Shares) < purchase.Spend %}
-											<td><font color="red">${{ "%.2f"|format(stock.Current_Price * purchase.Amount_of_Shares) }} (down by ${{ "%.2f"|format(purchase.Spend - (stock.Current_Price * purchase.Amount_of_Shares)) }})</font></td>
-										{% elif (stock.Current_Price * purchase.Amount_of_Shares) == purchase.Spend %}
-											<td>${{ "%.2f"|format(stock.Current_Price * purchase.Amount_of_Shares) }}</td>
+										{% set current_price = stock.Current_Price|round(2,'common') %}
+										<td>${{ current_price }}</td>
+										{% set current_total = (current_price * purchase.Amount_of_Shares)|round(2,'common') %}
+										{% set spend = purchase.Spend|round(2,'common') %}
+
+										{% if current_total < purchase.Spend %}
+											<td><font color="red">${{ current_total }} (down by ${{ (spend - current_total)|round(2,'common') }})</font></td>
+										{% elif current_total > spend %}
+											<td><font color="green">${{ current_total }} (up by ${{ (current_total - spend)|round(2,'common') }})</font></td>
 										{% else %}
-											<td><font color="green">${{ "%.2f"|format(stock.Current_Price * purchase.Amount_of_Shares) }} (up by ${{ "%.2f"|format((stock.Current_Price * purchase.Amount_of_Shares) - purchase.Spend) }})</font></td>
+											<td>${{ current_total }}</td>
 										{% endif %}
-										<td>${{ "%.2f"|format(purchase.Spend) }}</td>
+										<td>${{ spend }}</td>
 									{% endif %}
 								{% endfor %}
 							</tr>
@@ -143,7 +147,7 @@
 			{% else %}
 				<p><b>Your portfolio history is empty</b></p>
 			{% endif %}
-			</div>					
+			</div>
 			</div>
 
 

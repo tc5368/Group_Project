@@ -3,6 +3,7 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField, Decim
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Regexp, NumberRange, Optional
 from Stocks.models import User
 from flask_table import Table, Col, LinkCol
+from sqlConnector import Stock_Info
 
 class RegistrationForm(FlaskForm):
 	first_name       = StringField('First Name', validators=[DataRequired(), Length(min=3, max=20)])
@@ -60,7 +61,7 @@ class stock_page_form(FlaskForm):
 	submit_sell = SubmitField('Sell')
 
 class AutomationForm(FlaskForm):
-	ticker        = StringField('Stock Ticker', validators=[DataRequired()])
+	ticker 		  = StringField('Stock Ticker', validators=[DataRequired()])
 	trigger_price = DecimalField('Price Trigger', validators=[DataRequired()])
 	limit         = DecimalField('Limit of shares to trade', validators=[Optional()])
 	increment     = DecimalField('The amount of shares to buy or sell at a time when the trigger is activated', validators=[DataRequired()])

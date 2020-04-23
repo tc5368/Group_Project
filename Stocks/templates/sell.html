@@ -12,40 +12,37 @@
 <div class = "login-box">
 <h1>Welcome to the Selling page.</h1>
 
-{% if current_user.is_authenticated %}
-	<p> Your current balance is {{ "%.2f"|format(current_user.balance) }} </p>
-	<p></p>
-	{% if portfolio != [] %}
-		<table>
-			<tr>
-				<th>Stock ID</th>
-				<th>Amount of Shares</th>
-			</tr>
-		{% for purchase in portfolio %}
-		
-			<tr>
-				<td>{{ purchase.Stock_ID }}</td>
-				<td>{{ purchase.Amount_of_Shares }}</td>
-			</tr>
-		{% endfor %}
-		</table>
-	{% else %}
-		<p><b>You have not purchased any stocks</b></p>
-	{% endif %}
-
+<p> Your current balance is {{ "%.2f"|format(current_user.balance) }} </p>
+<p></p>
+{% if portfolio != [] %}
+	<table>
+		<tr>
+			<th>Stock ID</th>
+			<th>Amount of Shares</th>
+		</tr>
+	{% for purchase in portfolio %}
+		<tr>
+			<td>{{ purchase.Stock_ID }}</td>
+			<td>{{ purchase.Amount_of_Shares }}</td>
+		</tr>
+	{% endfor %}
+	</table>
 {% else %}
-	<p> Hey Guest </p>
-	<p> Please login to view your portfolio</p>
+	<p><b>You have not purchased any stocks</b></p>
 {% endif %}
 
 <form method="POST" action="">
-	
+
 	{{ form.csrf_token }}
 <div class ="textbox">
-	<p>{{ form.ticker.label(class="lbl") }}<br>{{ form.ticker(class="inp")}}</p>
+	<p>{{ form.ticker.label(class="lbl") }}<br>{{ form.ticker(class="inp", list="ticker_choices") }}</p>
+	<datalist id="ticker_choices">
+	{% for purchase in portfolio %}
+		<option value={{ purchase.Stock_ID }}>
+	{% endfor %}
+	</datalist>
 	{% for error in form.ticker.errors %}
 		<span style="color: white;">That is not a valid ticker</span>
-	
 	{% endfor %}
 	</div>
     <div class ="textbox">
@@ -55,7 +52,7 @@
 	{% endfor %}
 	</div>
 	<p>{{ form.submit(class="btn2") }}</p>
-    
+
 </form>
 </div>
 </body>

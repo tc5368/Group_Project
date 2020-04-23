@@ -17,7 +17,12 @@
 	{{ form.csrf_token }}
 
 	<div class="textbox">
-	<p>{{ form.ticker.label(class="lbl") }}<br>{{ form.ticker}}</p>
+	<p>{{ form.ticker.label(class="lbl") }}<br>{{ form.ticker(list="ticker_choices") }}</p>
+	<datalist id="ticker_choices">
+	{% for choice in choices %}
+	<option value={{ choice }}>
+	{% endfor %}
+	</datalist>
 	{% for error in form.ticker.errors %}
 		<span style="color: white;">That is not a valid ticker</span>
 	{% endfor %}

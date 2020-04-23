@@ -213,7 +213,8 @@ def buy():
 			return redirect(url_for('buyConfirm', ticker=usr_ticker, amount=form.amount.data))
 		else:
 			flash("Couldn't find '" + usr_ticker + "' such ticker. Make sure to enter an existent ticker")
-	return render_template('buy.html', title='Buying', form=form)
+	choices = [stock.Stock_ID for stock in Stock_Info.query.all()]
+	return render_template('buy.html', title='Buying', form=form, choices=choices)
 
 
 @app.route("/sell",methods=['GET','POST'])
@@ -222,7 +223,9 @@ def sell():
 	form = SellingForm()
 	user_portfolio = Portfolio.query.filter_by(Customer_ID=current_user.id).all()
 	if form.validate_on_submit():
-		return redirect(url_for('sellConfirm', ticker=form.ticker.data.upper(), amount=form.amount.data))
+		if check_exists(form.ticker.data):
+			return redirect(url_for('sellConfirm', ticker=form.ticker.data.upper(), amount=form.amount.data))
+	choices = [stock.Stock_ID for stock in Stock_Info.query.all()]
 	return render_template('sell.html', title='sell', form=form, portfolio=user_portfolio)
 
 
@@ -240,7 +243,6 @@ def sellConfirm(ticker,amount):
 				flash('You have sold ' + str(amount) + " of " + ticker + " shares.")
 				return redirect(url_for('portfolio'))
 			else:
-				flash('You don\'t own that much shares')
 				return redirect(url_for('sell'))
 		else:
 			return redirect(url_for('home'))
@@ -410,11 +412,13 @@ def search_results(search):
 
 
 @app.route('/automation', methods=['GET', 'POST'])
+@login_required
 def automation():
 	return render_template('/automation.html')
 
 
 @app.route('/newStategy', methods=['GET', 'POST'])
+@login_required
 def newStategy():
 	form = AutomationForm()
 	if form.validate_on_submit():
@@ -422,12 +426,12 @@ def newStategy():
 		if adding == False:
 			flash("You already have a stategy in place for this stock")
 			return redirect('viewStategies')
-		# return render_template('newStategy.html', form=form)
 		return redirect('viewStategies')
-	return render_template('newStategy.html', form=form)
-
+	choices = [stock.Stock_ID for stock in Stock_Info.query.all()]
+	return render_template('newStategy.html', form=form, choices=choices)
 
 @app.route('/viewStategies', methods=['GET', 'POST'])
+@login_required
 def viewStategies():
 	strategies = getStratergies(current_user.id)
 	return render_template('viewStategies.html', strategies = strategies)
@@ -458,25 +462,3 @@ def deleteConfirm(ticker):
 @login_manager.unauthorized_handler
 def unauthorized():
 	return redirect(url_for('login'))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
