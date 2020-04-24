@@ -278,25 +278,3 @@ th,td{
 
 }
 
-/**pop-ups**/
-.bg-modal{
-	width: 100%;
-	background-color: #ff9800;
-	opacity: 0.5;
-	position: absolute;
-	top:0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.modal-content{
-	/*width: 500px;
-	height: 300px;
-	background-color: white;
-	border-radius: 4px;
-	text-align: center;
-	padding:20px;*/
-}
-
-
