@@ -9,11 +9,12 @@
 	font-family: sans-serif;
 ">
 
-<div class = "login-box">
+<div class = "login-box1">
 <h1>Welcome to the Selling page.</h1>
 
 <p> Your current balance is {{ "%.2f"|format(current_user.balance) }} </p>
-<p></p>
+
+<div style = "margin:20px 19px ;text-align: center">
 {% if portfolio != [] %}
 	<table>
 		<tr>
@@ -27,6 +28,7 @@
 		</tr>
 	{% endfor %}
 	</table>
+<div>
 {% else %}
 	<p><b>You have not purchased any stocks</b></p>
 {% endif %}

@@ -94,6 +94,7 @@
 	margin-left: -35px;
 	margin-right: -35px;
 	border-radius: 5px;
+	z-index: 9999;
 }
 
 .menu-bar ul li:hover .sub-menu-1 ul{
@@ -346,5 +347,24 @@ th,td{
 	float: left;
 	margin: 0 10px;
 }
+
+/*drop down list design*/
+
+.register #trigger{
+	border-color: #ff9800;
+	border-radius: 6;
+	background-color: #ff9800;
+	border-width: 1px;
+	color: -internal-light-dark-color(white);
+}
+
+.register #strategy{
+	border-color: #ff9800;
+	border-radius: 6;
+	background-color: #ff9800;
+	border-width: 1px;
+	color: -internal-light-dark-color(white);
+}
+
 
 
