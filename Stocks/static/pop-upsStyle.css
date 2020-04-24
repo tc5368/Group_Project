@@ -2,11 +2,18 @@
 
 .Pop-upMessage{
 	width: 100%;
-	background-color: #ff9800;
-	opacity: 0.5;
-	position: absolute;
+	background-color: #6c562a;
+	opacity: 0.9;
 	top:0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+.Pop-upMessage .flashes li{
+	margin-top: 2px;
+	margin-bottom: 2px;
+	font-size : 18px;
+	font-family: "Montserrat", sans-serif;
+	color : white;
 }
