@@ -43,37 +43,42 @@ window.onload = function () {
   background-position: center;
   box-sizing: border-box;
   font-family: sans-serif;">
-<div class = "layer">
-<div class = "flex">
- <div class = "ticker">
-  <h1>{{ ticker }}</h1>
-  <p>{{ info }}</p>
-</div>
 
-<div class = "price">
-  <h1>&pound; {{ "%.2f"|format(price) }}</h1>
-  <p>You own {{ amount }} {{ ticker }} shares. </p>
 
-<form method="POST" action="">
-  {{ form.csrf_token }}
+		<div id="wholePage1">
+			<div class="intro1">
+				<div class="wrapper1">
+					<h2>{{ ticker }}</h2>
+					<p>{{ info }}</p>	
+				</div>	
 
-<div class="textbox">
-	<p>{{ form.amount.label(class="lbl") }}<br>{{ form.amount}}</p>
-	{% for error in form.amount.errors %}
-		<span style="color: white;">That is not a valid amount of shares</span>
-	{% endfor %}
-	</div>
+				<div id="chartContainer" style="height: 300px; width: 100%;"></div>
 
-  <p>{{ form.submit_buy(class="btn2") }} </p>
-  <p>{{ form.submit_sell(class="btn2") }}</p>
+				<div class="wrapper1" align="center">
 
-</form>
-</div>
-</div>
+				  <h2>&pound; {{ "%.2f"|format(price) }}</h2>
+				  <h2>You own {{ amount }} {{ ticker }} shares. </h2>
 
-<div id="chartContainer" style="height: 300px; width: 100%;">
-</div>
-</div>
+				<form method="POST" action="">
+				  {{ form.csrf_token }}
+
+				<div class="textbox1">
+					<h2>{{ form.amount.label(class="lbl") }}</h2><br>{{ form.amount}}
+					{% for error in form.amount.errors %}
+						<span style="color: white;">That is not a valid amount of shares</span>
+					{% endfor %}
+				</div>
+
+				  <p2 align = "center">{{ form.submit_buy(class="btn4") }} </p2>
+				  <p2 align = "center">{{ form.submit_sell(class="btn4") }}</p2>
+				</form>
+
+				</div>	
+				
+
+
+			</div>
+		</div>
 </body>
 
 

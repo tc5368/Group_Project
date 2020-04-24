@@ -278,3 +278,73 @@ th,td{
 
 }
 
+/**Css of stock_page**/
+.intro1{
+	width: 100%;
+	padding: 10px 163px;
+	justify-content: center;
+	background-color:rgba(22, 48, 69, 0.7);
+	border-radius: 5px;
+
+}
+
+.intro1 .wrapper1{
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.intro1 h2{
+	color: white;
+	font-weight: 700;
+	font-family: sans-serif;
+	font-size: 30px;
+	text-align: center;
+	padding-bottom: 10px;
+	text-transform: uppercase;
+}
+
+.intro1 p{
+	word-break: normal;
+	color: white;
+	font-weight: 400;
+	font-family: sans-serif;
+	font-size: 22px;
+	text-align: center;
+	line-height: 45px;
+	padding: 1px 1px;
+}
+
+.intro1 p2{
+	word-break: normal;
+	color: white;
+	font-weight: 400;
+	font-family: sans-serif;
+	font-size: 16px;
+	text-align: center;
+	line-height: 22px;
+	padding: 10px 40px;
+	width: 300px;
+}
+
+.textbox1{
+	width: 30%;
+	overflow: hidden;
+	font-size: 20px;
+	padding: 8px 0;
+	margin: 8px 8px;
+	border-bottom: 1px solid #ff9800;
+
+}
+
+.textbox1 input{
+	border:none;
+	outline: none;
+	background: none;
+	color : white;
+	font-size: 18px;
+	width: 95%;
+	float: left;
+	margin: 0 10px;
+}
+
+
