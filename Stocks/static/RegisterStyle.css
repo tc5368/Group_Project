@@ -73,9 +73,8 @@
 .register1{
 	width: 350px;
 	position: absolute;
-	top: 70%;
-	left: 50%;
-	transform: translate(-50%,-50%);
+	top: 20%;
+	left: 40%;
 	color: white;
 }
 
