@@ -10,9 +10,15 @@
   font-family: sans-serif;">
 <div class = "register1">
     <h1>Automated Strategy</h1>
+    <ul>
+      <li>"Trigger ID" is the ticker of the stock you want to trade</li>
+      <li>"Price Trigger" is the share price that you want this strategy to start trading</li>
+      <li>"Limit of shares to trade" is the amount of shares the system is authorised to trade with</li>
+      <li>"How many shares to trade" allows you to set the increment of how many shares the strategy will trade at a time</li>
+      <li>Trigger is whether you want the strategy to trigger when the share price either goes above or below the "Price Trigger"</li>
+      <li>"Strategy" choosing to buy or sell</li>
+    </ul>
 
-    <p>These are the feilds for setting up your automated trading, Trigger id is the ticker of the stock you want to trade, price trigger is the share price that would want this strategy to start trading. Limit is the amount of shares this bot is authorised to trade with. How many shares allows you to set the increment of how many shares the strategy will trade at a time. Trigger is whether you want the strategy to trigger when the share price either goes above or below the price price. The strategy box is if you want to buy or sell.</p>
-    
     <form method="POST" action="">
 
     {{ form.csrf_token }}
