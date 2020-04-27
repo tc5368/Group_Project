@@ -6,6 +6,7 @@ body {
 	background-image:  url(img/homepage.jpg);	
 	background-size: cover;
 }
+
 .layer{
 	background-color:rgba(22, 48, 69, 0.7);
 	padding:20px;
@@ -103,4 +104,12 @@ body {
 	font-size: 22px;
 	cursor: pointer;
 	margin: 15px 0px;
+}
+
+.Select-menu-outer{
+	color : black;
+}
+
+#Select-menu-outer{
+	color : black;
 }
