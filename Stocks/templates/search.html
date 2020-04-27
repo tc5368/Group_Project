@@ -14,8 +14,8 @@
 <form class="login_reg" method="POST" action="">
     {{ form.csrf_token }}
     <div class = "textbox">
-    <p>{{ form.select.label() }}<br>{{ form.select()}}</p>
-    <p>{{ form.search.label(class="lbl") }}<br>{{ form.search()}}</p>
+    <p>{{ form.select.label() }}  {{ form.select()}}</p><br>
+    <p>{{ form.search(placeholder="Search")}}</p>
 </div>
     <p>{{ form.submit(class="btnSub") }}</p>
 
