@@ -8,27 +8,19 @@
 	box-sizing: border-box;
 	font-family: sans-serif;
 ">
-<div class="ticker-wrap">
-  	<div class="ticker">
-		  <div class="ticker__item">Letterpress chambray brunch.</div>
-		  <div class="ticker__item">Vice mlkshk crucifix beard chillwave meditation hoodie asymmetrical Helvetica.</div>
-		  <div class="ticker__item">Ugh PBR&B kale chips Echo Park.</div>
-		  <div class="ticker__item">Gluten-free mumblecore chambray mixtape food truck. </div>
-		  <!--<div class="ticker__item">Authentic bitters seitan pug single-origin coffee whatever.</div>
-		  <div class="ticker__item">Letterpress chambray brunch.</div>
-		  <div class="ticker__item">Vice mlkshk crucifix beard chillwave meditation hoodie asymmetrical Helvetica.</div>
-		  <div class="ticker__item">Ugh PBR&B kale chips Echo Park.</div>
-		  <div class="ticker__item">Gluten-free mumblecore chambray mixtape food truck. </div>
-		  <div class="ticker__item">Authentic bitters seitan pug single-origin coffee whatever.</div>-->
-	</div>
-</div>
-
+{% if stocks != [] %}
+<div class="tcontainer"><div class="ticker-wrap"><div class="ticker-move">
+	{% for stock in stocks %}
+	<div class="ticker-item">{{ stock.Stock_ID }}:  {{ "%.2f"|format(stock.Current_Price) }}</div>
+	{% endfor %}
+</div></div></div>
+{%endif%}
 <div id="wholePage">
 	<div class="intro">
 		<div class="wrapper">
 			<h2>Welcome to Stock Sim</h2>
 		</div>
-		<p>Welcome to Stock Sim. This is a purely simulated stock market meaning that all the data represented here is not related to the real life data. Use this website to practice trading stocks without the fear of losing your own money. Its like a stock brokers paradise, all the fun of trading without the risk.</p>
+		<p>Welcome to Stock Sim. This is a purely simulated stock market meaning that all the data represented here is not related to real life data. Use this website to practice trading stocks without the fear of losing your own money. Its like a stock brokers paradise, all the fun of trading without the risk.</p>
 	</div>
 </div>
 

@@ -59,7 +59,8 @@ scheduler.start()
 @app.route("/")
 @app.route("/home")
 def home():
-	return render_template('home.html')
+	stocks = Stock_Info.query.order_by(Stock_Info.Stock_ID).all()
+	return render_template('home.html', stocks=stocks)
 
 @app.route("/about")
 def about():
