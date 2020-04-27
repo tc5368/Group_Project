@@ -123,7 +123,7 @@ app_dash.layout = html.Div([
 	html.Link(rel='stylesheet', href='/static/Style2.css'),
 	html.Link(rel='stylesheet', href='/static/Style.css'),
 
-	html.Button('Back',className = "btn5",id = "BackBtn"),
+	html.A(href='/',children=[html.Button('Back',className = "btn5",id = "BackBtn")]),
 
 	html.Div ([
 		html.H1(children='Detailed stock graph page'),
@@ -134,7 +134,7 @@ app_dash.layout = html.Div([
 			value   =stock_list[0],
 			style   ={"max-width": "200px", "margin": "auto"}
 		)
-						
+
 	],className = "DashGraph")
 
 ],className = "DashGraphWholePage")
