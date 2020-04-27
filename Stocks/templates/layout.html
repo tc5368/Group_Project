@@ -12,8 +12,9 @@
   <link rel=stylesheet type=text/css href="{{ url_for('static', filename='StockStyle.css') }}">
   <link rel=stylesheet type=text/css href="{{ url_for('static', filename='ConfirmPageStyle.css') }}">
   <link rel=stylesheet type=text/css href="{{ url_for('static', filename='StockTableStyle.css') }}">
-   <link rel=stylesheet type=text/css href="{{ url_for('static', filename='pop-upsStyle.css') }}">
-  <title>The Stock Store</title>
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='pop-upsStyle.css') }}">
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='gridStyle.css') }}">
+  <title>Stock Sim</title>
 </head>
 
   <section>
@@ -26,7 +27,9 @@
           <div class="sub-menu-1">
             <ul>
                   <li><a class="nav-item nav-link" href="/available">View all Stocks</a></li>
+                  {% if current_user.is_authenticated %}
                   <li><a class="nav-item nav-link" href="{{ url_for('track') }}">Track a New Stock</a></li>
+                  {% endif %}
             </ul>
           </div>
         </li>
@@ -91,10 +94,10 @@
    </div>
 
 
-  <div id="content">
+<!--   <div id="content">-->
     {% block content %}
     {% endblock %}
-  </div>
+<!--   </div> -->
 
 <!-- </body> -->
 </html>

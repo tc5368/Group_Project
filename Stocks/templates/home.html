@@ -23,57 +23,85 @@
 	</div>
 </div>
 
-		<div id="wholePage">
-			<div class="intro">
-				<div class="wrapper">
-					<h2>Welcome to our market!</h2>
-				</div>
+<div id="wholePage">
+	<div class="intro">
+		<div class="wrapper">
+			<h2>Welcome to Stock Sim</h2>
+		</div>
+		<p>Welcome to Stock Sim. This is a purely simulated stock market meaning that all the data represented here is not related to the real life data. Use this website to practice trading stocks without the fear of losing your own money. Its like a stock brokers paradise, all the fun of trading without the risk.</p>
+	</div>
+</div>
 
-				<h2>Temporary links</h2>
-				<p>
-					<a href="/graphs" ><input class = "btn2" type="button" name="" value="Designated Stock Graph Viewing Page"></a>
-				</p>
+<div class="homeGrid">
+	<div class="homeGridItem">
+		<a href="/available" ><span class="homeLink">Stocks</span></a>
+	</div>
 
-				{% if current_user.is_authenticated %}
-				<p>
-					<a href="/track" ><input class = "btn2" type="button" name="" value="Add New Stock to Database"></a>
-				</p>
+	<!-- 				{% if current_user.is_authenticated %}
+	<p>
+		<a href="/track" ><input class = "btn2" type="button" name="" value="Add New Stock to Database"></a>
+	</p>
 
-				{% endif %}
+	{% endif %} -->
 
-				<p>
-					<a href="/newsSearch" ><input class = "btn2" type="button" name="" value="View News Stories"></a>
-				</p>
-
-				<p>
-					<a href="/stock" ><input class = "btn2" type="button" name="" value="View Individual Stock Page"></a>
-				</p>
-
-				<p>
-					<a href="/about" ><input class = "btn2" type="button" name="" value="About Us"></a>
-				</p>
-
-				{% if current_user.is_authenticated %}
-					<p>
-						<a href="/search" ><input class = "btn2" type="button" name="" value="Search"></a>
-					</p>
-
-					<p>
-						<a href="/buy" ><input class = "btn2" type="button" name="" value="Buy"></a>
-					</p>
-
-					<p>
-						<a href="/sell" ><input class = "btn2" type="button" name="" value="Sell"></a>
-					</p>
+	<div class="homeGridItem">
+		<a href="/newsSearch" ><span class="homeLink">News</span></a>
+	</div>
 
 
-				{% endif %}
+	<!-- 				<p>
+		<a href="/stock" ><input class = "btn2" type="button" name="" value="View Individual Stock Page"></a>
+	</p> -->
 
-			</div>
+
+
+	<div class="homeGridItem">
+		<a href="/search" ><span class="homeLink">Search</span></a>
+	</div>
+
+	<div class="homeGridItem">
+
+		<a href="/about" ><span class="homeLink">About</span></a>
+	</div>
+
+
+	{% if current_user.is_authenticated %}
+
+		<div class="homeGridItem">
+			<a href="/buy" ><span class="homeLink">Buy Stocks</span></a>
 		</div>
 
 
+		<div class="homeGridItem">
+			<a href="/sell" ><span class="homeLink">Sell Stocks</span></a>
+		</div>
 
+		<div class="homeGridItem">
+			<a href="{{ url_for('automation') }}"><span class="homeLink">Automation Homepage</span></a>
+		</div>
+
+		<div class="homeGridItem">
+			<a href="/graphs" ><span class="homeLink">View Stock Histories</span></a>
+		</div>
+
+		<div class="homeGridItem">
+			<a href="/logout" ><span class="homeLink">Logout</span></a>
+		</div>
+
+	{% else %}
+		<div class="homeGridItem">
+			<a href="{{ url_for('login') }}" ><span class="homeLink">Login</span></a>
+		</div>
+
+
+		<div class="homeGridItem">
+			<a href="{{ url_for('register') }}" ><span class="homeLink">Register</span></a>
+		</div>
+
+
+	{% endif %}
+
+</div>
 </body>
 
 {% endblock content %}

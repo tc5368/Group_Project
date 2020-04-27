@@ -1,0 +1,85 @@
+/*.grid-container{
+	display: grid;
+	grid-template-columns: auto auto auto;
+	padding: 10px;
+	grid-gap: 10px;
+}
+
+.grid-item{
+	padding: 20px;
+}*/
+
+.homeGrid {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 10px;
+  grid-gap: 10px;
+}
+
+.homeGridItem{
+  border: 2px solid #ff9800;
+  background-color:rgba(22, 48, 69, 0.7);
+  padding: 20px;
+  font-size: 30px;
+  height: 200px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 200px;
+  position: relative;
+}
+
+.homeGridItem a{
+  color:rgba(255, 255, 255, 1);
+}
+
+.homeLink{
+  position: absolute;
+  width: 100%;
+  height:100%;
+  top:0;
+  left: 0;
+
+  z-index: 1;
+}
+
+.homeAutomation{
+  border: 2px solid #ff9800;
+  background-color:rgba(22, 48, 69, 0.7);
+  padding: 20px;
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 200px;
+  position: relative;
+  height: 200px;
+  grid-column-start: 1;
+  grid-column-end: 2.5;
+
+}
+
+.homeAutomation a{
+  color:rgba(255, 255, 255, 1);
+}
+
+.homeGraphs{
+  border: 2px solid #ff9800;
+  background-color:rgba(22, 48, 69, 0.7);
+  padding: 20px;
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 200px;
+  position: relative;
+  height: 200px;
+  grid-column-start: 2.5;
+  grid-column-end: 4;
+
+}
+
+.homeGraphs a{
+  color:rgba(255, 255, 255, 1);
+}
+
+
