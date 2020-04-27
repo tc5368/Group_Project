@@ -118,18 +118,26 @@ stock_list = find_avaliable()
 fig = go.Figure()
 
 # Generates HTML on the dash page and embeds a template of the graph and a dropdown list.
-app_dash.layout = html.Div(children=[
-	html.Link(rel='stylesheet', href='/static/StockStyle.css'),
-	html.H1(children='Detailed stock graph page'),
-	dcc.Graph(id='plotly_fig', figure=fig),
-	dcc.Dropdown(
-		id      ='stock_dropdown',
-		options =[{'label': i, 'value': i} for i in stock_list],
-		value   =stock_list[0],
-		style   ={"max-width": "200px", "margin": "auto"}
-	)
-],
-style={"max-width": "1000px", "margin": "auto"})
+app_dash.layout = html.Div([
+	html.Link(rel='stylesheet', href='/static/stockstyle.css'),
+	html.Link(rel='stylesheet', href='/static/Style2.css'),
+	html.Link(rel='stylesheet', href='/static/Style.css'),
+
+	html.Button('Back',className = "btn5",id = "BackBtn"),
+
+	html.Div ([
+		html.H1(children='Detailed stock graph page'),
+		dcc.Graph(id='plotly_fig', figure=fig),
+		dcc.Dropdown(
+			id      ='stock_dropdown',
+			options =[{'label': i, 'value': i} for i in stock_list],
+			value   =stock_list[0],
+			style   ={"max-width": "200px", "margin": "auto"}
+		)
+						
+	],className = "DashGraph")
+
+],className = "DashGraphWholePage")
 
 # Will wait for the user to select anything on the dropdown menu and output the result on the graph.
 @app_dash.callback(
