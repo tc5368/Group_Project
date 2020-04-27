@@ -25,10 +25,6 @@
 </div>
 
 <div class="homeGrid">
-	<div class="homeGridItem">
-		<a href="/available" ><span class="homeLink">Stocks</span></a>
-	</div>
-
 	<!-- 				{% if current_user.is_authenticated %}
 	<p>
 		<a href="/track" ><input class = "btn2" type="button" name="" value="Add New Stock to Database"></a>
@@ -36,20 +32,11 @@
 
 	{% endif %} -->
 
-	<div class="homeGridItem">
-		<a href="/newsSearch" ><span class="homeLink">News</span></a>
-	</div>
-
 
 	<!-- 				<p>
 		<a href="/stock" ><input class = "btn2" type="button" name="" value="View Individual Stock Page"></a>
 	</p> -->
 
-
-
-	<div class="homeGridItem">
-		<a href="/search" ><span class="homeLink">Search</span></a>
-	</div>
 
 	<div class="homeGridItem">
 
@@ -58,6 +45,14 @@
 
 
 	{% if current_user.is_authenticated %}
+
+		<div class="homeGridItem">
+			<a href="/newsSearch" ><span class="homeLink">News</span></a>
+		</div>
+
+		<div class="homeGridItem">
+			<a href="/graphs" ><span class="homeLink">Descriptive Stocks Graphs</span></a>
+		</div>
 
 		<div class="homeGridItem">
 			<a href="/buy" ><span class="homeLink">Buy Stocks</span></a>
@@ -69,11 +64,7 @@
 		</div>
 
 		<div class="homeGridItem">
-			<a href="{{ url_for('automation') }}"><span class="homeLink">Automation Homepage</span></a>
-		</div>
-
-		<div class="homeGridItem">
-			<a href="/graphs" ><span class="homeLink">View Stock Histories</span></a>
+			<a href="{{ url_for('automation') }}"><span class="homeLink">Automation</span></a>
 		</div>
 
 

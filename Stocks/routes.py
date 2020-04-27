@@ -244,7 +244,6 @@ def sellConfirm(ticker,amount):
 	amount = float(amount)
 	if (ticker or amount) == None:
 		return redirect(url_for('home'))
-		#This needs more validation implemented
 	form = Confirmation()
 	if form.validate_on_submit():
 		if form.submit_yes.data :
@@ -298,6 +297,7 @@ def track():
 	return render_template('track.html', title='Track', form=form, ticker_form=ticker_form, tickers=found_tickers)
 
 @app.route("/stock",methods=['GET','POST'])
+@login_required
 def stock():
 	form = Get_Stock_Ticker_Form()
 	if form.validate_on_submit():
@@ -346,10 +346,6 @@ def stock_page(ticker):
 							, amount = amount
 							, list = list)
 
-@app.route('/xy')
-def xy():
-	return render_template("xy.html")
-
 @app.route('/portfolio')
 @login_required
 def portfolio():
@@ -378,6 +374,7 @@ def portfolio():
 
 
 @app.route('/available')
+@login_required
 def avaliable():
 	stocks = Stock_Info.query.order_by(Stock_Info.Stock_ID).all()
 	return render_template('available.html', stocks = stocks)
