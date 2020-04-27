@@ -296,15 +296,6 @@ def track():
 				found_tickers = ["None"]
 	return render_template('track.html', title='Track', form=form, ticker_form=ticker_form, tickers=found_tickers)
 
-@app.route("/stock",methods=['GET','POST'])
-@login_required
-def stock():
-	form = Get_Stock_Ticker_Form()
-	if form.validate_on_submit():
-		return redirect(url_for('stock_page',ticker=form.ticker.data.upper()))
-	return render_template('stock.html', title='Stock',form=form)
-
-
 @app.route("/stock_page/<ticker>",methods=['GET','POST'])
 @login_required
 def stock_page(ticker):
