@@ -20,10 +20,10 @@
   <section>
     <div class="menu-bar">
       <ul>
-        <li><i class="fa fa-home"></i><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="{{ url_for('home') }}"><i class="fa fa-home"></i>Home</a></li>
 
         <li>
-          <i class="fa fa-align-left"></i><a href="/available">Stock</a>
+          <a href="/available"><i class="fa fa-align-left"></i>Stock</a>
           <div class="sub-menu-1">
             <ul>
                   <li><a class="nav-item nav-link" href="/available">View all Stocks</a></li>
@@ -34,10 +34,10 @@
           </div>
         </li>
 
-        <li><i class="fa fa-align-left"></i><a href="{{ url_for('portfolio') }}">Portfolio</a></li>
+        <li><a href="{{ url_for('portfolio') }}"><i class="fa fa-align-left"></i>Portfolio</a></li>
 
         <li>
-          <i class="fa fa-align-left"></i><a href="{{ url_for('automation') }}">Automation</a>
+          <a href="{{ url_for('automation') }}"><i class="fa fa-align-left"></i>Automation</a>
           <div class="sub-menu-1">
             <ul>
                   <li><a class="nav-item nav-link" href="{{ url_for('viewStategies') }}">View Strategies</a></li>
@@ -48,7 +48,7 @@
         </li>
 
         <li>
-          <i class="fa fa-lock"></i><a href="#">Account</a>
+          <a href="#"><i class="fa fa-lock"></i>Account</a>
           <div class="sub-menu-1">
             <ul>
                 {% if current_user.is_authenticated %}
