@@ -105,7 +105,7 @@ def execute_query(query):
 
 	# I cant test this but it should work if there is an error it will be here just comment it out
 	# Inbetween these 2 comments is untested
-	dangerWords = ['DROP','DELETE']
+	dangerWords = ['DROP','DELETE','=']
 	for i in dangerWords:
 		if i in query.upper():
 			print('SQL injection detected with query: %s' %query)
